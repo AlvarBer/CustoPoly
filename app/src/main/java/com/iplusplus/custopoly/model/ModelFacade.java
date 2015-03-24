@@ -1,8 +1,8 @@
 package com.iplusplus.custopoly.model;
 
 
-import com.iplusplus.custopoly.model.gamemodel.AssetList;
-import com.iplusplus.custopoly.model.gamemodel.Cell;
+import com.iplusplus.custopoly.model.gamemodel.cellelements.Cell;
+import com.iplusplus.custopoly.model.gamemodel.cellelements.PropertyLand;
 
 import java.util.Collection;
 
@@ -66,7 +66,7 @@ public class ModelFacade {
      * @return
      *          Returns the asset list with the assets owned by.
      */
-    public static AssetList getAssetsOwnedByPlayer(String playerName) {
+    public static PropertyLand getAssetsOwnedByPlayer(String playerName) {
         return null;
     }
 

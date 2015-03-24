@@ -1,5 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel;
 
+import com.iplusplus.custopoly.model.gamemodel.cellelements.Cell;
+import com.iplusplus.custopoly.model.gamemodel.cellelements.PropertyLand;
+
 import java.util.Collection;
 
 /**
@@ -52,11 +55,8 @@ public class Game {
      * @return
      *          Returns the asset list with the assets owned by.
      */
-    public static AssetList getAssetsOwnedByPlayer(String playerName) {
+    public static PropertyLand getAssetsOwnedByPlayer(String playerName) {
         return null;
     }
-
-
-
 
 }
