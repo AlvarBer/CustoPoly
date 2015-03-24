@@ -4,11 +4,16 @@ import com.iplusplus.custopoly.model.gamemodel.cellelements.Cell;
 import com.iplusplus.custopoly.model.gamemodel.cellelements.PropertyLand;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Facade for the GameModel subsystem
  */
 public class Game {
+
+    private List<Player> players;
+    private Bank bank;
+    private Board board;
 
     private static Game INSTANCE;
 
