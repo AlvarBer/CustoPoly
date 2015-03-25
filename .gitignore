@@ -6,3 +6,5 @@
 /build
 /app/src/build
 /app/build/
+.idea/dictionaries/
+.gitignore
