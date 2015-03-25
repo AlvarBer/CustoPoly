@@ -10,5 +10,6 @@
     <string name="title_activity_pre_game">PreGameActivity</string>
     <string name="title_activity_shop">ShopActivity</string>
     <string name="title_activity_theme_selection">ThemeSelectionActivity</string>
+    <string name="logoDescription">The logo of our team</string>
 
 </resources>
