@@ -1,4 +1,9 @@
 package com.iplusplus.custopoly.model;
+
+import com.iplusplus.custopoly.model.gamemodel.cellelements.Infrastructure;
+
+import java.util.ArrayList;
+
 /**
  * SINGLETON class that has to:
  *          Keep track of the {outsideofgame} points of the player.
@@ -18,9 +23,23 @@ public class ShopKeeper {
      *          Ideally, it should initialize INSTANCE if it's not initialized,
      *          and then return it.
      */
-    public static ShopKeeper getInstance() {
+    public static ShopKeeper getInstance()
+    {
+        if(INSTANCE == null)
+        {
+            return new ShopKeeper();
+        }
         return INSTANCE;
     }
+
+
+    //Variable that keeps track of the player points
+    private int _playerPoints;
+    //List containing the player purchased themes
+    private ArrayList<Themes> _purchasedThemesList;
+    //List containing the player purchased skins
+    private ArrayList<PlayerSkins> _purchasedPlayerSkinsList;
+
 
     /**
      * Add some points to the player's wallet.
@@ -28,7 +47,10 @@ public class ShopKeeper {
      * @param points
      *              Number of points to add.
      */
-    public static void addPoints(int points) {}
+    public void addPoints(int points)
+    {
+        _playerPoints += points;
+    }
 
     /**
      * Method to know how many points the owner has.
@@ -36,7 +58,10 @@ public class ShopKeeper {
      * @return
      *          Number of points in the wallet.
      */
-    public static int getPoints() {return 0;}
+    public int getPoints()
+    {
+        return _playerPoints;
+    }
 
     //THEME HANDLING
 
@@ -49,16 +74,29 @@ public class ShopKeeper {
      *              True if the theme has been purchased,
      *              False otherwise.
      */
-    public static boolean isThemePurchased(Themes theme) {return false;}
+    public boolean isThemePurchased(Themes theme)
+    {
+        return _purchasedThemesList.contains((theme));
+    }
 
     /**
      * Method to buy a theme.
-     * It should also mark the corresponding player skins as purchased.
+     * It also purchases the skins associated to that theme
      *
      * @param theme
      *              Theme to be bought.
      */
-    public static void buyTheme(Themes theme) {}
+    public void buyTheme(Themes theme)
+    {
+        if(!isThemePurchased(theme))
+        {
+            _purchasedThemesList.add(theme);
+
+            /*
+            TODO: MARCAR LAS SKINS CORRESPONDIENTES AL TEMA COMO COMPRADAS
+             */
+        }
+    }
 
     /**
      * Method to know how much a theme costs
@@ -68,7 +106,13 @@ public class ShopKeeper {
      * @return
      *              The number of points it costs.
      */
-    public static int getThemeCost(Themes theme) {return 0;}
+    public int getThemeCost(Themes theme)
+    {
+        /*
+        TODO: Esperando a la contestación en issues a ver que hago :)
+         */
+        return 0;
+    }
 
     //PLAYER SKIN HANDLING
 
@@ -81,7 +125,10 @@ public class ShopKeeper {
      *              True if the skin has been purchased,
      *              False otherwise.
      */
-    public static boolean isPlayerSkinPurchased (PlayerSkins skin) { return false;}
+    public boolean isPlayerSkinPurchased (PlayerSkins skin)
+    {
+        return _purchasedPlayerSkinsList.contains(skin);
+    }
 
     /**
      * Method to buy a certain player skin.
@@ -89,7 +136,13 @@ public class ShopKeeper {
      * @param skin
      *              Skin to be bought.
      */
-    public static void buyPlayerSkin(PlayerSkins skin) {}
+    public void buyPlayerSkin(PlayerSkins skin)
+    {
+        if(!isPlayerSkinPurchased(skin))
+        {
+            _purchasedPlayerSkinsList.add(skin);
+        }
+    }
 
     /**
      * Method to know how much a certain skin costs.
@@ -99,6 +152,9 @@ public class ShopKeeper {
      * @return
      *              The price of the skin.
      */
-    public static int getPlayerSkinCost (PlayerSkins skin) {return 0;}
+    public int getPlayerSkinCost (PlayerSkins skin)
+    {
+        return 0;
+    }
 
 }
