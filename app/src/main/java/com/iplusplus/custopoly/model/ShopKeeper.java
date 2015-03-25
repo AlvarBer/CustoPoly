@@ -1,7 +1,5 @@
 package com.iplusplus.custopoly.model;
 
-import com.iplusplus.custopoly.model.gamemodel.cellelements.Infrastructure;
-
 import java.util.ArrayList;
 
 /**

@@ -1,8 +1,8 @@
 package com.iplusplus.custopoly.model;
 
 
-import com.iplusplus.custopoly.model.gamemodel.cellelements.Cell;
-import com.iplusplus.custopoly.model.gamemodel.cellelements.PropertyLand;
+import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
+import com.iplusplus.custopoly.model.gamemodel.element.Land;
 
 import java.util.Collection;
 
@@ -47,10 +47,10 @@ public class ModelFacade {
     /**
      * Method that allows a player to purchase a property.
      *
-     * @param cell
+     * @param land
      *          Cell in which the asset is located.
      */
-    public static void buyAsset(Cell cell){}
+    public static void buyAsset(Land land){}
 
     /**
      * Moves the player.
