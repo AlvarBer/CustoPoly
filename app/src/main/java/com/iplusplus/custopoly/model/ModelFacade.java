@@ -110,7 +110,7 @@ public class ModelFacade {
      * It should also mark the corresponding player skins as purchased.
      *
      * @param theme
-     *              Theme to be bought.
+     *              GameTheme to be bought.
      */
     public static void buyTheme(Themes theme) {}
 

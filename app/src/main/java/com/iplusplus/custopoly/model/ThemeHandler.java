@@ -27,7 +27,7 @@ public class ThemeHandler {
      * @param theme
      *              The theme it should change to.
      */
-    public static void switchThemeTo(Themes theme) {}
+    public static void switchThemeTo(GameTheme theme) {}
 
     /**
      * Method to change the skin on a particular player.
@@ -37,7 +37,7 @@ public class ThemeHandler {
      * @param playerName
      *              Name of the player whose skin we want changed.
      */
-    public static void switchPlayerSkinTo (PlayerSkins skin, String playerName) { }
+    public static void switchPlayerSkinTo (PlayerSkin skin, String playerName) { }
 
     /**
      * Method to retrieve a specific player's skin's resource uri.
@@ -67,7 +67,7 @@ public class ThemeHandler {
      * @return
      *          The theme currently on use.
      */
-    public static Themes getCurrentTheme() {
+    public static GameTheme getCurrentTheme() {
         return null;
     }
 
@@ -79,5 +79,5 @@ public class ThemeHandler {
      * @return
      *              The skin of the player.
      */
-    public static PlayerSkins getPlayerSkin (String playerName) {return null;}
+    public static PlayerSkin getPlayerSkin (String playerName) {return null;}
 }

@@ -1,12 +1,18 @@
 package com.iplusplus.custopoly.model;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.util.HashSet;
 
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
-import android.content.res.Resources.Theme;
 import android.util.Xml;
 
 /**
@@ -17,8 +23,8 @@ import android.util.Xml;
  */
 public class ShopKeeper {
 
-
-    private static ShopKeeper INSTANCE;
+    //TODO DECIDIR SI LO HACEMOS SINGLETON O NO -- SI SE HACE PROBLEMA CON EL PARAMETRO METIDO EN EL COSNTRUCTOR AL CREAR EL SINGLETON..
+   // private static ShopKeeper INSTANCE;
 
     /**
      * Factory Method for Singleton object.
@@ -28,6 +34,7 @@ public class ShopKeeper {
      *          Ideally, it should initialize INSTANCE if it's not initialized,
      *          and then return it.
      */
+    /*
     public static ShopKeeper getInstance()
     {
         if(INSTANCE == null)
@@ -36,49 +43,83 @@ public class ShopKeeper {
         }
         return INSTANCE;
     }
+   */
 
 
     //Variable that keeps track of the player points
-    private int _playerPoints;
-    //List containing the available themes in shop
-    private ArrayList<Theme> themesInShop;
-    //List containing the player purchased themes
-    private ArrayList<Theme> _purchasedThemesList;
-    //List containing the player purchased skins
-    private ArrayList<PlayerSkins> _purchasedPlayerSkinsList;
+    private int playerPoints;
+    //Set containing the available themes in shop
+    private HashSet<GameTheme> themesInShopList;
+    //Set containing the available skins in shop
+    private HashSet<PlayerSkin> skinsInShopList;
+    //Set containing the player purchased themes
+    private HashSet<GameTheme> purchasedThemesList;
+    //Set containing the player purchased skins
+    private HashSet<PlayerSkin> purchasedPlayerSkinsList;
     
-    //Private auxiliary class for readng the xml for the themes
+    //Private auxiliary class for reading the xml for the themes
     private class shopXMLParser
     {
-    	private XmlPullParser _parser;
+    	private XmlPullParser xmlParser;
+
+        /***
+         * Constructor that reads, parse and add all the themes and skins at the shop into the corresponding lists
+         * @param file Name of the xml file (with the path, not just the name)
+         */
     	public shopXMLParser(String file)
     	{
-    		
-    		XmlPullParser _parser = Xml.newPullParser();
-    		_parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-    		InputStream in = new FileInputStream(new FILE(file));
-    		_parser.setInput(in, null);
-    		_parser.nextTag();
-    		
-    		readXmlShopFile();
+            //Stream for reading from xml file
+            InputStream in = null;
+    		try {
+                //Create the parser
+                xmlParser = Xml.newPullParser();
+
+                //Read the file and send it to the parser
+                in  = new FileInputStream(file);
+                xmlParser.setInput(in, null);
+
+                //Search first tag in the file
+                xmlParser.nextTag();
+
+                //Process the xml tokens
+                readXmlShopFile();
+            }
+            catch(Exception e)
+            {
+            }
+            finally
+            {
+                //Try to close the file (can be null so nullPtrException)
+                try
+                {
+                    in.close();
+                }
+                catch(Exception e)
+                {
+                }
+
+            }
     	}
-    	
-    	private void readXmlShopFile()
-    	{
+
+        /***
+         * Main method of the class. Reads and process all the tokens in the xml and adds the themes/skin to the shop lists
+         * @throws IOException
+         * @throws XmlPullParserException
+         */
+    	private void readXmlShopFile() throws IOException, XmlPullParserException {
     		//Require to start with this tag
-    		_parser.require(XmlPullParser.START_TAG, null, "shop");
+            xmlParser.require(XmlPullParser.START_TAG, null, "shop");
     		//Loop until we reach the end tag
-    		while(_parser.next() != XmlPullParser.END_TAG)
+    		while(xmlParser.next() != XmlPullParser.END_TAG)
     		{
     			//Dont read the xml until we reach the previous defined start point
-    			if(_parser.getEventType() != XmlPullParser.START_TAG)
+    			if(xmlParser.getEventType() != XmlPullParser.START_TAG)
     			{
     				continue;
     			}
     			
     			//Look for all themes and process each one
-    			String tag = _parser.getName();
-    			
+    			String tag = xmlParser.getName();
     			if(tag.equals("theme"))
     			{
     				readTheme();
@@ -86,101 +127,140 @@ public class ShopKeeper {
     		
     		}
     	}
-    	
-    	private void readTheme()
-    	{
-    		private String name = "";
-			private float price = 0.0;
-			private String backgroundPath = "";
-			private String communityBoxCardPath = "";
-			private String fortuneCardPath = "";
-			private ArrayList<PlayerSkin> playerSkinsList = new ArrayList<PlayerSkin>;
-			
-    		_parser.require(XmlPullParser.START_TAG, null, "theme");
+
+        /***
+         * Reads the theme information from the xml and copy it to the shopThemeList
+         * @throws IOException
+         * @throws XmlPullParserException
+         */
+    	private void readTheme() throws IOException, XmlPullParserException
+        {
+            //Varaibles to load the themes
+            String name = "";
+            double price = 0.0;
+            String backgroundPath = "";
+            String communityBoxCardPath = "";
+            String fortuneCardPath = "";
+            HashSet<PlayerSkin> themeSkinsList = new HashSet<>();
+
+            //Set the new starting tag
+            xmlParser.require(XmlPullParser.START_TAG, null, "theme");
     		//Read until we find the end
-    		while(_parser.next() != XmlPullParser.END_TAG)
+    		while(xmlParser.next() != XmlPullParser.END_TAG)
     		{
-    			//Not read the xml until we reach the previous defined start point
-    			if(_parser.getEventType() != XmlPullParser.START_TAG)
-    			{
-    				continue;
-    			}
-    			
-    			tag = _parser.getName();
-    			switch(tag)
-    			{
-    			case "name":
-    	    		_parser.require(XmlPullParser.START_TAG, null, "name");
-    				name = _parser.nextText();
-    	    		_parser.require(XmlPullParser.END_TAG, null, "name");
-    				break;
-    			case "price":
-    	    		_parser.require(XmlPullParser.START_TAG, null, "price");
-    				price = Integer(_parser.nextText());
-    	    		_parser.require(XmlPullParser.END_TAG, null, "price");
-    				break;
-    			case "backgroundPath":
-    	    		_parser.require(XmlPullParser.START_TAG, null, "backgroundPath");
-    	    		backgroundPath = _parser.nextText();
-    	    		_parser.require(XmlPullParser.END_TAG, null, "backgroundPath");
-    				break;
-    			case "communityBoxCardPath":
-    	    		_parser.require(XmlPullParser.START_TAG, null, "communityBoxCardPath");
-    	    		communityBoxCardPath = _parser.nextText();
-    	    		_parser.require(XmlPullParser.END_TAG, null, "communityBoxCardPath");
-    				break;
-    			case "fortuneCardPath":
-    	    		_parser.require(XmlPullParser.START_TAG, null, "fortuneCardPath");
-    	    		fortuneCardPath = _parser.nextText();
-    	    		_parser.require(XmlPullParser.END_TAG, null, "fortuneCardPath");
-    				break;
-    			case "skin":
-    	    		_parser.require(XmlPullParser.START_TAG, null, "skin");
-    	    		playerSkinList.add(readSkin());
-    	    		_parser.require(XmlPullParser.END_TAG, null, "skin");
-    				break;
-    			default:
-    				_parser.nextTag();
-    				break;
-    			}
-    		}
-    		
-    		themesInShop.add(new Theme(name, price, backgroundPath, communityBoxCardPath, fortuneCardPath, playerSkinsList));
+                //Dont read the xml until we reach the previous defined start point
+                if(xmlParser.getEventType() != XmlPullParser.START_TAG)
+                {
+                    continue;
+                }
+
+                String tag;
+                tag = xmlParser.getName();
+                switch(tag)
+                {
+                    case "name":
+                        //Change the starting point and read the text inside it
+                        xmlParser.require(XmlPullParser.START_TAG, null, "name");
+                        name = xmlParser.nextText();
+                        xmlParser.require(XmlPullParser.END_TAG, null, "name");
+                        break;
+                    case "price":
+                        //Change the starting point and read the text inside it
+                        xmlParser.require(XmlPullParser.START_TAG, null, "price");
+                        price = Double.parseDouble(xmlParser.nextText());
+                        xmlParser.require(XmlPullParser.END_TAG, null, "price");
+                        break;
+                    case "backgroundPath":
+                        //Change the starting point and read the text inside it
+                        xmlParser.require(XmlPullParser.START_TAG, null, "backgroundPath");
+                        backgroundPath = xmlParser.nextText();
+                        xmlParser.require(XmlPullParser.END_TAG, null, "backgroundPath");
+                        break;
+                    case "communityBoxCardPath":
+                        //Change the starting point and read the text inside it
+                        xmlParser.require(XmlPullParser.START_TAG, null, "communityBoxCardPath");
+                        communityBoxCardPath = xmlParser.nextText();
+                        xmlParser.require(XmlPullParser.END_TAG, null, "communityBoxCardPath");
+                        break;
+                    case "fortuneCardPath":
+                        //Change the starting point and read the text inside it
+                        xmlParser.require(XmlPullParser.START_TAG, null, "fortuneCardPath");
+                        fortuneCardPath = xmlParser.nextText();
+                        xmlParser.require(XmlPullParser.END_TAG, null, "fortuneCardPath");
+                        break;
+                    case "skin":
+                        //Change the starting point and read the tags inside it. Then add it to the skins list
+                        xmlParser.require(XmlPullParser.START_TAG, null, "skin");
+                        themeSkinsList.add(readSkin());
+                        xmlParser.require(XmlPullParser.END_TAG, null, "skin");
+                        break;
+                    default:
+                        //Skip tag and read next one
+                        xmlParser.nextTag();
+                        break;
+                }
+            }
+
+            //Save the theme
+           themesInShopList.add(new GameTheme(name, price, backgroundPath, communityBoxCardPath, fortuneCardPath, themeSkinsList));
     	}
-    	
-    	private PlayerSkin readSkin()
-    	{
+
+        /***
+         * Reads the skin information inside the Theme. It adds the skin into skinsInShopList and returns the skin
+         * @return Return the skin readed
+         * @throws IOException
+         * @throws XmlPullParserException
+         */
+    	private PlayerSkin readSkin() throws IOException, XmlPullParserException {
+            //Variables for creating the theme
     		String name = "";
-    		float price = 0.0;
+    		double price = 0.0;
     		String imagePath = "";
     		
-    		while(_parser.next() != XmlPullParser.END_TAG)
+    		while(xmlParser.next() != XmlPullParser.END_TAG)
     		{
-	    		String tag = _parser.getName();;
+	    		String tag = xmlParser.getName();
 	    		switch(tag)
 	    		{
 	    		case "name":
-		    		_parser.require(XmlPullParser.START_TAG, null, "name");
-					name = _parser.nextText();
-		    		_parser.require(XmlPullParser.END_TAG, null, "name");
+                    xmlParser.require(XmlPullParser.START_TAG, null, "name");
+					name = xmlParser.nextText();
+                    xmlParser.require(XmlPullParser.END_TAG, null, "name");
 					break;
 				case "price":
-		    		_parser.require(XmlPullParser.START_TAG, null, "price");
-					price = Integer(_parser.nextText());
-		    		_parser.require(XmlPullParser.END_TAG, null, "price");
+                    xmlParser.require(XmlPullParser.START_TAG, null, "price");
+					price = Double.parseDouble(xmlParser.nextText());
+                    xmlParser.require(XmlPullParser.END_TAG, null, "price");
 					break;
 				case "backgroundPath":
-		    		_parser.require(XmlPullParser.START_TAG, null, "imagePath");
-		    		imagePath = _parser.nextText();
-		    		_parser.require(XmlPullParser.END_TAG, null, "imagePath");
+                    xmlParser.require(XmlPullParser.START_TAG, null, "imagePath");
+		    		imagePath = xmlParser.nextText();
+                    xmlParser.require(XmlPullParser.END_TAG, null, "imagePath");
 					break;
 	    		}
     		}
-    		
-    		return new PlayerSkin(name, price, imagePath);
+
+            PlayerSkin skin = new PlayerSkin(name, price, imagePath);
+            skinsInShopList.add(skin);
+
+            return skin;
     	}
     }
 
+    /***
+     * Constructor that allocates the lists and load the shop information from the xml to them
+     * @param filePath xml file path
+     */
+    public ShopKeeper(String filePath)
+    {
+        themesInShopList = new HashSet<>();
+        skinsInShopList = new HashSet<>();
+        purchasedThemesList = new HashSet<>();
+        purchasedPlayerSkinsList = new HashSet<>();
+
+        //Load with the parser the shop information
+        new shopXMLParser(filePath);
+    }
 
     /**
      * Add some points to the player's wallet.
@@ -190,7 +270,7 @@ public class ShopKeeper {
      */
     public void addPoints(int points)
     {
-        _playerPoints += points;
+        playerPoints += points;
     }
 
     /**
@@ -201,7 +281,7 @@ public class ShopKeeper {
      */
     public int getPoints()
     {
-        return _playerPoints;
+        return playerPoints;
     }
 
     //THEME HANDLING
@@ -215,9 +295,9 @@ public class ShopKeeper {
      *              True if the theme has been purchased,
      *              False otherwise.
      */
-    public boolean isThemePurchased(Themes theme)
+    public boolean isThemePurchased(GameTheme theme)
     {
-        return _purchasedThemesList.contains((theme));
+        return purchasedThemesList.contains(theme);
     }
 
     /**
@@ -225,33 +305,34 @@ public class ShopKeeper {
      * It also purchases the skins associated to that theme
      *
      * @param theme
-     *              Theme to be bought.
+     *              GameTheme to be bought.
      */
-    public void buyTheme(Theme theme)
+    public void buyTheme(GameTheme theme)
     {
         if(!isThemePurchased(theme))
         {
-            _purchasedThemesList.add(theme);
-
-            /*
-            TODO: MARCAR LAS SKINS CORRESPONDIENTES AL TEMA COMO COMPRADAS
-             */
+            purchasedThemesList.add(theme);
+            purchasedPlayerSkinsList.addAll(theme.getPlayerSkinsList());
         }
     }
 
     /**
      * Method to know how much a theme costs
      *
-     * @param theme
-     *              The theme in question.
+     * @param themeName
+     *              The theme name.
      * @return
      *              The number of points it costs.
      */
-    public int getThemeCost(Theme theme)
+    public double getThemeCost(String themeName)
     {
-        /*
-        TODO: Esperando a la contestación en issues a ver que hago :)
-         */
+        for(GameTheme theme: themesInShopList)
+        {
+            if(theme.getName().equals(themeName)) {
+                return theme.getPrice();
+            }
+        }
+
         return 0;
     }
 
@@ -266,9 +347,9 @@ public class ShopKeeper {
      *              True if the skin has been purchased,
      *              False otherwise.
      */
-    public boolean isPlayerSkinPurchased (PlayerSkins skin)
+    public boolean isPlayerSkinPurchased (PlayerSkin skin)
     {
-        return _purchasedPlayerSkinsList.contains(skin);
+        return purchasedPlayerSkinsList.contains(skin);
     }
 
     /**
@@ -277,38 +358,43 @@ public class ShopKeeper {
      * @param skin
      *              Skin to be bought.
      */
-    public void buyPlayerSkin(PlayerSkins skin)
+    public void buyPlayerSkin(PlayerSkin skin)
     {
-        if(!isPlayerSkinPurchased(skin))
-        {
-            _purchasedPlayerSkinsList.add(skin);
-        }
+        //Set will not copy an already purchased item again
+        purchasedPlayerSkinsList.add(skin);
     }
 
     /**
      * Method to know how much a certain skin costs.
      *
-     * @param skin
-     *              The skin in question.
+     * @param skinName
+     *              The skin name.
      * @return
      *              The price of the skin.
      */
-    public int getPlayerSkinCost (PlayerSkins skin)
+    public double getPlayerSkinCost(String skinName)
     {
+        for(PlayerSkin skin: skinsInShopList)
+        {
+            if(skin.getName().equals(skinName)) {
+                return skin.getPrice();
+            }
+        }
+
         return 0;
     }
     
-    private void savePurchasedThemes(String file)
+    private void savePurchasedThemes(String file) throws FileNotFoundException, UnsupportedEncodingException
     {
     	PrintWriter writer = new PrintWriter(file, "UTF-8");
-    	for(Theme t: _purchasedThemeList)
+    	for(GameTheme t: purchasedThemesList)
     	{
     		writer.println(t.getName());
     	}
     	
     	writer.println("SkinsList:");
     	
-    	for(PlayerSkin s: _purchasedPlayerSkins)
+    	for(PlayerSkin s: purchasedPlayerSkinsList)
     	{
     		writer.println(s.getName());
     	}
@@ -316,16 +402,15 @@ public class ShopKeeper {
     	writer.close();
     }
     
-    private void loadPurchasedThemes(String file)
+    private void loadPurchasedThemes(String file) throws IOException
     {
     	BufferedReader br = new BufferedReader(new FileReader(file));
     	
     	String line = br.readLine();
-    	
     	while(!line.equals("SkinsList:"))
     	{
-    		Theme theme;
-    		for(Theme t: themesInShop)
+    		GameTheme theme = null;
+    		for(GameTheme t: themesInShopList)
     		{
     			if(t.getName().equals(line))
     			{
@@ -333,8 +418,10 @@ public class ShopKeeper {
     				break;
     			}
     		}
-    		
-    		_purchasedThemesList.add(theme);
+
+            if(theme != null) {
+                purchasedThemesList.add(theme);
+            }
     		
     		line = br.readLine();
     	}
@@ -343,7 +430,20 @@ public class ShopKeeper {
     	
     	while(line != null)
     	{
-    		
+    		PlayerSkin skin = null;
+
+            for(PlayerSkin s: skinsInShopList)
+            {
+                if(s.getName().equals(line))
+                {
+                    skin = s;
+                }
+            }
+
+            if(skin != null)
+            {
+                purchasedPlayerSkinsList.add(skin);
+            }
     	}
     }
 
