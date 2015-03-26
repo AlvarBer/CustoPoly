@@ -103,7 +103,7 @@ public class ModelFacade {
      *              True if the theme has been purchased,
      *              False otherwise.
      */
-    public static boolean isThemePurchased(Themes theme) { return false;}
+    public static boolean isThemePurchased(GameTheme theme) { return false;}
 
     /**
      * Method to buy a theme.
@@ -112,7 +112,7 @@ public class ModelFacade {
      * @param theme
      *              GameTheme to be bought.
      */
-    public static void buyTheme(Themes theme) {}
+    public static void buyTheme(GameTheme theme) {}
 
     /**
      * Method to know how much a theme costs
@@ -122,7 +122,7 @@ public class ModelFacade {
      * @return
      *              The number of points it costs.
      */
-    public static int getThemeCost(Themes theme) {return 0;}
+    public static int getThemeCost(GameTheme theme) {return 0;}
 
     //PLAYER SKIN HANDLING
 
@@ -135,7 +135,7 @@ public class ModelFacade {
      *              True if the skin has been purchased,
      *              False otherwise.
      */
-    public static boolean isPlayerSkinPurchased (PlayerSkins skin) { return false;}
+    public static boolean isPlayerSkinPurchased (PlayerSkin skin) { return false;}
 
     /**
      * Method to buy a certain player skin.
@@ -143,7 +143,7 @@ public class ModelFacade {
      * @param skin
      *              Skin to be bought.
      */
-    public static void buyPlayerSkin(PlayerSkins skin) {}
+    public static void buyPlayerSkin(PlayerSkin skin) {}
 
     /**
      * Method to know how much a certain skin costs.
@@ -153,7 +153,7 @@ public class ModelFacade {
      * @return
      *              The price of the skin.
      */
-    public static int getPlayerSkinCost (PlayerSkins skin) {return 0;}
+    public static int getPlayerSkinCost (PlayerSkin skin) {return 0;}
 
     //---------------------
     // THEMEHANDLER methods
@@ -165,7 +165,7 @@ public class ModelFacade {
      * @param theme
      *              The theme it should change to.
      */
-    public static void switchThemeTo(Themes theme) {}
+    public static void switchThemeTo(GameTheme theme) {}
 
     /**
      * Method to change the skin on a particular player.
@@ -175,7 +175,7 @@ public class ModelFacade {
      * @param playerName
      *              Name of the player whose skin we want changed.
      */
-    public static void switchPlayerSkinTo (PlayerSkins skin, String playerName) { }
+    public static void switchPlayerSkinTo (PlayerSkin skin, String playerName) { }
 
     /**
      * Method to retrieve a specific player's skin's resource uri.
@@ -205,7 +205,7 @@ public class ModelFacade {
      * @return
      *          The theme currently on use.
      */
-    public static Themes getCurrentTheme() {
+    public static GameTheme getCurrentTheme() {
         return null;
     }
 
@@ -217,5 +217,5 @@ public class ModelFacade {
      * @return
      *              The skin of the player.
      */
-    public static PlayerSkins getPlayerSkin (String playerName) {return null;}
+    public static PlayerSkin getPlayerSkin (String playerName) {return null;}
 }
