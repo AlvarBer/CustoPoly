@@ -1,20 +1,20 @@
 package com.iplusplus.custopoly.model;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by Kerith on 23/03/2015.
  */
-public class Theme {
+public class GameTheme {
    
 	private String name;
-	private float price;
+	private double price;
 	private String backgroundPath;
 	private String communityBoxCardPath;
 	private String fortuneCardPath;
-	private ArrayList<PlayerSkins> playerSkinsList;
+	private HashSet<PlayerSkin> playerSkinsList;
 	
-	public Themes(String name, float price, String background, String communityBoxCard, String fortuneCardPath, ArrayList<PlayerSkins> skinsList)
+	public GameTheme(String name, double price, String background, String communityBoxCard, String fortuneCardPath, HashSet<PlayerSkin> skinsList)
 	{
 		this.name = name;
 		this.price = price;
@@ -29,7 +29,7 @@ public class Theme {
 		return name;
 	}
 	
-	public float getPrice()
+	public double getPrice()
 	{
 		return price;
 	}
@@ -61,4 +61,9 @@ public class Theme {
 		
 		return null;
 	}
+
+    public HashSet<PlayerSkin> getPlayerSkinsList()
+    {
+        return getPlayerSkinsList();
+    }
 }

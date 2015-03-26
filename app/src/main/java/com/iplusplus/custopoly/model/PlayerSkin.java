@@ -6,10 +6,10 @@ package com.iplusplus.custopoly.model;
 public class PlayerSkin {
    
 	private String name;
-	private float price;
+	private double price;
 	private String imagePath;
 	
-	public PlayerSkin(String name, float price, String imagePath)
+	public PlayerSkin(String name, double price, String imagePath)
 	{
 		this.name = name;
 		this.price = price;
@@ -21,7 +21,7 @@ public class PlayerSkin {
 		return name;
 	}
 	
-	public float getPrice()
+	public double getPrice()
 	{
 		return price;
 	}

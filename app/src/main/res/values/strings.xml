@@ -12,4 +12,7 @@
     <string name="title_activity_theme_selection">ThemeSelectionActivity</string>
     <string name="logoDescription">The logo of our team</string>
 
+    //ShopKeeper
+    <string name="ShopFilePath"></string>
+
 </resources>
