@@ -8,7 +8,13 @@ public class PlayerSkin {
 	private String name;
 	private double price;
 	private String imagePath;
-	
+
+    /***
+     * Contructs a skin with all the information needed
+     * @param name Name of the Skin
+     * @param price Price in euros
+     * @param imagePath Path of the skin iamge
+     */
 	public PlayerSkin(String name, double price, String imagePath)
 	{
 		this.name = name;
@@ -30,5 +36,24 @@ public class PlayerSkin {
 	{
 		return imagePath;
 	}
+
+    /***
+     * Define if two PlayerSkins are equal looking at his names (useful for AbstractCollections
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o)
+    {
+        if(o instanceof PlayerSkin)
+        {
+            PlayerSkin s = (PlayerSkin)o;
+            return this.name.equals(s.name);
+        }
+        else
+        {
+            return false;
+        }
+    }
 	
 }

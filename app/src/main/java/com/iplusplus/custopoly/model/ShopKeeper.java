@@ -383,17 +383,26 @@ public class ShopKeeper {
 
         return 0;
     }
-    
-    private void savePurchasedThemes(String file) throws FileNotFoundException, UnsupportedEncodingException
+
+    /***
+     * Saves the purchased themes and skins of the player in a file
+     * @param file File path/name to save
+     * @throws FileNotFoundException
+     * @throws UnsupportedEncodingException
+     */
+    //TODO Encriptar y decidir si capturar excepciones o hacer throw (como esta actualemte)
+    private void savePurchasedThemesAndSkins(String file) throws FileNotFoundException, UnsupportedEncodingException
     {
+        //Crete/Overwrite the new file
     	PrintWriter writer = new PrintWriter(file, "UTF-8");
+        //Save all the purchased theme names
     	for(GameTheme t: purchasedThemesList)
     	{
     		writer.println(t.getName());
     	}
-    	
+    	//Now separete them from the skins purchased
     	writer.println("SkinsList:");
-    	
+    	//Save all the purchased skins
     	for(PlayerSkin s: purchasedPlayerSkinsList)
     	{
     		writer.println(s.getName());
@@ -401,11 +410,19 @@ public class ShopKeeper {
     	
     	writer.close();
     }
-    
-    private void loadPurchasedThemes(String file) throws IOException
+
+    /**
+     * Loads the file containing the saved purchased themes and skins of the player
+     * @param file File path/name to load
+     * @throws IOException
+     */
+    //TODO Desencriptar y decidir si capturar excepciones o hacer throw (como esta actualemte)
+    private void loadPurchasedThemesAndSkins(String file) throws IOException
     {
+        //Load the file
     	BufferedReader br = new BufferedReader(new FileReader(file));
-    	
+
+        //Read all the themes until we reach the skin section
     	String line = br.readLine();
     	while(!line.equals("SkinsList:"))
     	{
@@ -425,9 +442,9 @@ public class ShopKeeper {
     		
     		line = br.readLine();
     	}
-    	
+
+        //Read all the skins until we reach the end
     	line = br.readLine();
-    	
     	while(line != null)
     	{
     		PlayerSkin skin = null;
@@ -445,6 +462,14 @@ public class ShopKeeper {
                 purchasedPlayerSkinsList.add(skin);
             }
     	}
+
+        try
+        {
+            br.close();
+        }
+        catch(Exception e)
+        {
+        }
     }
 
 }
