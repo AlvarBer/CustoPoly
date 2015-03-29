@@ -12,17 +12,15 @@ public class MoveForwardCommand extends MoveTokenCommand {
 		this.stepForward = stepForward;
 	}
 
-	@Override
-	public int getLandIndex(Controller controller) {
-		Game game = controller.getGame();
-		int currentIndex = game.getCurrentPlayer().getToken().getLandIndex();
-		int movedIndex = (currentIndex + stepForward) % game.getBoard().getSize();
-		return movedIndex;
-	}
+    @Override
+    public int getLandIndex(Game game) {
+        int currentIndex = game.getCurrentPlayer().getToken().getLandIndex();
+        int movedIndex = (currentIndex + stepForward) % game.getBoard().getSize();
+        return movedIndex;
+    }
 
 	@Override
 	public boolean isForward() {
 		return true;
 	}
-
 }

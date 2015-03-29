@@ -1,6 +1,7 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
+import android.content.Context;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 public class GetPrizeCommand implements Command {
@@ -11,10 +12,9 @@ public class GetPrizeCommand implements Command {
 		this.prize = prize;
 	}
 
-	@Override
-	public void execute(Controller controller) {
-		Player player = controller.getGame().getCurrentPlayer();
-		player.increaseBalance(prize);
-	}
-
+    @Override
+    public void execute(Game game, Context context) {
+        Player player = game.getCurrentPlayer();
+        player.increaseBalance(prize);
+    }
 }

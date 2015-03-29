@@ -3,6 +3,7 @@ package com.iplusplus.custopoly.model.gamemodel.command;
 
 import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
 
 public class MoveLandCommand extends MoveTokenCommand {
@@ -13,20 +14,22 @@ public class MoveLandCommand extends MoveTokenCommand {
 		this.landName = landName;
 	}
 
-	@Override
-	public int getLandIndex(Controller controller) {
-		Board board = controller.getGame().getBoard();
-		for (Land land : board.getLands()) {
-			if (land.getName().equals(landName)) {
-				return board.getLands().indexOf(land);
-			}
-		}
-		throw new RuntimeException("Land Name NOT found.");
-	}
+    @Override
+    public int getLandIndex(Game game) {
+        Board board = game.getBoard();
+        for (Land land : board.getLands()) {
+            if (land.getName().equals(landName)) {
+                return board.getLands().indexOf(land);
+            }
+        }
+        throw new RuntimeException("Land Name NOT found.");
+    }
 
 	@Override
 	public boolean isForward() {
 		return true;
 	}
+
+
 
 }
