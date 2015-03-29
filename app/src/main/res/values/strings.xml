@@ -12,6 +12,10 @@
     <string name="title_activity_theme_selection">ThemeSelectionActivity</string>
     <string name="logoDescription">The logo of our team</string>
 
+    //GameModel
+    <string name="ingame.buyyes">Yes</string>
+    <string name="ingame.buyno">No</string>
+
     //ShopKeeper
     <string name="ShopFilePath"></string>
 

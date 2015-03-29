@@ -1,5 +1,6 @@
 package com.iplusplus.custopoly.model.gamemodel.controller;
 
+import android.content.Context;
 import com.iplusplus.custopoly.model.gamemodel.command.Command;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
@@ -78,8 +79,8 @@ public class Controller {
         //gameFrame.reset();
 	}
 
-	public void execute(Command command) {
-		command.execute(this);
+	public void execute(Game game, Context context) {
+		//command.execute(this);
 	}
 
 	public Game getGame() {

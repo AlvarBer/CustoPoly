@@ -1,17 +1,20 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
+import android.content.Context;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 
 public class EndTurnCommand implements Command {
 
-	@Override
-	public void execute(Controller controller) {
-		Game game = controller.getGame();
-		int newPlayerIndex = (game.getPlayers().indexOf(game.getCurrentPlayer()) + 1) % game.getPlayers().size();
-		game.setCurrentPlayer(game.getPlayers().get(newPlayerIndex));
+    /**TODO
+     * This method passes the turn to the next player and tells the controller to update itself.
+     * @param game
+     * @param context
+     */
+    @Override
+    public void execute(Game game, Context context) {
+        int newPlayerIndex = (game.getPlayers().indexOf(game.getCurrentPlayer()) + 1) % game.getPlayers().size();
+        game.setCurrentPlayer(game.getPlayers().get(newPlayerIndex));
 
-		controller.update();
-	}
-
+        //controller.update();
+    }
 }

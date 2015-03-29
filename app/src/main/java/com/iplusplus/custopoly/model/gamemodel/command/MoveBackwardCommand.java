@@ -1,6 +1,5 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 
 public class MoveBackwardCommand extends MoveTokenCommand {
@@ -12,8 +11,7 @@ public class MoveBackwardCommand extends MoveTokenCommand {
 	}
 
 	@Override
-	public int getLandIndex(Controller controller) {
-		Game game = controller.getGame();
+	public int getLandIndex(Game game) {
 		int currentIndex = game.getCurrentPlayer().getToken().getLandIndex();
 		int movedIndex = ((currentIndex - stepBackward) + game.getBoard().getLands().size()) % game.getBoard().getSize();
 		return movedIndex;
@@ -23,5 +21,6 @@ public class MoveBackwardCommand extends MoveTokenCommand {
 	public boolean isForward() {
 		return false;
 	}
+
 
 }

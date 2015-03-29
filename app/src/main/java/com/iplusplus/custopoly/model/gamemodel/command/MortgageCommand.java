@@ -1,6 +1,7 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
+import android.content.Context;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
@@ -12,15 +13,15 @@ public class MortgageCommand implements Command {
 		this.property = property;
 	}
 
-	@Override
-	public void execute(Controller controller) {
-		Player player = controller.getGame().getCurrentPlayer();
-		if (player.getProperties().contains(property)) {
-			askMortgage(player);
-		} else if (player.getMortgagedProperties().contains(property)) {
-			askUnmortgage(player);
-		}
-	}
+    @Override
+    public void execute(Game game, Context context) {
+        Player player = game.getCurrentPlayer();
+        if (player.getProperties().contains(property)) {
+            askMortgage(player);
+        } else if (player.getMortgagedProperties().contains(property)) {
+            askUnmortgage(player);
+        }
+    }
 
 	private void askMortgage(Player player) {
 		int reply = ask(player, "mortgage");
@@ -73,5 +74,4 @@ public class MortgageCommand implements Command {
 		*/
         return 0;
 	}
-
 }

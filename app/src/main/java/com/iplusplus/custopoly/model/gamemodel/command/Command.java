@@ -1,9 +1,10 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
+import android.content.Context;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
 
 public interface Command {
 		
-	public void execute(Controller controller);
+	public void execute(Game game, Context context);
 
 }

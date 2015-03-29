@@ -1,6 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
+import android.app.AlertDialog;
+import android.content.Context;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 public class PayFeeCommand implements Command {
@@ -11,13 +13,11 @@ public class PayFeeCommand implements Command {
 		this.fee = fee;
 	}
 
-
-	@Override
-	public void execute(Controller controller) {
-		Player player = controller.getGame().getCurrentPlayer();
-		player.decreaseBalance(fee);
-        //TODO: Change to an Android dialog, it notifies that the fee is paid.
-		//JOptionPane.showMessageDialog(null, String.format("%s paid : %dK", player.getName(), fee));
-	}
-
+    @Override
+    public void execute(Game game, Context context) {
+        Player player = game.getCurrentPlayer();
+        player.decreaseBalance(fee);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setMessage(player.getName() + " paid : " + fee + "K").show();
+    }
 }
