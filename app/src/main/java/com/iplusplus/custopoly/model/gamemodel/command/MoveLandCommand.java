@@ -1,18 +1,17 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
 
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
 
 public class MoveLandCommand extends MoveTokenCommand {
-	
-	private String landName;
-	
-	public MoveLandCommand(String landName) {
-		this.landName = landName;
-	}
+
+    private String landName;
+
+    public MoveLandCommand(String landName) {
+        this.landName = landName;
+    }
 
     @Override
     public int getLandIndex(Game game) {
@@ -25,11 +24,10 @@ public class MoveLandCommand extends MoveTokenCommand {
         throw new RuntimeException("Land Name NOT found.");
     }
 
-	@Override
-	public boolean isForward() {
-		return true;
-	}
-
+    @Override
+    public boolean isForward() {
+        return true;
+    }
 
 
 }

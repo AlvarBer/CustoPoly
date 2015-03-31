@@ -1,7 +1,12 @@
 package com.iplusplus.custopoly.model.gamemodel;
 
-import com.iplusplus.custopoly.model.gamemodel.element.*;
+import com.iplusplus.custopoly.model.gamemodel.element.Bank;
+import com.iplusplus.custopoly.model.gamemodel.element.Board;
+import com.iplusplus.custopoly.model.gamemodel.element.Land;
+import com.iplusplus.custopoly.model.gamemodel.element.Player;
+import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -52,7 +57,7 @@ public class GameFacade {
      * @return
      * Returns the asset list with the assets owned by.
      */
-    public static PropertyLand getAssetsOwnedByPlayer(String playerName) {
+    public static ArrayList<PropertyLand> getAssetsOwnedByPlayer(String playerName) {
         return null;
     }
 }

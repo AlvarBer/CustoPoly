@@ -5,12 +5,12 @@ import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 public class GetPrizeCommand implements Command {
-	
-	private int prize;
-	
-	public GetPrizeCommand(int prize) {
-		this.prize = prize;
-	}
+
+    private int prize;
+
+    public GetPrizeCommand(int prize) {
+        this.prize = prize;
+    }
 
     @Override
     public void execute(Game game, Context context) {
