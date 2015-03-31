@@ -1,7 +1,6 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
 import android.content.Context;
-import com.iplusplus.custopoly.model.gamemodel.controller.Controller;
 import com.iplusplus.custopoly.model.gamemodel.element.DicePair;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 
@@ -17,10 +16,10 @@ public class RollDiceCommand implements Command {
         //controller.update();
     }
 
-	private void movePlayer(Game game, Context context) {
-		int stepForward = DicePair.getDiceValue();
-		MoveForwardCommand moveCommand = new MoveForwardCommand(stepForward);
-		moveCommand.execute(game, context);
-	}
+    private void movePlayer(Game game, Context context) {
+        int stepForward = DicePair.getDiceValue();
+        MoveForwardCommand moveCommand = new MoveForwardCommand(stepForward);
+        moveCommand.execute(game, context);
+    }
 
 }

@@ -2,6 +2,7 @@ package com.iplusplus.custopoly.model.gamemodel.command;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
@@ -17,18 +18,20 @@ public class PayRentCommand implements Command {
         makeTransaction(game, context, payment);
     }
 
-	protected Land getCurrentLand(Game game) {
-		return game.getBoard().getLands().get(game.getCurrentPlayer().getToken().getLandIndex());
-	}
+    protected Land getCurrentLand(Game game) {
+        return game.getBoard().getLands().get(game.getCurrentPlayer().getToken().getLandIndex());
+    }
 
-	private void makeTransaction(Game game, Context context, int payment) {
-		Player source = game.getCurrentPlayer();
-		Player target = game.getOwner((PropertyLand) getCurrentLand(game));
-		if(!source.equals(target)) {
-			source.decreaseBalance(payment);
-			target.increaseBalance(payment);
+    private void makeTransaction(Game game, Context context, int payment) {
+        Player source = game.getCurrentPlayer();
+        Player target = game.getOwner((PropertyLand) getCurrentLand(game));
+        if (!source.equals(target)) {
+            source.decreaseBalance(payment);
+            target.increaseBalance(payment);
+            String message = String.format(context.getText(R.string.ingame_rentpaidmsg).toString(), source.getName(), payment, target.getName());
+
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-            dialog.setMessage(source.getName() + " paid " + payment + "K to " + target.getName()).show();
-		}
-	}
+            dialog.setMessage(message).show();
+        }
+    }
 }
