@@ -28,7 +28,8 @@ public class PayRentCommand implements Command {
         if (!source.equals(target)) {
             source.decreaseBalance(payment);
             target.increaseBalance(payment);
-            String message = String.format(context.getText(R.string.ingame_rentpaidmsg).toString(), source.getName(), payment, target.getName());
+            String message = String.format(context.getText(R.string.ingame_rentpaidmsg).toString(),
+                                            source.getName(), payment, target.getName());
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
             dialog.setMessage(message).show();
