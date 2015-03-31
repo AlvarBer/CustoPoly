@@ -34,4 +34,5 @@ public abstract class MoveTokenCommand implements Command {
 
     public abstract int getLandIndex(Game game);
 
+
 }

@@ -21,7 +21,8 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      */
     @Override
     public void execute(Game game, Context context) {
-        PropertyLand land = (PropertyLand) game.getBoard().getLands().get(game.getCurrentPlayer().getToken().getLandIndex());
+        PropertyLand land = (PropertyLand) game.getBoard().getLands().
+                                            get(game.getCurrentPlayer().getToken().getLandIndex());
 
         this.askPurchase(game, context, land);
         if (this.buyOrNot) {
@@ -48,7 +49,8 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
         String title = game.getCurrentPlayer().getName();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(formatMessage).setPositiveButton(context.getText(R.string.ingame_buyyes), this).setNegativeButton(context.getText(R.string.ingame_buyno), this);
+        builder.setMessage(formatMessage).setPositiveButton(context.getText(R.string.ingame_buyyes), this).
+                setNegativeButton(context.getText(R.string.ingame_buyno), this);
         builder.show();
     }
 
@@ -65,7 +67,8 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
             player.decreaseBalance(land.getPrice());
             player.addProperty(land);
             land.setAssignment(new PayRentCommand());
-            String message = String.format(context.getText(R.string.ingame_buySuccess).toString(), player.getName(), land.getName());
+            String message = String.format(context.getText(R.string.ingame_buySuccess).toString(),
+                                            player.getName(), land.getName());
             display(message, game, context);
         } else {
             String message = String.format(context.getText(R.string.ingame_buyFailure).toString(), land.getName());
