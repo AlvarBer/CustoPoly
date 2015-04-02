@@ -6,14 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import com.iplusplus.custopoly.model.gamemodel.command.AskBuyCommand;
-import com.iplusplus.custopoly.model.gamemodel.command.Command;
-import com.iplusplus.custopoly.model.gamemodel.element.Board;
-import com.iplusplus.custopoly.model.gamemodel.element.Game;
-import com.iplusplus.custopoly.model.gamemodel.element.Player;
-import com.iplusplus.custopoly.model.gamemodel.util.BoardFactory;
 
-import java.util.ArrayList;
 
 /**
  * Entry point of the app.
@@ -33,8 +26,7 @@ public class InitActivity extends ActionBarActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Command testCommand = new AskBuyCommand();
-        testCommand.execute(new Game(new Board(), new ArrayList<Player>()), this);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
