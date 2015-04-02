@@ -49,8 +49,8 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
         String title = game.getCurrentPlayer().getName();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(formatMessage).setPositiveButton(context.getText(R.string.ingame_buyyes), this).
-                setNegativeButton(context.getText(R.string.ingame_buyno), this);
+        builder.setTitle(title).setMessage(formatMessage).setPositiveButton(context.getText(R.string.ingame_buyyesbutton), this).
+                setNegativeButton(context.getText(R.string.ingame_buynobutton), this);
         builder.show();
     }
 
