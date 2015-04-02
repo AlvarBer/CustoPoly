@@ -16,10 +16,10 @@
     <string name="ShopFilePath"></string>
 
     //GameModel
-    <string name="ingame.notWantToBuy">"Player %s did not want to purchase %s"</string>
-    <string name="ingame.buyyesbutton">Yes</string>
-    <string name="ingame.buynobutton">No</string>
-    <string name="ingame.askWantToBuy">\"Do you want to buy %s for %dK?\"</string>
+    <string name="ingame_notWantToBuy">Player %s did not want to purchase %s</string>
+    <string name="ingame_buyyesbutton">Yes</string>
+    <string name="ingame_buynobutton">No</string>
+    <string name="ingame_askWantToBuy">Do you want to buy %s for %dK?</string>
     <string name="ingame_buySuccess">%s owned %s.</string>
     <string name="ingame_buyFailure">%s purchased.</string>
     <string name="ingame_mortgage">mortgage</string>
