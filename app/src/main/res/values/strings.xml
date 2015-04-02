@@ -16,20 +16,20 @@
     <string name="ShopFilePath"></string>
 
     //GameModel
-    <string name="ingame_notWantToBuy">Player %s did not want to purchase %s</string>
+    <string formatted="false" name="ingame_notWantToBuy">Player %s did not want to purchase %s</string>
     <string name="ingame_buyyesbutton">Yes</string>
     <string name="ingame_buynobutton">No</string>
-    <string name="ingame_askWantToBuy">Do you want to buy %s for %dK?</string>
-    <string name="ingame_buySuccess">%s owned %s.</string>
-    <string name="ingame_buyFailure">%s purchased.</string>
+    <string formatted="false" name="ingame_askWantToBuy">Do you want to buy %s for %dK?</string>
+    <string formatted="false" name="ingame_buySuccess">%s owned %s.</string>
+    <string formatted="false" name="ingame_buyFailure">%s purchased.</string>
     <string name="ingame_mortgage">mortgage</string>
     <string name="ingame_unmortgage">unmortgage</string>
-    <string name="ingame_askMortgageMessage">Do you want to %s %s for %dK?</string>
-    <string name="ingame_mortgage_donemsg">%s is %s for %dK.</string>
-    <string name="ingame_mortgage_failmsg">%s cancelled</string>
+    <string formatted="false" name="ingame_askMortgageMessage">Do you want to %s %s for %dK?</string>
+    <string formatted="false" name="ingame_mortgage_donemsg">%s is %s for %dK.</string>
+    <string formatted="false" name="ingame_mortgage_failmsg">%s cancelled</string>
     <string name="ingame_mortgageNo">No</string>
     <string name="ingame_mortgageYes">Yes</string>
-    <string name="ingame_feepaidmsg">%s paid : %dK</string>
-    <string name="ingame_rentpaidmsg">%s paid %dK to %s</string>
+    <string formatted="false" name="ingame_feepaidmsg">%s paid : %dK</string>
+    <string formatted="false" name="ingame_rentpaidmsg">%s paid %dK to %s</string>
 
 </resources>
