@@ -1,8 +1,9 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable {
 	private ArrayList<Card> cardsOwned;
 	private ArrayList<PropertyLand> propertiesOwned;
 	private ArrayList<PropertyLand> propertiesMortgaged;

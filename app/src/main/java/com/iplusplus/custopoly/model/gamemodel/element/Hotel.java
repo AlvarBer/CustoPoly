@@ -1,6 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-public class Hotel extends Building {
+import java.io.Serializable;
+
+public class Hotel extends Building implements Serializable {
 
 	@Override
 	public boolean isHouse() {
