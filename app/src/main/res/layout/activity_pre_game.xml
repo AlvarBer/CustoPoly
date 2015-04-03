@@ -6,11 +6,18 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.iplusplus.custopoly.app.PreGameActivity">
+                tools:context="com.iplusplus.custopoly.app.PreGameActivity" android:clickable="false"
+                android:background="@android:color/holo_blue_dark">
 
     <TextView
-            android:text="@string/hello_world"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/preGameTitleText"
+            android:id="@+id/preGameTitle" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/playPreGameButtonText"
+            android:id="@+id/playPreGameButton" android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.iplusplus.custopoly.model.gamemodel.controller;
+/*package com.iplusplus.custopoly.model.gamemodel.controller;
 
 import android.content.Context;
 import com.iplusplus.custopoly.model.gamemodel.command.Command;
@@ -32,10 +32,6 @@ public class Controller {
 		initCards();
 	}
 
-	private void initGame(ArrayList<Player> players) {
-		Board board = BoardFactory.readBoard(new File(boardFilePath));
-		this.game = new Game(board, players);
-	}
 
 	private ArrayList<Player> getPlayers() {
 		ArrayList<Player> players = new ArrayList<Player>();
@@ -87,4 +83,4 @@ public class Controller {
 		return game;
 	}
 
-}
+}*/

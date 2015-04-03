@@ -3,6 +3,7 @@ package com.iplusplus.custopoly.model.gamemodel.command;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
@@ -14,23 +15,23 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
     private boolean buyOrNot;
 
     /**
-     * Display a dialog to ask whether the current player wats t opurchase a piece of land.
+     * Display a dialog to ask whether the current player w.nats to purchase a piece of land.
      *
      * @param game
-     * @param context
      */
     @Override
-    public void execute(Game game, Context context) {
+    public void execute(Game game) {
+        Context context = Custopoly.getAppContext();
         PropertyLand land = (PropertyLand) game.getBoard().getLands().
                                             get(game.getCurrentPlayer().getToken().getLandIndex());
 
-        this.askPurchase(game, context, land);
+        this.askPurchase(game, land);
         if (this.buyOrNot) {
             makePurchase(game, context, land);
         } else {
             String s = context.getResources().getText(R.string.ingame_notWantToBuy).toString();
             String fs = String.format(s, game.getCurrentPlayer().getName(), land.getName());
-            display(fs, game, context);
+            display(fs, game);
         }
 
     }
@@ -39,10 +40,10 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      * create and display a dialog to see if the player wants to buy the land.
      *
      * @param game
-     * @param context
      * @param land
      */
-    private void askPurchase(Game game, Context context, PropertyLand land) {
+    private void askPurchase(Game game, PropertyLand land) {
+        Context context = Custopoly.getAppContext();
 
         String message = context.getText(R.string.ingame_askWantToBuy).toString();
         String formatMessage = String.format(message, land.getName(), land.getPrice());
@@ -69,10 +70,10 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
             land.setAssignment(new PayRentCommand());
             String message = String.format(context.getText(R.string.ingame_buySuccess).toString(),
                                             player.getName(), land.getName());
-            display(message, game, context);
+            display(message, game);
         } else {
             String message = String.format(context.getText(R.string.ingame_buyFailure).toString(), land.getName());
-            display(message, game, context);
+            display(message, game);
         }
     }
 
@@ -81,9 +82,10 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      *
      * @param info
      * @param game
-     * @param context
      */
-    private void display(String info, Game game, Context context) {
+    private void display(String info, Game game) {
+        Context context = Custopoly.getAppContext();
+
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         dialog.setMessage(info).show();
     }

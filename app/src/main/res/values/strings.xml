@@ -32,4 +32,18 @@
     <string formatted="false" name="ingame_feepaidmsg">%s paid : %dK</string>
     <string formatted="false" name="ingame_rentpaidmsg">%s paid %dK to %s</string>
 
+    //MainActivity
+    <string name="playButtonText">Play</string>
+    <string name="shopButtonText">Shop</string>
+    <string name="themeButtonText">Customize</string>
+    <string name="preGameTitleText">Select Players</string>
+
+    //PreGameActivity
+    <string name="playPreGameButtonText">Play</string>
+
+    //GameMenuActivity
+    <string name="gameMenuTitleText">Play Custopoly</string>
+    <string name="newGameButtonText">New Game</string>
+    <string name="loadGameButtonText">Load Game</string>
+
 </resources>

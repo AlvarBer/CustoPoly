@@ -82,7 +82,7 @@ public class GameTheme {
      */
     public HashSet<PlayerSkin> getPlayerSkinsList()
     {
-        return getPlayerSkinsList();
+        return this.playerSkinsList;
     }
 
     /***

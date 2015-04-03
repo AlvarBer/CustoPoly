@@ -3,6 +3,7 @@ package com.iplusplus.custopoly.model.gamemodel.command;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
@@ -18,21 +19,24 @@ public class MortgageCommand implements Command, DialogInterface.OnClickListener
     }
 
     @Override
-    public void execute(Game game, Context context) {
+    public void execute(Game game) {
+        Context context = Custopoly.getAppContext();
         Player player = game.getCurrentPlayer();
         if (player.getProperties().contains(property)) {
-            askMortgage(player, context.getText(R.string.ingame_mortgage).toString(), context);
+            askMortgage(player, context.getText(R.string.ingame_mortgage).toString());
         } else if (player.getMortgagedProperties().contains(property)) {
-            askUnmortgage(player, context.getText(R.string.ingame_unmortgage).toString(), context);
+            askUnmortgage(player, context.getText(R.string.ingame_unmortgage).toString());
         }
     }
 
-    private void askMortgage(Player player, String mortgage, Context context) {
+    private void askMortgage(Player player, String mortgage) {
+        Context context = Custopoly.getAppContext();
         boolean reply = ask(player, mortgage, context);
         doCommand(player, reply, mortgage, context);
     }
 
-    private void askUnmortgage(Player player, String unmortgage, Context context) {
+    private void askUnmortgage(Player player, String unmortgage) {
+        Context context = Custopoly.getAppContext();
         boolean reply = ask(player, unmortgage, context);
         doCommand(player, reply, unmortgage, context);
     }

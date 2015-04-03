@@ -6,11 +6,31 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.iplusplus.custopoly.app.GameMenuActivity">
+                tools:context="com.iplusplus.custopoly.app.GameMenuActivity"
+                android:background="@android:color/holo_blue_dark">
 
     <TextView
-            android:text="@string/hello_world"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/gameMenuTitleText"
+            android:id="@+id/gameMenuTitle" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:width="180dp" android:gravity="center" android:textSize="35dp"/>
+    <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
+            android:layout_height="wrap_content"
+            android:text="@string/newGameButtonText"
+            android:id="@+id/newGameButton"
+            android:layout_marginLeft="43dp" android:layout_marginStart="43dp"
+            android:textSize="30dp"
+            android:width="200dp" android:height="100dp"
+            android:layout_centerVertical="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:clickable="true" android:enabled="true"/>
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/loadGameButtonText"
+            android:id="@+id/loadGameButton"
+            android:textSize="30dp" android:width="200dp" android:height="100dp"
+            android:layout_marginRight="49dp"
+            android:layout_marginEnd="49dp" android:layout_alignTop="@+id/newGameButton"
+            android:layout_alignRight="@+id/gameMenuTitle" android:layout_alignEnd="@+id/gameMenuTitle"
+            android:clickable="true" android:enabled="false"/>
 </RelativeLayout>
