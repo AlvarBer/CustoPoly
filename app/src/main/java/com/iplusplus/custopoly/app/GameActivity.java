@@ -4,6 +4,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.iplusplus.custopoly.model.SaveGameHandler;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
+
+import java.io.IOException;
 
 /**
  * Corresponds with the game_activity in the mockup.
@@ -18,12 +22,22 @@ import android.view.MenuItem;
 public class GameActivity extends ActionBarActivity {
 
     //Attributes
-
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        //Loads the information of the new game from the memory
+        try {
+            this.game = SaveGameHandler.getInstance().loadGame("Game");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

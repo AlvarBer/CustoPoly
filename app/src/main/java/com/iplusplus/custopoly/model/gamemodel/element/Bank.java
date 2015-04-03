@@ -3,9 +3,10 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 
 import com.iplusplus.custopoly.model.gamemodel.util.BuildingHolder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Bank {
+public class Bank implements Serializable {
 	private ArrayList<PropertyLand> propertyLands;
 	public ArrayList<Card> communityCards = new ArrayList<>(); //TODO:
 	public ArrayList<Card> chanceCards = new ArrayList<>(); //TODO:

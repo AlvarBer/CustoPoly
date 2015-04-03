@@ -1,5 +1,6 @@
 package com.iplusplus.custopoly.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
@@ -10,8 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
+import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.ThemeHandler;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
@@ -21,6 +24,9 @@ import com.iplusplus.custopoly.model.gamemodel.util.BoardFactory;
 import com.iplusplus.custopoly.model.gamemodel.util.CardFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -70,18 +76,15 @@ public class PreGameActivity extends ActionBarActivity {
                     Game game = initGame(players,theme);
                     initCards(game,theme);
 
-                    //Passes the information of the new game to the Game Activity
+                    //Saves the information of the new game in the memory
+                    try {
+                        SaveGameHandler.getInstance().saveGame(game,"Game");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
+                    //Initiates the  Game Activity
                     Intent myIntent = new Intent(PreGameActivity.this, GameActivity.class);
-                    //TODO: Implement a way to pass a game to the Game Activity
-                    /*myIntent.putExtra("game", game);  THIS DOESN'T WORK
-                    *
-                    * REASON:
-                    * To pass information through a Bundle we need the information to be Serializable or Parceable.
-                    * As game isn't any of this, is impossible to pass information that way. There are other mechanisms such as saving and loading the game in the cache,
-                    * creating a singleton class for game data or make game serializable or parceable (I don't know how to do it)
-                    *
-                    * */
                     PreGameActivity.this.startActivity(myIntent);
                     finish();
                 }

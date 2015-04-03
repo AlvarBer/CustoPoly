@@ -2,11 +2,13 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 
 import android.media.Image;
 
+import java.io.Serializable;
+
 /**
  * Class that holds a single player's token information.
  */
 
-public class Token {
+public class Token implements Serializable {
 	private int landIndex;
 	String imagePath;
 

@@ -1,7 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Board {
+public class Board implements Serializable {
 	
 	private ArrayList<Land> lands;
 	
