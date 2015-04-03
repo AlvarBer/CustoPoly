@@ -2,6 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/activity_init_rl"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -11,7 +12,7 @@
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/teamLogo"
+            android:id="@+id/activity_init_iv_teamLogo"
             android:src="@drawable/logo" android:contentDescription="@string/logoDescription"
             android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
 </RelativeLayout>

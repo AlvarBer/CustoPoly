@@ -17,6 +17,9 @@ import android.view.MenuItem;
 
 public class GameActivity extends ActionBarActivity {
 
+    //Attributes
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
