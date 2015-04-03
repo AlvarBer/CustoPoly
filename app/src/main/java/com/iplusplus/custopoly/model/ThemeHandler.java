@@ -8,6 +8,12 @@ package com.iplusplus.custopoly.model;
 public class ThemeHandler {
 
     private static ThemeHandler INSTANCE;
+    private GameTheme currentTheme;
+
+    /**
+     * Constructor of the class. Private as it's a Singleton class
+     */
+    private ThemeHandler() {}
 
     /**
      * Factory Method for Singleton object.
@@ -18,6 +24,11 @@ public class ThemeHandler {
      *          and then return it.
      */
     public static ThemeHandler getInstance() {
+        if (INSTANCE == null)
+        {
+            // Create the instance
+            INSTANCE = new ThemeHandler();
+        }
         return INSTANCE;
     }
 
@@ -27,7 +38,7 @@ public class ThemeHandler {
      * @param theme
      *              The theme it should change to.
      */
-    public static void switchThemeTo(GameTheme theme) {}
+    public  void switchThemeTo(GameTheme theme) {this.currentTheme = theme;}
 
     /**
      * Method to change the skin on a particular player.
@@ -37,7 +48,7 @@ public class ThemeHandler {
      * @param playerName
      *              Name of the player whose skin we want changed.
      */
-    public static void switchPlayerSkinTo (PlayerSkin skin, String playerName) { }
+    public void switchPlayerSkinTo (PlayerSkin skin, String playerName) { }
 
     /**
      * Method to retrieve a specific player's skin's resource uri.
@@ -47,7 +58,7 @@ public class ThemeHandler {
      * @return
      *              Resource uri to access the image.
      */
-    public static String getPlayerSkinUri(String playerName) {
+    public String getPlayerSkinUri(String playerName) {
         return null;
     }
 
@@ -57,7 +68,7 @@ public class ThemeHandler {
      * @return
      *          The link to the current theme's board graphic asset.
      */
-    public static String getBoardGraphicUri() {
+    public String getBoardGraphicUri() {
         return null;
     }
 
@@ -67,8 +78,8 @@ public class ThemeHandler {
      * @return
      *          The theme currently on use.
      */
-    public static GameTheme getCurrentTheme() {
-        return null;
+    public GameTheme getCurrentTheme() {
+        return this.currentTheme;
     }
 
     /**
@@ -81,3 +92,5 @@ public class ThemeHandler {
      */
     public static PlayerSkin getPlayerSkin (String playerName) {return null;}
 }
+
+

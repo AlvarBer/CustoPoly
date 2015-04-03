@@ -10,13 +10,13 @@ public class Player {
 	private String playerName;
 	private Token token;
 
-	public Player(int playerID, String playerName) {
+	public Player(int playerID, String playerName,String tokenName) {
 		this.playerID = playerID;
 		this.playerName = playerName;
 		this.playerBalance = Game.INITIAL_PAYMENT;
 		this.propertiesOwned = new ArrayList<PropertyLand>();
 		this.propertiesMortgaged = new ArrayList<PropertyLand>();
-		this.token = new Token(playerID);
+		this.token = new Token(tokenName);
 	}
 
 	public String getName() {

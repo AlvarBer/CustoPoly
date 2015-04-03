@@ -10,8 +10,9 @@ public class Token {
 	private int landIndex;
 	String imagePath;
 
-	public Token(int tokenID) {
-		this.imagePath = String.format("assets/tokens/monopoly_token_%d.png", tokenID);
+	public Token(String tokenPath) {
+		this.imagePath = tokenPath;
+		this.landIndex = 0;
 	}
 
 	public void setLocation(int landIndex) {

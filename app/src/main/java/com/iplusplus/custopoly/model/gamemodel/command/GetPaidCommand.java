@@ -7,7 +7,7 @@ import com.iplusplus.custopoly.model.gamemodel.element.Player;
 public class GetPaidCommand implements Command {
 
     @Override
-    public void execute(Game game, Context context) {
+    public void execute(Game game) {
         Player player = game.getCurrentPlayer();
         player.increaseBalance(game.PAYMENT);
     }

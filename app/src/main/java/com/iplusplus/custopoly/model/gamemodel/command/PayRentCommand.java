@@ -2,6 +2,7 @@ package com.iplusplus.custopoly.model.gamemodel.command;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
@@ -12,17 +13,18 @@ import com.iplusplus.custopoly.model.gamemodel.util.RentCalculator;
 public class PayRentCommand implements Command {
 
     @Override
-    public void execute(Game game, Context context) {
+    public void execute(Game game) {
         PropertyLand property = (PropertyLand) getCurrentLand(game);
         int payment = property.acceptCalculator(new RentCalculator(game));
-        makeTransaction(game, context, payment);
+        makeTransaction(game, payment);
     }
 
     protected Land getCurrentLand(Game game) {
         return game.getBoard().getLands().get(game.getCurrentPlayer().getToken().getLandIndex());
     }
 
-    private void makeTransaction(Game game, Context context, int payment) {
+    private void makeTransaction(Game game, int payment) {
+        Context context = Custopoly.getAppContext();
         Player source = game.getCurrentPlayer();
         Player target = game.getOwner((PropertyLand) getCurrentLand(game));
         if (!source.equals(target)) {

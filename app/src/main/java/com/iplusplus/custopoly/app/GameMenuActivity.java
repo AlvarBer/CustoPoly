@@ -1,9 +1,17 @@
 package com.iplusplus.custopoly.app;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
+import com.iplusplus.custopoly.model.gamemodel.element.Player;
+
+import java.util.ArrayList;
 
 /**
  * Corresponds with the game_menu_activity in the mockup.
@@ -22,6 +30,18 @@ public class GameMenuActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
+
+        //Define behaviour of New Button when is pressed
+        final Button button = (Button) findViewById(R.id.newGameButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                //Starts the Pre-Game Activity
+                Intent myIntent = new Intent(GameMenuActivity.this, PreGameActivity.class);
+                GameMenuActivity.this.startActivity(myIntent);
+
+            }
+        });
     }
 
 

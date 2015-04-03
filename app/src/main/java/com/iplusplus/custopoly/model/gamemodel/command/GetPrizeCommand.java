@@ -13,7 +13,7 @@ public class GetPrizeCommand implements Command {
     }
 
     @Override
-    public void execute(Game game, Context context) {
+    public void execute(Game game) {
         Player player = game.getCurrentPlayer();
         player.increaseBalance(prize);
     }
