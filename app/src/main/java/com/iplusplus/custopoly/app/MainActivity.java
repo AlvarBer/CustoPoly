@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
@@ -17,6 +19,12 @@ import java.util.HashSet;
 
 public class MainActivity extends ActionBarActivity {
 
+    //Attributes
+    private Button play;
+    private Button shop;
+    private Button theme;
+    private RelativeLayout layout;
+    private TextView title;
 
     //Methods
     @Override
@@ -24,14 +32,25 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+       //Associate the components of the XML file to the class attributes
+        this.title = (TextView) findViewById(R.id.activity_main_tv_title);
+        this.play = (Button) findViewById(R.id.activity_main_btn_play);
+        this.shop = (Button) findViewById(R.id.activity_main_btn_shop);
+        this.theme = (Button) findViewById(R.id.activity_main_btn_theme);
+        this.layout = (RelativeLayout) findViewById(R.id.activity_main_rl);
+
+
         //Define behaviour of Play Button when is pressed
-        final Button button = (Button) findViewById(R.id.playButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        play.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this, GameMenuActivity.class);
                 MainActivity.this.startActivity(myIntent);
             }
         });
+
+        //Disable the other buttons until their activities were implemented
+        shop.setEnabled(false);
+        theme.setEnabled(false);
 
 
     }

@@ -1,17 +1,14 @@
 package com.iplusplus.custopoly.app;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import com.iplusplus.custopoly.model.gamemodel.element.Game;
-import com.iplusplus.custopoly.model.gamemodel.element.Player;
-
-import java.util.ArrayList;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * Corresponds with the game_menu_activity in the mockup.
@@ -26,14 +23,26 @@ import java.util.ArrayList;
 
 public class GameMenuActivity extends ActionBarActivity {
 
+    //Atttributes
+    private RelativeLayout layout;
+    private TextView title;
+    private Button newGame;
+    private Button loadGame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
 
+        //Associate the components of the XML file to the class attributes
+        this.layout = (RelativeLayout) findViewById(R.id.activity_game_menu_rl);
+        this.title = (TextView) findViewById(R.id.activity_game_menu_tv_title);
+        this.newGame = (Button) findViewById(R.id.activity_game_menu_btn_newGame);
+        this.loadGame = (Button) findViewById(R.id.activity_game_menu_btn_loadGame);
+
+
         //Define behaviour of New Button when is pressed
-        final Button button = (Button) findViewById(R.id.newGameButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        newGame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 //Starts the Pre-Game Activity

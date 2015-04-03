@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
 import com.iplusplus.custopoly.model.ThemeHandler;
@@ -36,21 +38,33 @@ import java.util.Iterator;
 
 public class PreGameActivity extends ActionBarActivity {
 
+    //Attributes
+    private TextView title;
+    private Button play;
+    private RelativeLayout layout;
+    private HashSet<PlayerSkin> skins;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_game);
 
+        //Save the skins of the theme as an attribute
         final GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
+        this.skins = theme.getPlayerSkinsList();
+
+        //Associate the components of the XML file to the class attributes
+        this.layout = (RelativeLayout) findViewById(R.id.activity_pre_game_rl);
+        this.play = (Button) findViewById(R.id.activity_pre_game_btn_play);
+        this.title = (TextView) findViewById(R.id.activity_game_menu_tv_title);
 
 
         //Define behaviour of Play Button when is pressed
-            final Button button = (Button) findViewById(R.id.playPreGameButton);
-            button.setOnClickListener(new View.OnClickListener() {
+            play.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
                     //Get the information of the players from the view
-                    ArrayList<Player> players = getPlayers(theme.getPlayerSkinsList());
+                    ArrayList<Player> players = getPlayers();
 
                     //Initiates a new game using the players introduced by the user
                     Game game = initGame(players,theme);
@@ -124,10 +138,9 @@ public class PreGameActivity extends ActionBarActivity {
      * This function is in charge of collecting the information of the players of the game from the view.
      * Now is configured to return a list of default players just for DEBUGGING
      *
-     * @param skins This parameter is NOT definitive. Just for getting the skins for the default players
      * @return A list of players that will participate in the game
      */
-    private ArrayList<Player> getPlayers(HashSet<PlayerSkin> skins) {
+    private ArrayList<Player> getPlayers() {
         ArrayList<Player> players = new ArrayList<Player>();
 
         //Just for debugging, a default game is created with 2 players

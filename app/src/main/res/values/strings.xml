@@ -46,4 +46,8 @@
     <string name="newGameButtonText">New Game</string>
     <string name="loadGameButtonText">Load Game</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="inputNameText">Enter a name</string>
+
 </resources>
