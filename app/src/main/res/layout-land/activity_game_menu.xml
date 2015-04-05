@@ -10,34 +10,27 @@
                 android:background="@android:color/holo_blue_dark" android:id="@+id/activity_game_menu_rl">
 
     <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/gameMenuTitleText"
-            android:id="@+id/activity_game_menu_tv_title"
-        android:width="180dp" android:gravity="center" android:textSize="45sp"
-        android:textColor="#ffffffff"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            android:id="@+id/activity_game_menu_tv_title" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:width="180dp" android:gravity="center" android:textSize="35dp"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/newGameButtonText"
             android:id="@+id/activity_game_menu_btn_newGame"
-        android:textSize="30dp"
+            android:layout_marginLeft="43dp" android:layout_marginStart="43dp"
+            android:textSize="30dp"
             android:width="200dp" android:height="100dp"
-        android:clickable="true" android:enabled="true"
-        android:layout_above="@+id/activity_game_menu_btn_loadGame"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp" />
+            android:layout_centerVertical="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:clickable="true" android:enabled="true"/>
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/loadGameButtonText"
             android:id="@+id/activity_game_menu_btn_loadGame"
             android:textSize="30dp" android:width="200dp" android:height="100dp"
-        android:clickable="true" android:enabled="true"
-        android:layout_marginBottom="52dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/activity_game_menu_btn_newGame"
-        android:layout_alignStart="@+id/activity_game_menu_btn_newGame" />
+            android:layout_marginRight="49dp"
+            android:layout_marginEnd="49dp" android:layout_alignTop="@+id/activity_game_menu_btn_newGame"
+            android:layout_alignRight="@+id/activity_game_menu_tv_title" android:layout_alignEnd="@+id/activity_game_menu_tv_title"
+            android:clickable="true" android:enabled="true"/>
 </RelativeLayout>

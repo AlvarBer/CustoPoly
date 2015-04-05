@@ -14,6 +14,5 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_init_iv_teamLogo"
             android:src="@drawable/logo" android:contentDescription="@string/logoDescription"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+            android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
 </RelativeLayout>
