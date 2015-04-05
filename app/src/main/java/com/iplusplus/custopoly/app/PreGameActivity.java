@@ -1,6 +1,6 @@
 package com.iplusplus.custopoly.app;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
@@ -9,12 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.iplusplus.custopoly.Custopoly;
+import android.widget.ViewFlipper;
+
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
-import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.ThemeHandler;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
@@ -24,73 +25,112 @@ import com.iplusplus.custopoly.model.gamemodel.util.BoardFactory;
 import com.iplusplus.custopoly.model.gamemodel.util.CardFactory;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-/**
- * Corresponds with the player_selection_activity in the mockup.
- *
- * Allows to choose and start a game by selecting players and giving them names.
- * Maybe this can be done through settings?
- *
- * Access to the model is doe via ModelFacade.getInstance().[methodname]
- *  EXAMPLE:
- *          ModelFacade.getInstance().switchThemeTo(Themes.THEME1);
- */
+//TODO In all the activities.java the uppercase R doesn't work I have look on internet and it
+//TODO says that is an Android Studio failure, but it builds ok.
 
-public class PreGameActivity extends ActionBarActivity {
+public class PreGameActivity extends ActionBarActivity implements View.OnClickListener {
 
-    //Attributes
-    private TextView title;
-    private Button play;
-    private RelativeLayout layout;
-    private HashSet<PlayerSkin> skins;
+    private CheckBox checkPlayer2,checkPlayer3,checkPlayer4;
+    private Button bPlay,bCancel;
+    private ViewFlipper flipperPlayer1, flipperPlayer2, flipperPlayer3, flipperPlayer4;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_game);
+        //First I initialize all the items of the UI
+        this.bPlay = (Button)findViewById(R.id.bPlay);
+        this.bCancel = (Button)findViewById(R.id.bCancel);
+        this.checkPlayer2 = (CheckBox)findViewById(R.id.checkPlayer2);
+        this.checkPlayer3 = (CheckBox)findViewById(R.id.checkPlayer3);
+        this.checkPlayer4 = (CheckBox)findViewById(R.id.checkPlayer4);
+        this.flipperPlayer1 = (ViewFlipper)findViewById(R.id.FlipperPlayer1);
+        this.flipperPlayer2 = (ViewFlipper)findViewById(R.id.FlipperPlayer2);
+        this.flipperPlayer3 = (ViewFlipper)findViewById(R.id.FlipperPlayer3);
+        this.flipperPlayer4 = (ViewFlipper)findViewById(R.id.FlipperPlayer4);
 
-        //Save the skins of the theme as an attribute
-        final GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-        this.skins = theme.getPlayerSkinsList();
+        //Then I set the listeners for each item
+        this.bCancel.setOnClickListener(this);
+        this.bPlay.setOnClickListener(this);
+        this.checkPlayer2.setOnClickListener(this);
+        this.checkPlayer3.setOnClickListener(this);
+        this.checkPlayer4.setOnClickListener(this);
+        this.flipperPlayer1.setOnClickListener(this);
+        this.flipperPlayer2.setOnClickListener(this);
+        this.flipperPlayer3.setOnClickListener(this);
+        this.flipperPlayer4.setOnClickListener(this);
 
-        //Associate the components of the XML file to the class attributes
-        this.layout = (RelativeLayout) findViewById(R.id.activity_pre_game_rl);
-        this.play = (Button) findViewById(R.id.activity_pre_game_btn_play);
-        this.title = (TextView) findViewById(R.id.activity_game_menu_tv_title);
-
-
-        //Define behaviour of Play Button when is pressed
-            play.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
-                    //Get the information of the players from the view
-                    ArrayList<Player> players = getPlayers();
-
-                    //Initiates a new game using the players introduced by the user
-                    Game game = initGame(players,theme);
-                    initCards(game,theme);
-
-                    //Saves the information of the new game in the memory
-                    try {
-                        SaveGameHandler.getInstance().saveGame(game,"Game");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //Initiates the  Game Activity
-                    Intent myIntent = new Intent(PreGameActivity.this, GameActivity.class);
-                    PreGameActivity.this.startActivity(myIntent);
-                    finish();
-                }
-        });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.bPlay:
+                Intent play = new Intent(PreGameActivity.this, GameActivity.class);
+                startActivity(play);
+                break;
+            case R.id.bCancel:
+                Intent cancel = new Intent(PreGameActivity.this, MainActivity.class);
+                startActivity(cancel);
+                break;
+            case R.id.checkPlayer2:
+                if(!this.checkPlayer3.isChecked()) {
+                    this.flipperPlayer2.setEnabled(true);
+                    this.checkPlayer3.setChecked(true);
+                    //TODO here we should call a method to enable player 2 in the game, the same
+                    //TODO for players 3 and 4, in the following checkers
+                }
+                else {
+                    this.flipperPlayer2.setEnabled(false);
+                    this.checkPlayer3.setChecked(false);
+                    //TODO the same as above but disable
+                }
+                break;
+            case R.id.checkPlayer3:
+                if(!this.checkPlayer3.isChecked()) {
+                    this.flipperPlayer3.setEnabled(true);
+                    this.checkPlayer3.setChecked(true);
+                }
+                else {
+                    this.flipperPlayer3.setEnabled(false);
+                    this.checkPlayer3.setChecked(false);
+                }
+                break;
+            case R.id.checkPlayer4:
+                if(!this.checkPlayer4.isChecked()) {
+                    this.flipperPlayer4.setEnabled(true);
+                    this.checkPlayer4.setChecked(true);
+                }
+                else {
+                    this.flipperPlayer4.setEnabled(false);
+                    this.checkPlayer4.setChecked(false);
+                }
+                break;
+            case R.id.FlipperPlayer1:
+                    this.flipperPlayer1.showNext();
+                break;
+            case R.id.FlipperPlayer2:
+                if(this.flipperPlayer2.isEnabled()) {
+                    this.flipperPlayer2.showNext();
+                }
+                break;
+            case R.id.FlipperPlayer3:
+                if(this.flipperPlayer3.isEnabled()) {
+                    this.flipperPlayer3.showNext();
+                }
+                break;
+            case R.id.FlipperPlayer4:
+                if(this.flipperPlayer4.isEnabled()) {
+                    this.flipperPlayer4.showNext();
+                }
+        }
+    }
+
+    //TODO the following methods I think that are not in the right place we have to talk this
+    //TODO on next meeting
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,5 +198,6 @@ public class PreGameActivity extends ActionBarActivity {
 
         return players;
     }
+
 
 }

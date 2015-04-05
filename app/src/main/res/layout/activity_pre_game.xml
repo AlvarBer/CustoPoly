@@ -14,10 +14,210 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/preGameTitleText"
-            android:id="@+id/activity_pre_game_tv_title" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+            android:id="@+id/activity_pre_game_tv_title" android:layout_alignParentTop="true"
+        android:textColor="#fffbfbff"
+        android:layout_centerInParent="true"
+        android:elegantTextHeight="false"
+        android:gravity="top|center"
+        android:textStyle="bold"
+        android:textSize="@dimen/PregameTitleSize" />
+
     <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/bCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Play"
+        android:id="@+id/bPlay"
+        android:layout_above="@+id/bCancel"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkPlayer2"
+        android:checked="false"
+        android:text="Player 2"
+        android:clickable="true"
+        android:enabled="true"
+        android:gravity="center_vertical|end"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/abc_text_size_title_material_toolbar"
+        android:layout_above="@+id/FlipperPlayer4"
+        android:layout_alignRight="@+id/activity_pre_game_tv_title"
+        android:layout_alignEnd="@+id/activity_pre_game_tv_title" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkPlayer3"
+        android:checked="false"
+        android:text="Player 3"
+        android:clickable="false"
+        android:enabled="true"
+        android:gravity="center_vertical|end"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/abc_text_size_title_material_toolbar"
+        android:layout_above="@+id/bPlay"
+        android:layout_alignLeft="@+id/player1"
+        android:layout_alignStart="@+id/player1" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkPlayer4"
+        android:checked="false"
+        android:text="Player 4"
+        android:clickable="true"
+        android:enabled="true"
+        android:gravity="center_vertical|end"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/abc_text_size_title_material_toolbar"
+        android:layout_above="@+id/bPlay"
+        android:layout_alignLeft="@+id/checkPlayer2"
+        android:layout_alignStart="@+id/checkPlayer2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Player 1"
+        android:id="@+id/player1"
+        android:textSize="23dp"
+        android:textIsSelectable="false"
+        android:textColor="#ffffffff"
+        android:layout_above="@+id/FlipperPlayer3"
+        android:layout_alignLeft="@+id/activity_pre_game_tv_title"
+        android:layout_alignStart="@+id/activity_pre_game_tv_title" />
+
+    <ViewFlipper
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/FlipperPlayer1"
+        android:layout_above="@+id/player1"
+        android:layout_alignLeft="@+id/player1"
+        android:layout_alignStart="@+id/player1"
+        android:background="#D2691E"
+        android:clickable="true"
+        android:enabled="true">
+
+        <ImageView
+            android:id="@+id/Flipper1Image1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/playPreGameButtonText"
-            android:id="@+id/activity_pre_game_btn_play" android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+            android:src="@drawable/logo"
+            android:clickable="false" />
+
+        <ImageView
+        android:id="@+id/Flipper1Image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_back"/>
+    <ImageView
+        android:id="@+id/Flipper1Image3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_forward"/>
+
+    </ViewFlipper>
+
+
+    <ViewFlipper
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/FlipperPlayer2"
+        android:layout_alignBottom="@+id/FlipperPlayer2"
+        android:layout_alignLeft="@+id/checkPlayer2"
+        android:layout_alignStart="@+id/checkPlayer2"
+        android:background="#D2691E"
+        android:clickable="true"
+        android:enabled="false">
+
+        <ImageView
+            android:id="@+id/Flipper2Image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:clickable="false" />
+
+        <ImageView
+            android:id="@+id/Flipper2Image2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_back"/>
+        <ImageView
+            android:id="@+id/Flipper2Image3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_forward"/>
+
+    </ViewFlipper>
+
+    <ViewFlipper
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/FlipperPlayer3"
+        android:layout_above="@+id/checkPlayer3"
+        android:layout_alignLeft="@+id/checkPlayer3"
+        android:layout_alignStart="@+id/checkPlayer3"
+        android:background="#D2691E"
+        android:clickable="true"
+        android:enabled="false">
+
+    <ImageView
+        android:id="@+id/Flipper3Image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:clickable="false" />
+    <ImageView
+        android:id="@+id/Flipper3Image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_back"/>
+    <ImageView
+        android:id="@+id/Flipper3Image3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_forward"/>
+</ViewFlipper>
+
+
+    <ViewFlipper
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/FlipperPlayer4"
+        android:layout_above="@+id/checkPlayer4"
+        android:layout_alignLeft="@+id/checkPlayer4"
+        android:layout_alignStart="@+id/checkPlayer4"
+        android:background="#D2691E"
+        android:clickable="true"
+        android:enabled="false">
+
+    <ImageView
+        android:id="@+id/Flipper4Image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:clickable="false" />
+    <ImageView
+        android:id="@+id/Flipper4Image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_back"/>
+    <ImageView
+        android:id="@+id/Flipper4Image3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_forward"/>
+    </ViewFlipper>
+
 </RelativeLayout>
