@@ -123,7 +123,10 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_action_forward"/>
 
-        <TextView
+
+    </ViewFlipper>
+
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -131,10 +134,7 @@
             android:id="@+id/player1"
             android:textSize="23sp"
             android:textIsSelectable="false"
-            android:textColor="#ffffffff" />
-
-    </ViewFlipper>
-
+            android:textColor="#ffffffff"/>
 
     <ViewFlipper
         android:layout_width="120dp"
@@ -144,8 +144,8 @@
         android:clickable="true"
         android:enabled="false"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/player1"
-        android:layout_alignStart="@+id/player1">
+        android:layout_alignLeft="@id/player1"
+        android:layout_alignStart="@id/player1">
 
         <ImageView
             android:id="@+id/Flipper2Image1"
