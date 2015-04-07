@@ -9,7 +9,6 @@ import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
-//TODO: Esta clase implementa onClicklistener para poder mantener flags de selecciones.
 public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
 
     private boolean buyOrNot;

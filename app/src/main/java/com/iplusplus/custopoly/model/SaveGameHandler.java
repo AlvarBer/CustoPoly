@@ -2,7 +2,9 @@ package com.iplusplus.custopoly.model;
 
 import android.content.Context;
 import com.iplusplus.custopoly.Custopoly;
+import com.iplusplus.custopoly.app.MainActivity;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
+import com.iplusplus.custopoly.app.R;
 
 import java.io.*;
 
@@ -14,6 +16,8 @@ import java.io.*;
  */
 
 public class SaveGameHandler {
+
+    private String GENERIC_GAME_NAME = Custopoly.getAppContext().getString(R.string.generic_game_name);
 
         private static SaveGameHandler INSTANCE;
         /**
@@ -55,6 +59,22 @@ public class SaveGameHandler {
     }
 
     /**
+     * Save a Custopoly game to a file. NO NAME
+     *
+     * @param game The {@link Game} to save.
+     * @throws IOException When there is an error saving the game
+     */
+    public void saveGame(Game game) throws IOException {
+        Context context = Custopoly.getAppContext();
+        FileOutputStream fos = context.openFileOutput(this.GENERIC_GAME_NAME,
+                Context.MODE_PRIVATE);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(game);
+        oos.close();
+        fos.close();
+    }
+
+    /**
      * Load a game from a file
      *
      * @param name The file name from which the game should be loaded
@@ -69,6 +89,29 @@ public class SaveGameHandler {
         if (file.exists()) {
             FileInputStream fis;
             fis = context.openFileInput(name);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Game game = (Game) ois.readObject();
+            ois.close();
+            fis.close();
+            return game;
+        }
+        return null;
+    }
+
+    /**
+     * Load a game from a file, the game saved under the generic_game_name resource name.
+     *
+     * @return A {@link Game}, representing the loaded game
+     * @throws IOException            When there is an error while loading the game
+     * @throws ClassNotFoundException When there is an error while loading the game
+     */
+    public Game loadGame()
+            throws IOException, ClassNotFoundException {
+        Context context = Custopoly.getAppContext();
+        File file = new File(context.getFilesDir(), this.GENERIC_GAME_NAME);
+        if (file.exists()) {
+            FileInputStream fis;
+            fis = context.openFileInput(this.GENERIC_GAME_NAME);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Game game = (Game) ois.readObject();
             ois.close();
