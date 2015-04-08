@@ -1,8 +1,6 @@
 #CustoPoly#
 ![CustoPolyLogo] (http://i.imgur.com/8FYM0Ci.png)
 
-##DISCLAIMER##
-This repo is just a **BACKUP** , as such expect it to only be updated occasionaly, if you want the latest updates go to [the github repo](https://github.com/Mortadelegle/CustoPoly)
 
 ###What's this?###
 Wanted to play a game of custoPoly in your phone your own way? Search no more!
