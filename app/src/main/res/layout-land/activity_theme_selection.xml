@@ -1,16 +1,213 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.iplusplus.custopoly.app.ThemeSelectionActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.iplusplus.custopoly.app.ThemeSelectionActivity"
+    android:background="@android:color/holo_blue_dark">
+
+    <ImageView
+        android:id="@+id/theme1"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_alignBottom="@+id/bTheme2"
+        android:layout_toRightOf="@+id/bTheme1"
+        android:layout_toEndOf="@+id/bTheme1" />
+
+    <ImageView
+        android:id="@+id/theme2"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_below="@+id/textView2"
+        android:layout_toRightOf="@+id/bTheme2"
+        android:layout_toEndOf="@+id/bTheme2"
+        android:layout_marginTop="32dp" />
+
+    <ImageView
+        android:id="@+id/theme3"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_alignTop="@+id/theme2"
+        android:layout_toRightOf="@+id/bTheme3"
+        android:layout_toEndOf="@+id/bTheme3" />
+
+    <ImageView
+        android:id="@+id/theme4"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_alignTop="@+id/theme3"
+        android:layout_toRightOf="@+id/bTheme4"
+        android:layout_toEndOf="@+id/bTheme4" />
+
+    <ImageView
+        android:id="@+id/theme5"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_alignBottom="@+id/bTheme5"
+        android:layout_toRightOf="@+id/bTheme5"
+        android:layout_toEndOf="@+id/bTheme5" />
+
+    <ImageView
+        android:id="@+id/theme6"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_alignTop="@+id/theme8"
+        android:layout_toRightOf="@+id/bTheme6"
+        android:layout_toEndOf="@+id/bTheme6" />
+
+    <ImageView
+        android:id="@+id/theme7"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/bTheme7"
+        android:layout_toEndOf="@+id/bTheme7" />
+
+    <ImageView
+        android:id="@+id/theme8"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo"
+        android:clickable="false"
+        android:background="#D2691E"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/bTheme4"
+        android:layout_toEndOf="@+id/bTheme4" />
 
     <TextView
-            android:text="@string/hello_world"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Select a theme"
+        android:id="@+id/textView2"
+        android:textSize="38sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/bTheme1"
+        android:enabled="true"
+        android:checked="true"
+        android:layout_alignTop="@+id/bTheme2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:id="@+id/bTheme2"
+        android:enabled="false"
+        android:checked="false"
+        android:layout_alignBottom="@+id/theme2"
+        android:layout_toRightOf="@+id/theme1"
+        android:layout_toEndOf="@+id/theme1" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:id="@+id/bTheme3"
+        android:enabled="false"
+        android:checked="false"
+        android:layout_alignBottom="@+id/theme2"
+        android:layout_toRightOf="@+id/theme2"
+        android:layout_toEndOf="@+id/theme2" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4"
+        android:id="@+id/bTheme4"
+        android:checked="false"
+        android:layout_alignBottom="@+id/theme3"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:id="@+id/bTheme5"
+        android:enabled="false"
+        android:checked="false"
+        android:layout_alignBaseline="@+id/bTheme7"
+        android:layout_alignBottom="@+id/bTheme7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6"
+        android:id="@+id/bTheme6"
+        android:enabled="false"
+        android:checked="false"
+        android:layout_alignBottom="@+id/theme5"
+        android:layout_toLeftOf="@+id/theme2"
+        android:layout_toStartOf="@+id/theme2" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="7"
+        android:id="@+id/bTheme7"
+        android:enabled="false"
+        android:checked="false"
+        android:layout_alignBottom="@+id/theme6"
+        android:layout_toRightOf="@+id/theme6"
+        android:layout_toEndOf="@+id/theme6" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="8"
+        android:id="@+id/bTheme8"
+        android:enabled="false"
+        android:checked="false"
+        android:layout_alignBottom="@+id/theme8"
+        android:layout_toLeftOf="@+id/theme8"
+        android:layout_toStartOf="@+id/theme8" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bBack"
+        android:layout_above="@+id/theme2"
+        android:drawableLeft="@drawable/ic_action_back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Back" />
+
 
 </RelativeLayout>

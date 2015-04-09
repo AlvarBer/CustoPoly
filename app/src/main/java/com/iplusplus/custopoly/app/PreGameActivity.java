@@ -61,7 +61,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         this.flipperPlayer4 = (ViewFlipper)findViewById(R.id.FlipperPlayer4);
         //UNDER CONSTRUCTION
         //this.imagePlayer1 = (ImageView)findViewById(R.id.ImageForPlayer1);
-
         //Then I set the listeners for each item
         this.bCancel.setOnClickListener(this);
         this.bPlay.setOnClickListener(this);
@@ -78,8 +77,8 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
+    public void onClick(View v) {//function called from the click listener by default
+        switch(v.getId()) {//the switch gets the id of the item clicked
             case R.id.bPlay:
                 //Create and save game.
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
@@ -90,7 +89,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 //Switch activities.
                 Intent play = new Intent(PreGameActivity.this, GameActivity.class);
                 startActivity(play);
@@ -100,9 +98,8 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 startActivity(cancel);
                 break;
             case R.id.checkPlayer2:
-                if (!this.checkPlayer2.isChecked()) {
+                if (this.checkPlayer2.isChecked()) {
                     this.flipperPlayer2.setEnabled(true);
-                    this.checkPlayer2.setChecked(true);
                     //TODO here we should call a method to enable player 2 in the game, the same
                     //TODO for players 3 and 4, in the following checkers
                     Player player2 = new Player(1, "Player2", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
@@ -111,7 +108,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 }
                 else {
                     this.flipperPlayer2.setEnabled(false);
-                    this.checkPlayer2.setChecked(false);
                     this.checkPlayer3.setEnabled(false);
                     this.checkPlayer4.setEnabled(false);
                     //We may need to remove this
@@ -123,17 +119,14 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 }
                 break;
             case R.id.checkPlayer3:
-                if(!this.checkPlayer3.isChecked()) {
+                if(this.checkPlayer3.isChecked()) {
                     this.flipperPlayer3.setEnabled(true);
-                    this.checkPlayer3.setChecked(true);
                     this.checkPlayer4.setEnabled(true);
                     Player player3 = new Player(2, "Player3", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
                     this.players.add(player3);
                 }
                 else {
                     this.flipperPlayer3.setEnabled(false);
-                    this.checkPlayer3.setChecked(false);
-
                     this.checkPlayer4.setEnabled(false);
                     for (int i = 2; i < this.players.size(); i++) {
                         this.players.remove(i);
@@ -141,19 +134,17 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 }
                 break;
             case R.id.checkPlayer4:
-                if(!this.checkPlayer4.isChecked()) {
+                if(this.checkPlayer4.isChecked()) {
                     this.flipperPlayer4.setEnabled(true);
-                    this.checkPlayer4.setChecked(true);
                     Player player4 = new Player(3, "Player4", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
                     this.players.add(player4);
                 }
                 else {
                     this.flipperPlayer4.setEnabled(false);
-                    this.checkPlayer4.setChecked(false);
                     this.players.remove(3);
                 }
                 break;
-            case R.id.FlipperPlayer1:
+            case R.id.FlipperPlayer1://TODO: in each flipper is where you should change the skin you can do it by checking the id of the image
                     this.flipperPlayer1.showNext();
                 break;
             case R.id.FlipperPlayer2:
@@ -175,8 +166,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         }
     }
 
-    //TODO the following methods I think that are not in the right place we have to talk this
-    //TODO on next meeting
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -185,7 +174,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         return true;
     }
 
-    @Override
+    @Override//TODO this may be erased, is here because it could be needed
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
