@@ -9,12 +9,13 @@ public class ThemeHandler {
 
     private static ThemeHandler INSTANCE;
     private GameTheme currentTheme; 
+    private ShopKeeper shop;
     
     /**
      * Constructor of the class. Private as it's a Singleton class
      */
     private ThemeHandler() {
-    	    	
+        shop = new ShopKeeper();    	
     }
 
     /**
@@ -34,15 +35,15 @@ public class ThemeHandler {
 
     
 
-    /*public boolean changePlayerSkin(Player p, PlayerSkin s) {
+    public boolean changePlayerSkin(Player p, PlayerSkin s) {
     	boolean changed = false;
     	
-    	if (isPlayerSkinPurchased(s))
+    	if (this.shop.isPlayerSkinPurchased(s))
     		changed = true;
-    		// p.setSkin(s); TODO Falta por implementar en la clase Player
+    		// setSkin(s); TODO Falta por implementar en la clase Player
     	
     	return changed;
-    }/*
+    }
 
     
     /**
