@@ -33,8 +33,8 @@ public class ThemeHandler {
     }
 
     
-    
-    public boolean changePlayerSkin(Player p, PlayerSkin s) {
+
+    /*public boolean changePlayerSkin(Player p, PlayerSkin s) {
     	boolean changed = false;
     	
     	if (isPlayerSkinPurchased(s))
@@ -42,8 +42,8 @@ public class ThemeHandler {
     		// p.setSkin(s); TODO Falta por implementar en la clase Player
     	
     	return changed;
-    }
-     
+    }/*
+
     
     /**
      * Method to change the current theme.
