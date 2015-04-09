@@ -1,5 +1,7 @@
 package com.iplusplus.custopoly.model;
 
+import com.iplusplus.custopoly.model.gamemodel.element.Player;
+
 /**
  * Class that has to:
  *      Store information about what theme is being used.
@@ -9,12 +11,15 @@ public class ThemeHandler {
 
     private static ThemeHandler INSTANCE;
     private GameTheme currentTheme; 
+    private ShopKeeper shop;
+
     
     /**
      * Constructor of the class. Private as it's a Singleton class
      */
     private ThemeHandler() {
-    	    	
+        //Commented because broken
+        //shop = new ShopKeeper();
     }
 
     /**
@@ -32,18 +37,16 @@ public class ThemeHandler {
         return INSTANCE;
     }
 
-    
-
-    /*public boolean changePlayerSkin(Player p, PlayerSkin s) {
+    public boolean changePlayerSkin(Player p, PlayerSkin s) {
     	boolean changed = false;
     	
-    	if (isPlayerSkinPurchased(s))
-    		changed = true;
-    		// p.setSkin(s); TODO Falta por implementar en la clase Player
+    	if (this.shop.isPlayerSkinPurchased(s)) {
+            changed = true;
+            // setSkin(s); TODO Falta por implementar en la clase Player
+        }
     	
     	return changed;
-    }/*
-
+    }
     
     /**
      * Method to change the current theme.
@@ -113,5 +116,3 @@ public class ThemeHandler {
     
     
 }
-
-
