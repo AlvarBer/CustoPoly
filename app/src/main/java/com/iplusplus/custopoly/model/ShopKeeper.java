@@ -299,6 +299,26 @@ public class ShopKeeper {
     {
         return purchasedThemesList.contains(theme);
     }
+    
+     /**
+     * Method to get a purchased theme by name
+     *
+     * @param themeName
+     *              The theme name.
+     * @return
+     *              The theme with that name. Null if it doesnt exis
+     */
+    public GameTheme getPurchasedTheme(String themeName)
+    {
+	for(GameTheme theme: purchasedThemeList)
+        {
+            if(theme.getName().equals(themeName)) {
+                return theme;
+            }
+        }
+        
+        return null;
+    }
 
     /**
      * Method to buy a theme.
@@ -350,6 +370,26 @@ public class ShopKeeper {
     public boolean isPlayerSkinPurchased (PlayerSkin skin)
     {
         return purchasedPlayerSkinsList.contains(skin);
+    }
+    
+     /**
+     * Method to get a purchased skin by name
+     *
+     * @param skinName
+     *              The Skin name.
+     * @return
+     *              The Skin with that name. Null if it doesnt exists
+     */
+    public GameTheme getPurchasedSkin(String skinName)
+    {
+	for(PlayerSkin skin: purchasedPlayerSkinsList)
+        {
+            if(skin.getName().equals(skinName)) {
+                return skin;
+            }
+        }
+        
+        return null;
     }
 
     /**
