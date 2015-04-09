@@ -8,12 +8,14 @@ package com.iplusplus.custopoly.model;
 public class ThemeHandler {
 
     private static ThemeHandler INSTANCE;
-    private GameTheme currentTheme;
-
+    private GameTheme currentTheme; 
+    
     /**
      * Constructor of the class. Private as it's a Singleton class
      */
-    private ThemeHandler() {}
+    private ThemeHandler() {
+    	    	
+    }
 
     /**
      * Factory Method for Singleton object.
@@ -24,21 +26,34 @@ public class ThemeHandler {
      *          and then return it.
      */
     public static ThemeHandler getInstance() {
-        if (INSTANCE == null)
-        {
-            // Create the instance
-            INSTANCE = new ThemeHandler();
+        if (INSTANCE == null) {
+            INSTANCE = new ThemeHandler(); // Create the instance
         }
         return INSTANCE;
     }
 
+    
+    
+    public boolean changePlayerSkin(Player p, PlayerSkin s) {
+    	boolean changed = false;
+    	
+    	if (isPlayerSkinPurchased(s))
+    		changed = true;
+    		// p.setSkin(s); TODO Falta por implementar en la clase Player
+    	
+    	return changed;
+    }
+     
+    
     /**
      * Method to change the current theme.
      *
      * @param theme
      *              The theme it should change to.
      */
-    public  void switchThemeTo(GameTheme theme) {this.currentTheme = theme;}
+    public  void switchThemeTo(GameTheme theme) {
+    	this.currentTheme = theme;
+    }
 
     /**
      * Method to change the skin on a particular player.
@@ -48,7 +63,9 @@ public class ThemeHandler {
      * @param playerName
      *              Name of the player whose skin we want changed.
      */
-    public void switchPlayerSkinTo (PlayerSkin skin, String playerName) { }
+    public void switchPlayerSkinTo (PlayerSkin skin, String playerName) {
+    	
+    }
 
     /**
      * Method to retrieve a specific player's skin's resource uri.
@@ -90,7 +107,11 @@ public class ThemeHandler {
      * @return
      *              The skin of the player.
      */
-    public static PlayerSkin getPlayerSkin (String playerName) {return null;}
+    public static PlayerSkin getPlayerSkin (String playerName) {
+    	return null;
+    }
+    
+    
 }
 
 
