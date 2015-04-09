@@ -1,19 +1,11 @@
 package com.iplusplus.custopoly.model;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
-
+import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.util.Xml;
+import java.io.*;
+import java.util.HashSet;
 
 /**
  * SINGLETON class that has to:
@@ -310,7 +302,7 @@ public class ShopKeeper {
      */
     public GameTheme getPurchasedTheme(String themeName)
     {
-	for(GameTheme theme: purchasedThemeList)
+	for(GameTheme theme: purchasedThemesList)
         {
             if(theme.getName().equals(themeName)) {
                 return theme;
@@ -380,7 +372,7 @@ public class ShopKeeper {
      * @return
      *              The Skin with that name. Null if it doesnt exists
      */
-    public GameTheme getPurchasedSkin(String skinName)
+    public PlayerSkin getPurchasedSkin(String skinName)
     {
 	for(PlayerSkin skin: purchasedPlayerSkinsList)
         {
