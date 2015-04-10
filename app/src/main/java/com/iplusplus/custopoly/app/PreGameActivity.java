@@ -31,13 +31,13 @@ import java.util.Iterator;
 
 public class PreGameActivity extends ActionBarActivity implements View.OnClickListener {
 
+
     private CheckBox checkPlayer2,checkPlayer3,checkPlayer4;
     private Button bPlay,bCancel;
     private ViewFlipper flipperPlayer1, flipperPlayer2, flipperPlayer3, flipperPlayer4;
+    private ImageView skinIm1, skinIm2, skinIm3;//TODO if you want to insert an image, the image added should be in the xml file and here (see getskinsView())
     private ArrayList<Player> players;
     private GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-    //fIELDS UNDER COSNTRUCTION
-    private ImageView imagePlayer1;
     private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +55,16 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         this.checkPlayer2 = (CheckBox)findViewById(R.id.checkPlayer2);
         this.checkPlayer3 = (CheckBox)findViewById(R.id.checkPlayer3);
         this.checkPlayer4 = (CheckBox)findViewById(R.id.checkPlayer4);
+
+        //here I initialize the flippers
         this.flipperPlayer1 = (ViewFlipper)findViewById(R.id.FlipperPlayer1);
+        this.flipperPlayer1.addChildrenForAccessibility(getSkinsView());
         this.flipperPlayer2 = (ViewFlipper)findViewById(R.id.FlipperPlayer2);
+        this.flipperPlayer2.addChildrenForAccessibility(getSkinsView());
         this.flipperPlayer3 = (ViewFlipper)findViewById(R.id.FlipperPlayer3);
+        this.flipperPlayer3.addChildrenForAccessibility(getSkinsView());
         this.flipperPlayer4 = (ViewFlipper)findViewById(R.id.FlipperPlayer4);
+        this.flipperPlayer4.addChildrenForAccessibility(getSkinsView());
         //UNDER CONSTRUCTION
         //this.imagePlayer1 = (ImageView)findViewById(R.id.ImageForPlayer1);
         //Then I set the listeners for each item
@@ -231,6 +237,16 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         players.add(player2);
 
         return players;
+    }
+
+    private ArrayList<View> getSkinsView() { // here I add the images in the arrayList so I can put them in the flippers;
+        ArrayList<View> skinsImages = new ArrayList<View>();
+
+       skinsImages.add(0, this.skinIm1);
+       skinsImages.add(1, this.skinIm2);
+       skinsImages.add(2, this.skinIm3);//TODO add images here and it will update automatically in the rest of the activity
+
+        return skinsImages;
     }
 
 
