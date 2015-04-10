@@ -111,23 +111,6 @@
         android:layout_alignLeft="@+id/activity_pre_game_tv_title"
         android:layout_alignStart="@+id/activity_pre_game_tv_title">
 
-        <ImageView
-            android:id="@+id/Flipper1Image1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:clickable="false" />
-
-        <ImageView
-            android:id="@+id/Flipper1Image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_back"/>
-        <ImageView
-            android:id="@+id/Flipper1Image3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_forward"/>
 
     </ViewFlipper>
 
@@ -143,23 +126,6 @@
         android:layout_alignRight="@+id/activity_pre_game_tv_title"
         android:layout_alignEnd="@+id/activity_pre_game_tv_title">
 
-        <ImageView
-            android:id="@+id/Flipper2Image1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:clickable="false" />
-
-        <ImageView
-            android:id="@+id/Flipper2Image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_back"/>
-        <ImageView
-            android:id="@+id/Flipper2Image3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_forward"/>
 
     </ViewFlipper>
 
@@ -174,22 +140,6 @@
         android:layout_alignLeft="@+id/checkPlayer3"
         android:layout_alignStart="@+id/checkPlayer3">
 
-        <ImageView
-            android:id="@+id/Flipper3Image1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:clickable="false" />
-        <ImageView
-            android:id="@+id/Flipper3Image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_back"/>
-        <ImageView
-            android:id="@+id/Flipper3Image3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_forward"/>
     </ViewFlipper>
 
 
@@ -203,23 +153,22 @@
         android:layout_above="@+id/checkPlayer4"
         android:layout_alignLeft="@+id/FlipperPlayer2"
         android:layout_alignStart="@+id/FlipperPlayer2">
-
-        <ImageView
-            android:id="@+id/Flipper4Image1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:clickable="false" />
-        <ImageView
-            android:id="@+id/Flipper4Image2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_back"/>
-        <ImageView
-            android:id="@+id/Flipper4Image3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_forward"/>
     </ViewFlipper>
+    <ImageView
+        android:id="@+id/Flipper4Image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:clickable="false" />
+    <ImageView
+        android:id="@+id/Flipper4Image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_back"/>
+    <ImageView
+        android:id="@+id/Flipper4Image3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_forward"/>
 
 </RelativeLayout
