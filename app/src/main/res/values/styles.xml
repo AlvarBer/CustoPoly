@@ -2,7 +2,10 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:textColor">#FFFFFF</item>
-        <item name="android:typeface">monospace</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 </resources>
