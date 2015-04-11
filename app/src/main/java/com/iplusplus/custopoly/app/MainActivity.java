@@ -17,7 +17,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener{
 
     //Attributes
     private Button play;
@@ -39,21 +39,36 @@ public class MainActivity extends ActionBarActivity {
         this.theme = (Button) findViewById(R.id.activity_main_btn_theme);
         this.layout = (RelativeLayout) findViewById(R.id.activity_main_rl);
 
-
+        this.play.setOnClickListener(this);
+        this.shop.setOnClickListener(this);
+        this.theme.setOnClickListener(this);
         //Define behaviour of Play Button when is pressed
-        play.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, GameMenuActivity.class);
-                MainActivity.this.startActivity(myIntent);
-            }
-        });
 
         //Disable the other buttons until their activities were implemented
         shop.setEnabled(false);
-        theme.setEnabled(false);
 
 
     }
+
+    @Override
+    public void onClick(View v) {
+        Intent myIntent;
+        switch (v.getId()) {
+            case R.id.activity_main_btn_play:
+                myIntent = new Intent(MainActivity.this, GameMenuActivity.class);
+                MainActivity.this.startActivity(myIntent);
+                break;
+            case R.id.activity_main_btn_shop:
+                myIntent = new Intent(MainActivity.this, ShopActivity.class);
+                MainActivity.this.startActivity(myIntent);
+                break;
+            case R.id.activity_main_btn_theme:
+                myIntent = new Intent(MainActivity.this, ThemeSelectionActivity.class);
+                MainActivity.this.startActivity(myIntent);
+                break;
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu; this adds items to the action bar if it is present.
@@ -72,4 +87,6 @@ public class MainActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

@@ -58,6 +58,7 @@ public class GameTheme {
 		return fortuneCardPath;
 	}
 
+
     /***
      * Given a name of the skin return the skin inside the theme skins list. Null if it doesn't exist.
      * @param name Name of the skin to search
