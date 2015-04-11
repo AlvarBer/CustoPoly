@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -46,37 +47,34 @@
         android:layout_height="wrap_content"
         android:id="@+id/checkPlayer2"
         android:checked="false"
-        android:text="Player 2"
         android:clickable="true"
         android:enabled="true"
         android:gravity="center_vertical|end"
         android:textColor="#ffffffff"
         android:textSize="@dimen/abc_text_size_title_material_toolbar"
         android:layout_below="@+id/FlipperPlayer1"
-        android:layout_alignLeft="@+id/FlipperPlayer2"
-        android:layout_alignStart="@+id/FlipperPlayer2" />
+        android:layout_toLeftOf="@+id/FlipperPlayer2"
+        android:layout_toStartOf="@+id/FlipperPlayer2" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkPlayer3"
         android:checked="false"
-        android:text="Player 3"
         android:clickable="false"
         android:enabled="false"
         android:gravity="center_vertical|end"
         android:textColor="#ffffffff"
         android:textSize="@dimen/abc_text_size_title_material_toolbar"
         android:layout_above="@+id/bPlay"
-        android:layout_alignLeft="@+id/activity_pre_game_tv_title"
-        android:layout_alignStart="@+id/activity_pre_game_tv_title" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkPlayer4"
         android:checked="false"
-        android:text="Player 4"
         android:clickable="true"
         android:enabled="false"
         android:gravity="center_vertical|end"
@@ -86,30 +84,15 @@
         android:layout_alignLeft="@+id/checkPlayer2"
         android:layout_alignStart="@+id/checkPlayer2" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Player 1"
-        android:id="@+id/player1"
-        android:textSize="23dp"
-        android:textIsSelectable="false"
-        android:textColor="#ffffffff"
-        android:layout_above="@+id/FlipperPlayer3"
-        android:layout_alignLeft="@+id/FlipperPlayer1"
-        android:layout_alignStart="@+id/FlipperPlayer1"
-        android:layout_marginBottom="32dp" />
-
     <ViewFlipper
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer1"
         android:background="#D2691E"
         android:clickable="true"
-        android:enabled="true"
-        android:layout_above="@+id/player1"
-        android:layout_alignLeft="@+id/activity_pre_game_tv_title"
-        android:layout_alignStart="@+id/activity_pre_game_tv_title">
+        android:layout_below="@+id/activity_pre_game_tv_title"
+        android:layout_toRightOf="@+id/checkPlayer3"
+        android:layout_toEndOf="@+id/checkPlayer3">
 
 
     </ViewFlipper>
@@ -120,8 +103,7 @@
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer2"
         android:background="#D2691E"
-        android:clickable="true"
-        android:enabled="false"
+        android:clickable="false"
         android:layout_above="@+id/checkPlayer2"
         android:layout_alignRight="@+id/activity_pre_game_tv_title"
         android:layout_alignEnd="@+id/activity_pre_game_tv_title">
@@ -134,11 +116,10 @@
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer3"
         android:background="#D2691E"
-        android:clickable="true"
-        android:enabled="false"
+        android:clickable="false"
         android:layout_alignTop="@+id/FlipperPlayer4"
-        android:layout_alignLeft="@+id/checkPlayer3"
-        android:layout_alignStart="@+id/checkPlayer3">
+        android:layout_toRightOf="@+id/checkPlayer3"
+        android:layout_toEndOf="@+id/checkPlayer3">
 
     </ViewFlipper>
 
@@ -148,27 +129,72 @@
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer4"
         android:background="#D2691E"
-        android:clickable="true"
-        android:enabled="false"
+        android:clickable="false"
         android:layout_above="@+id/checkPlayer4"
         android:layout_alignLeft="@+id/FlipperPlayer2"
         android:layout_alignStart="@+id/FlipperPlayer2">
     </ViewFlipper>
-    <ImageView
-        android:id="@+id/Flipper4Image1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:clickable="false" />
-    <ImageView
-        android:id="@+id/Flipper4Image2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_back"/>
-    <ImageView
-        android:id="@+id/Flipper4Image3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_forward"/>
 
-</RelativeLayout
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Player1"
+        android:ems="10"
+        android:id="@+id/P1Name"
+        android:layout_alignTop="@+id/checkPlayer2"
+        android:layout_alignRight="@+id/FlipperPlayer1"
+        android:layout_alignEnd="@+id/FlipperPlayer1"
+        android:background="#ffffffff"
+        android:textColor="#ff000000"
+        android:layout_alignBottom="@+id/checkPlayer2"
+        android:layout_toRightOf="@+id/checkPlayer3"
+        android:layout_toEndOf="@+id/checkPlayer3" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Player2"
+        android:enabled="false"
+        android:ems="10"
+        android:id="@+id/P2Name"
+        android:background="#ffffffff"
+        android:textColor="#ff000000"
+        android:layout_alignTop="@+id/checkPlayer2"
+        android:layout_toRightOf="@+id/checkPlayer2"
+        android:layout_toEndOf="@+id/checkPlayer2"
+        android:layout_alignBottom="@+id/checkPlayer2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Player3"
+        android:enabled="false"
+        android:ems="10"
+        android:id="@+id/P3Name"
+        android:background="#ffffffff"
+        android:textColor="#ff000000"
+        android:layout_alignTop="@+id/checkPlayer3"
+        android:layout_toRightOf="@+id/checkPlayer3"
+        android:layout_alignBottom="@+id/checkPlayer4"
+        android:layout_alignRight="@+id/FlipperPlayer3"
+        android:layout_alignEnd="@+id/FlipperPlayer3" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Player4"
+        android:enabled="false"
+        android:ems="10"
+        android:id="@+id/P4Name"
+        android:background="#ffffffff"
+        android:textColor="#ff000000"
+        android:layout_below="@+id/FlipperPlayer4"
+        android:layout_toRightOf="@+id/checkPlayer4"
+        android:layout_toEndOf="@+id/checkPlayer4"
+        android:layout_alignBottom="@+id/checkPlayer4" />
+
+</RelativeLayout>

@@ -27,7 +27,7 @@
             android:layout_marginLeft="32dp" android:layout_marginStart="32dp"
             android:elegantTextHeight="false" android:layout_below="@+id/activity_main_tv_title"
             android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
-            android:layout_alignLeft="@+id/activity_main_btn_play" android:enabled="false"
+            android:layout_alignLeft="@+id/activity_main_btn_play" android:enabled="true"
             android:clickable="true" android:height="60dp" android:width="150dp"/>
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/playButtonText"
             android:id="@+id/activity_main_btn_play"

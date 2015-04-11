@@ -2,13 +2,27 @@ package com.iplusplus.custopoly.app;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
+import android.graphics.drawable.Drawable;
+import android.content.res.Resources.Theme;
+import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.widget.RadioGroup.LayoutParams;
 
 import com.iplusplus.custopoly.model.*;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
@@ -29,24 +43,19 @@ import java.util.Iterator;
 
 //TODO: Should only allow to have player 3 after player 2 is on, and so on.
 
-public class PreGameActivity extends ActionBarActivity implements View.OnClickListener {
-
+public class PreGameActivity extends ActionBarActivity implements View.OnClickListener  {
 
     private CheckBox checkPlayer2,checkPlayer3,checkPlayer4;
     private Button bPlay,bCancel;
     private ViewFlipper flipperPlayer1, flipperPlayer2, flipperPlayer3, flipperPlayer4;
-    private ImageView skinIm1, skinIm2, skinIm3;//TODO if you want to insert an image, the image added should be in the xml file and here (see getskinsView())
     private ArrayList<Player> players;
+    private EditText Player1Name, Player2Name, Player3Name, Player4Name;
     private GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-    private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();
+    private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.players = new ArrayList<Player>();
-        //TODO: Insert first player (always there)
-        Player player1 = new Player(0, "Pepito", theme.getPlayerSkinsList().iterator().next().getImagePath());
-        this.players.add(player1);
 
         setContentView(R.layout.activity_pre_game);
         //First I initialize all the items of the UI
@@ -55,16 +64,17 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         this.checkPlayer2 = (CheckBox)findViewById(R.id.checkPlayer2);
         this.checkPlayer3 = (CheckBox)findViewById(R.id.checkPlayer3);
         this.checkPlayer4 = (CheckBox)findViewById(R.id.checkPlayer4);
+        this.Player1Name = (EditText)findViewById(R.id.P1Name);
+        this.Player2Name = (EditText)findViewById(R.id.P2Name);
+        this.Player3Name = (EditText)findViewById(R.id.P3Name);
+        this.Player4Name = (EditText)findViewById(R.id.P4Name);
 
-        //here I initialize the flippers
+        //here I initialize the flippers, see getSkinsView for more info
         this.flipperPlayer1 = (ViewFlipper)findViewById(R.id.FlipperPlayer1);
-        this.flipperPlayer1.addChildrenForAccessibility(getSkinsView());
         this.flipperPlayer2 = (ViewFlipper)findViewById(R.id.FlipperPlayer2);
-        this.flipperPlayer2.addChildrenForAccessibility(getSkinsView());
         this.flipperPlayer3 = (ViewFlipper)findViewById(R.id.FlipperPlayer3);
-        this.flipperPlayer3.addChildrenForAccessibility(getSkinsView());
         this.flipperPlayer4 = (ViewFlipper)findViewById(R.id.FlipperPlayer4);
-        this.flipperPlayer4.addChildrenForAccessibility(getSkinsView());
+        getSkinsView();
         //UNDER CONSTRUCTION
         //this.imagePlayer1 = (ImageView)findViewById(R.id.ImageForPlayer1);
         //Then I set the listeners for each item
@@ -80,6 +90,8 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         //UNDER CONSTRUCTION
         //this.imagePlayer1.setOnClickListener(this);
 
+        this.players = new ArrayList<Player>();
+
     }
 
     @Override
@@ -87,11 +99,28 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         switch(v.getId()) {//the switch gets the id of the item clicked
             case R.id.bPlay:
                 //Create and save game.
+                // Initialize players
+                //Insert first player (always there)
+                Player player = new Player(0, this.Player1Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                this.players.add(player);
+                //Insert rest of players if it is required
+                if(this.checkPlayer2.isChecked()) {
+                    player = new Player(1, this.Player2Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                    this.players.add(player);
+                }
+                if(this.checkPlayer3.isChecked()) {
+                    player = new Player(2, this.Player2Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                    this.players.add(player);
+                }
+                if(this.checkPlayer4.isChecked()) {
+                    player = new Player(3, this.Player2Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                    this.players.add(player);
+                }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
                 Game g = this.initGame(this.players, theme);
                 this.initCards(g, theme);
                 try {
-                    SaveGameHandler.getInstance().saveGame(g);
+                    SaveGameHandler.getInstance().saveGame(g); //TODO here breaks
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -108,14 +137,15 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.flipperPlayer2.setEnabled(true);
                     //TODO here we should call a method to enable player 2 in the game, the same
                     //TODO for players 3 and 4, in the following checkers
-                    Player player2 = new Player(1, "Player2", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
-                    this.players.add(player2);
                     this.checkPlayer3.setEnabled(true);
+                    this.Player2Name.setEnabled(true);
                 }
                 else {
                     this.flipperPlayer2.setEnabled(false);
                     this.checkPlayer3.setEnabled(false);
                     this.checkPlayer4.setEnabled(false);
+                    this.Player2Name.setEnabled(true);
+                    this.Player2Name.setText("Player2");
                     //We may need to remove this
                     for (int i = 1; i < this.players.size(); i++) {
                         this.players.remove(i);
@@ -128,11 +158,14 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 if(this.checkPlayer3.isChecked()) {
                     this.flipperPlayer3.setEnabled(true);
                     this.checkPlayer4.setEnabled(true);
+                    this.Player3Name.setEnabled(true);
                     Player player3 = new Player(2, "Player3", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
                     this.players.add(player3);
                 }
                 else {
                     this.flipperPlayer3.setEnabled(false);
+                    this.Player3Name.setEnabled(false);
+                    this.Player3Name.setText("Player3");
                     this.checkPlayer4.setEnabled(false);
                     for (int i = 2; i < this.players.size(); i++) {
                         this.players.remove(i);
@@ -142,11 +175,14 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
             case R.id.checkPlayer4:
                 if(this.checkPlayer4.isChecked()) {
                     this.flipperPlayer4.setEnabled(true);
+                    this.Player4Name.setEnabled(true);
                     Player player4 = new Player(3, "Player4", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
                     this.players.add(player4);
                 }
                 else {
                     this.flipperPlayer4.setEnabled(false);
+                    this.Player4Name.setEnabled(false);
+                    this.Player4Name.setText("Player4");
                     this.players.remove(3);
                 }
                 break;
@@ -223,12 +259,13 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
      * Now is configured to return a list of default players just for DEBUGGING
      *
      * @return A list of players that will participate in the game
+     * thia is now implemented in the OnClick in the case R.id.bPlay
      */
-    private ArrayList<Player> getPlayers() {
+   /* private ArrayList<Player> getPlayers() {
         ArrayList<Player> players = new ArrayList<Player>();
 
         //Just for debugging, a default game is created with 2 players
-        Iterator it = skins.iterator();
+        Iterator it = this.skins.iterator();
         PlayerSkin skin = (PlayerSkin) it.next();
         Player player1 = new Player(1,"Paco",skin.getImagePath());
         skin = (PlayerSkin) it.next();
@@ -237,17 +274,36 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         players.add(player2);
 
         return players;
+    }*/
+
+    //TODO aqui hay algo que no va, me da que no se inicializa el ArrayList this.skins
+    private void getSkinsView() { // here I add the images in the arrayList so I can put them in the flippers;
+        Iterator it = this.skins.iterator();
+        int count = 0;
+        ImageView skinImage1, skinImage2, skinImage3, skinImage4;
+        PlayerSkin skin = (PlayerSkin) it.next();
+        while (it.hasNext()) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,
+                                                                              LayoutParams.WRAP_CONTENT);
+            skinImage1 = createImage(count, params, skin.getImagePath());
+            skinImage2 = createImage(count, params, skin.getImagePath());
+            skinImage3 = createImage(count, params, skin.getImagePath());
+            skinImage4 = createImage(count, params, skin.getImagePath());
+            this.flipperPlayer1.addView(skinImage1, count);
+            this.flipperPlayer2.addView(skinImage2, count);
+            this.flipperPlayer3.addView(skinImage3, count);
+            this.flipperPlayer4.addView(skinImage4, count);
+            skin = (PlayerSkin) it.next(); //I use every skin of the list
+            count++;
+        }
     }
 
-    private ArrayList<View> getSkinsView() { // here I add the images in the arrayList so I can put them in the flippers;
-        ArrayList<View> skinsImages = new ArrayList<View>();
-
-       skinsImages.add(0, this.skinIm1);
-       skinsImages.add(1, this.skinIm2);
-       skinsImages.add(2, this.skinIm3);//TODO add images here and it will update automatically in the rest of the activity
-
-        return skinsImages;
+    private ImageView createImage(int count, LinearLayout.LayoutParams params, String path) {
+        ImageView image = new ImageView(this);
+        image.setLayoutParams(params);//I set wrap_content to the layout params
+        image.setId(count);//I set the id from 0 to numImages - 1, I don't know how to put a string (es muy oscuro jeje)
+        image.setImageURI(Uri.parse(path));//I set the src to the image
+        return image;
     }
-
 
 }
