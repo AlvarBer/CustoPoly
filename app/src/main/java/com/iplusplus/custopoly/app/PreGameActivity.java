@@ -144,7 +144,9 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.flipperPlayer2.setEnabled(false);
                     this.checkPlayer3.setEnabled(false);
                     this.checkPlayer4.setEnabled(false);
-                    this.Player2Name.setEnabled(true);
+                    this.checkPlayer3.setChecked(false);
+                    this.checkPlayer4.setChecked(false);
+                    this.Player2Name.setEnabled(false);
                     this.Player2Name.setText("Player2");
                     //We may need to remove this
                     for (int i = 1; i < this.players.size(); i++) {
@@ -167,6 +169,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.Player3Name.setEnabled(false);
                     this.Player3Name.setText("Player3");
                     this.checkPlayer4.setEnabled(false);
+                    this.checkPlayer4.setChecked(false);
                     for (int i = 2; i < this.players.size(); i++) {
                         this.players.remove(i);
                     }
