@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
@@ -31,16 +29,12 @@ public class GameActivity extends ActionBarActivity {
     //Attributes
     private Game game;
     private ImageView boardBackground;
-    private FrameLayout players;
-    private HashMap<Integer,Square> squarePositions;
+    private TableLayout board;
+    private HashMap<Integer,Square> squares;
+    private Button buyButton;
 
     //Constants
-    private static final double POS_X_START = 196;
-    private static final double POS_Y_START = 158;
-    private static final double SMALL_SMALL_H_DISTANCE = 36.5;
-    private static final double SMALL_SMALL_V_DISTANCE = 29.5;
-    private static final double BIG_SMALL_H_DISTANCE = 50;
-    private static final double BIG_SMALL_V_DISTANCE = 40;
+    private final String BOARDRESOURCE = "activity_game_board_";
 
 
 	/**
@@ -59,7 +53,7 @@ public class GameActivity extends ActionBarActivity {
 		
         loadGame();
         setupViews();
-        initSquarePositions();
+        initSquares();
         drawBoard();
         drawPlayers();
 		drawMoney();
@@ -142,44 +136,47 @@ public class GameActivity extends ActionBarActivity {
 	 * Each player is a view that is include in a FrameLayout (players).
      */
     private void drawPlayers() {
-		
+
+
         LayoutInflater inflater = getLayoutInflater();
         int i = 0;
-        float x, y;
+        float x = 0, y = 0;
         Square sqPos;
-		
+
+        for (Player player : game.getPlayers()) {
+            //Gets the position (Square) of the square in which the player is from the map of positions
+            sqPos = squares.get(player.getLandIndex());
+            GridLayout layout = sqPos.getLayout();
+            layout.removeAllViewsInLayout();
+
+        }
+
 		//The following process is repeated for each player in the game
         for (Player player : game.getPlayers()) {
-		
+
 			//Gets the position (Square) of the square in which the player is from the map of positions
-            sqPos = squarePositions.get(player.getLandIndex());
-			
-            View view = inflater.inflate(R.layout.player, players,false);
-			
-			//Set the size of the skin
-            view.setScaleX((float) 0.5);
-            view.setScaleY((float) 0.5);
-			
-			//Recover the imageView that is in Player.xml (Static layout) and set the skin of the player
-            ImageView skin = (ImageView) view.findViewById(R.id.player_iv_skin);
-            skin.setImageResource(getResources().getIdentifier(player.getSkin().getImageResourceName(), "drawable", getPackageName()));
-            view.setTag(i);
+            sqPos = squares.get(player.getLandIndex());
 
-			//Defines the position of the player in the center of the square
-            x = Utilities.dpToPx((int) (sqPos.getX()), this);
-            y = Utilities.dpToPx((int) (sqPos.getY()), this);
+            GridLayout layout = sqPos.getLayout();
+            x = layout.getX();
+            y = layout.getY();
 
-			//If the position is already occupied by another player, spreads the player to the border of the square
+            ImageView skin = new ImageView(this);
+
+
+            //If the position is already occupied by another player, spreads the player to the border of the square
             if (isSharedSquare(game.getPlayers(), player.getLandIndex())) {
-                x += calculateSpaceRelativePositionX(player, sqPos);
-                y += calculateSpaceRelativePositionY(player, sqPos);
+
+
+
+            } else {
+
+
             }
-			
-			//Set the position of the player and add it to view 
-			//TODO: Here we must set the position according to the center of the board, not the activity. ex: view.setX(players.getX() + x);
-            view.setX(x);
-            view.setY(y);		
-            players.addView(view);
+
+			//Set the position of the player and add it to view
+            layout.addView(skin);
+
             i++;
         }
     }
@@ -205,70 +202,53 @@ public class GameActivity extends ActionBarActivity {
      */
     private void setupViews() {
         this.boardBackground = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
-        this.players = (FrameLayout)findViewById(R.id.activity_game_fl_players);
+        this.board = (TableLayout)findViewById(R.id.activity_game_tl_board);
+        this.buyButton = (Button) findViewById(R.id.activity_game_bt_buy);
+
+        //Set action listeners
+
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                for (Player p : game.getPlayers()) {
+                    if (p.getLandIndex() >= 39) p.setLandIndex(0);
+                    else p.setLandIndex(p.getLandIndex() + 1);
+                }
+                drawPlayers();
+            }
+        });
     }
 
 	/**
 	* Initializes the coordinates, size and position of each square of the map
 	*/
-    private void initSquarePositions() {
-        squarePositions = new HashMap<Integer,Square>();
+    private void initSquares() {
+        squares = new HashMap<Integer,Square>();
+        String resourceName;
+        int id;
+        Square square;
+        Position pos;
+        Size size;
+        GridLayout squareLayout;
 
-        //Initializes the squares of the bottom
-        Square bigSquare = new Square(POS_X_START,POS_Y_START,Position.DOWN,Size.BIG);
-        squarePositions.put(0,bigSquare);
-        double posXSmall = POS_X_START-BIG_SMALL_H_DISTANCE;
-        double posYSmall = POS_Y_START;
-        Square smallSquare;
+        for (int i = 0; i < 40; i++) {
 
-        for (int i = 1; i < 10; i++) {
-            smallSquare = new Square(posXSmall, posYSmall, Position.DOWN,Size.SMALL);
-            if (i < 9)
-                posXSmall -= SMALL_SMALL_H_DISTANCE;
-            squarePositions.put(i,smallSquare);
-        }
+            resourceName = BOARDRESOURCE + i;
+            id = Utilities.getResId(resourceName,R.id.class);
+            if (i == 0 || i == 10 || i == 20 || i == 30 )  size = Size.BIG;
+            else size = Size.SMALL;
 
-        //Initializes Jail Square
-        posXSmall -= BIG_SMALL_H_DISTANCE;
-        posXSmall += 0.2; //Little Adjustment
-        bigSquare = new Square(posXSmall, posYSmall, Position.DOWN,Size.BIG);
-        squarePositions.put(10,bigSquare);
+            if (i <= 10) pos = Position.DOWN;
+            else if( i <= 20) pos = Position.LEFT;
+            else if( i <= 20) pos = Position.UP;
+            else  pos = Position.RIGHT;
 
-        //Initializes the squares of the left
-        posYSmall -= BIG_SMALL_V_DISTANCE;
-        for (int i = 11; i < 20; i++) {
-            smallSquare = new Square(posXSmall, posYSmall, Position.LEFT,Size.SMALL);
-            if (i < 19)
-                posYSmall -= SMALL_SMALL_V_DISTANCE;
-            squarePositions.put(i,smallSquare);
-        }
+            squareLayout = (GridLayout) findViewById(id);
 
-        //Initializes Parking Square
-        posYSmall -= BIG_SMALL_V_DISTANCE;
-        bigSquare = new Square(posXSmall, posYSmall, Position.LEFT,Size.BIG);
-        squarePositions.put(20,bigSquare);
+            square = new Square (squareLayout,pos,size);
 
-        //Initializes the squares of the top
-        posXSmall += BIG_SMALL_H_DISTANCE;
-        for (int i = 21; i < 30; i++) {
-            smallSquare = new Square(posXSmall, posYSmall, Position.UP,Size.SMALL);
-            if (i < 29)
-                posXSmall += SMALL_SMALL_H_DISTANCE;
-            squarePositions.put(i,smallSquare);
-        }
-
-        //Initializes Go Jail Square
-        posXSmall += BIG_SMALL_H_DISTANCE;
-        bigSquare = new Square(posXSmall, posYSmall, Position.UP,Size.BIG);
-        squarePositions.put(30,bigSquare);
-
-        //Initializes the squares of the right
-        posYSmall += BIG_SMALL_V_DISTANCE;
-        for (int i = 31; i < 40; i++) {
-            smallSquare = new Square(posXSmall, posYSmall, Position.LEFT,Size.SMALL);
-            if (i < 39)
-                posYSmall += SMALL_SMALL_V_DISTANCE;
-            squarePositions.put(i,smallSquare);
+            squares.put(i,square);
         }
     }
 
@@ -314,10 +294,8 @@ public class GameActivity extends ActionBarActivity {
     private void loadGame() {
         //TODO: Remove casting when the facade is properly integrated
         try {
-            this.game = (Game) SaveGameHandler.getInstance().loadGame();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            this.game = SaveGameHandler.getInstance().loadGame();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -335,10 +313,10 @@ public class GameActivity extends ActionBarActivity {
 
  	private void drawMoney() {
 		ArrayList<Player> playerList = game.getPlayers();
-		TextView playerText = (TextView) findViewById(R.id.playerView);
-		TextView moneyText = (TextView) findViewById(R.id.moneyView);
-		String playersString = new String();
-		String moneyString = new String();
+		TextView playerText = (TextView) findViewById(R.id.activity_game_tv_player);
+		TextView moneyText = (TextView) findViewById(R.id.activity_game_tv_money);
+		String playersString = "";
+		String moneyString = "";
 
 		for(Player p : playerList) {
 			playersString = playersString.concat(p.getName());
@@ -361,26 +339,18 @@ public class GameActivity extends ActionBarActivity {
     private class Square {
 
         //Attributes
-        private double x;
-        private double y;
+        private GridLayout layout;
         private Position pos;
         private Size size;
 
-        //Constructor
-        public Square(double x, double y, Position pos, Size size) {
-            this.x = x;
-            this.y = y;
+        public Square(GridLayout layout, Position pos, Size size) {
+            this.layout = layout;
             this.pos = pos;
             this.size = size;
         }
 
-        //Methods
-        public double getX() {
-            return x;
-        }
-
-        public double getY() {
-            return y;
+        public GridLayout getLayout() {
+            return layout;
         }
 
         public Position getPos() {

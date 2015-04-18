@@ -1,70 +1,232 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="com.iplusplus.custopoly.app.GameActivity"
-                android:background="@android:color/holo_purple">
+                android:background="@android:color/holo_purple" android:rowCount="7" android:columnCount="3"
+            android:rowOrderPreserved="true" android:useDefaultMargins="false" android:alignmentMode="alignMargins"
+            android:orientation="horizontal">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/activity_game_iv_boardBackground"
-            android:maxHeight="400dp" android:maxWidth="400dp"
-            android:minHeight="400dp" android:minWidth="400dp" android:background="#ff7ec0ff"
-            android:layout_alignWithParentIfMissing="false"
-            android:focusable="true"
-            android:padding="0dp" android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:layout_alignParentTop="true" android:layout_toRightOf="@+id/button3"
-            android:layout_toEndOf="@+id/button3" android:scaleType="fitXY" android:layout_alignParentLeft="false"
-            android:layout_alignParentRight="false" android:layout_toLeftOf="@+id/button4"/>
     <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BUY"
-            android:id="@+id/button" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" android:layout_toLeftOf="@+id/activity_game_iv_boardBackground"
-            android:layout_toStartOf="@+id/activity_game_iv_boardBackground"/>
+            android:id="@+id/activity_game_bt_buy"
+            android:layout_row="0" android:layout_column="0"
+            android:layout_marginTop="50dp" android:layout_gravity="fill_horizontal|center_horizontal"
+            android:layout_rowSpan="3"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_game_tv_money" android:layout_row="1"
+            android:layout_column="2" android:text="MONEY" android:layout_gravity="center"
+            android:textColor="#ff1f844c"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_game_tv_player"
+            android:layout_row="0"
+            android:layout_column="2" android:text="PLAYER" android:singleLine="false"
+            android:gravity="center_vertical" android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="SELL" android:id="@+id/button2"
-            android:layout_centerVertical="true" android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" android:layout_toLeftOf="@+id/activity_game_iv_boardBackground"
-            android:layout_toStartOf="@+id/activity_game_iv_boardBackground"/>
+            android:layout_height="wrap_content" android:text="END TURN" android:id="@+id/activity_game_bt_endTurn"
+            android:textSize="12sp" android:textStyle="normal"
+            android:layout_column="2" android:layout_row="3" android:layout_gravity="fill_horizontal|center_horizontal"
+            />
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="MOR." android:id="@+id/button3"
-            android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
-    <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="VIEW PROPERTIES" android:id="@+id/button4"
-            android:textSize="11dp"
+            android:layout_height="wrap_content" android:text="VIEW PROPERTIES" android:id="@+id/activity_game_bt_properties"
+            android:textSize="12sp"
             android:textStyle="normal" android:textAlignment="textEnd"
-            android:singleLine="true"
-            android:layout_above="@+id/button2" android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            android:singleLine="true" android:layout_row="4" android:layout_column="2"
+            android:layout_gravity="fill_horizontal"/>
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="ROLL DICE" android:id="@+id/button5"
-            android:textSize="11dp" android:textStyle="normal" android:textAlignment="textEnd" android:singleLine="true"
-            android:layout_below="@+id/button4" android:layout_alignRight="@+id/button4"
-            android:layout_alignEnd="@+id/button4" android:layout_toRightOf="@+id/activity_game_iv_boardBackground"
-            android:layout_toEndOf="@+id/activity_game_iv_boardBackground"/>
-    <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/button4" android:layout_toRightOf="@+id/button"
-            android:layout_toEndOf="@+id/button" android:id="@+id/activity_game_fl_players"
-            >
-    </FrameLayout>
-    <TextView
+            android:layout_height="wrap_content" android:text="MOR." android:id="@+id/activity_game_bt_mortgage"
+            android:layout_row="5"
+            android:layout_column="0" android:layout_gravity="fill_horizontal|center_vertical" android:layout_rowSpan="2"
+            android:layout_marginBottom="50dp"/>
+    <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/moneyView" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" android:layout_above="@+id/button4"/>
-    <TextView
+            android:layout_height="match_parent"
+            android:id="@+id/activity_game_iv_boardBackground"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/template_board" android:layout_column="1" android:layout_row="0"
+            android:layout_rowSpan="6" android:adjustViewBounds="true" android:cropToPadding="false"
+            android:layout_gravity="fill_horizontal|center_horizontal"
+            android:longClickable="false"
+            android:nestedScrollingEnabled="true"/>
+    <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/playerView" android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/activity_game_iv_boardBackground"
-            android:layout_above="@+id/button4"
-            android:layout_toStartOf="@+id/moneyView" android:layout_toLeftOf="@+id/moneyView"/>
-</RelativeLayout>
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:scaleType="fitXY"
+            android:src="@drawable/template_board" android:layout_column="1" android:layout_row="0"
+            android:layout_rowSpan="6" android:adjustViewBounds="false" android:cropToPadding="false"
+            android:longClickable="false" android:maxHeight="400dp" android:maxWidth="400dp"
+            android:columnCount="100" android:rowCount="100"
+            android:layout_gravity="fill" android:alignmentMode="alignMargins" android:columnOrderPreserved="true"
+            android:useDefaultMargins="false"
+            android:rowOrderPreserved="false" android:layout_columnSpan="1"
+            android:showDividers="middle|beginning|end" android:divider="@android:color/holo_green_light"
+            android:stretchColumns="11" android:id="@+id/activity_game_tl_board">
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" android:layout_weight="0.85">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.84" android:id="@+id/activity_game_board_20"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_21"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_22"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_23"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_24"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_25"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_26"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_27"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_28"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_29"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.82" android:id="@+id/activity_game_board_30"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_19"
+                        android:orientation="horizontal"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_31"
+                        android:orientation="horizontal"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:layout_weight="0.19"
+                    android:id="@+id/activity_game_board_18">
+            </GridLayout>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_32"
+                        android:orientation="horizontal"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_17"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_33"
+                        android:orientation="horizontal"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_16"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_34"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_15"
+                        android:orientation="horizontal"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1" android:orientation="horizontal" />
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_35"
+                        android:orientation="horizontal"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_14"
+                        android:orientation="horizontal"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1" android:orientation="horizontal" />
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_36"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_13"
+                        android:orientation="horizontal"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_37"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_12"
+                        android:orientation="horizontal"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_38"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.49">
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.19" android:id="@+id/activity_game_board_11"
+                        android:orientation="horizontal"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="1"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.18" android:id="@+id/activity_game_board_39"/>
+        </TableRow>
+        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0.78"
+                  android:orientation="horizontal">
+            <GridLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" android:layout_weight="0.84"
+                    android:id="@+id/activity_game_board_10" android:orientation="vertical">
+            </GridLayout>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_9"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_8"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_7"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_6"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_5"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_4"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_3"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_2"
+                        android:orientation="vertical"/>
+            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+                            android:layout_weight="0.5" android:id="@+id/activity_game_board_1"
+                        android:orientation="vertical" android:columnCount="2" android:rowCount="2">
+            </GridLayout>
+            <GridLayout android:layout_width="0dp" android:layout_height="match_parent"
+                            android:layout_weight="0.82" android:id="@+id/activity_game_board_0"
+                            android:focusableInTouchMode="true" android:orientation="vertical"
+                        android:alignmentMode="alignMargins" android:columnOrderPreserved="false"
+                        android:useDefaultMargins="false" android:layoutMode="clipBounds"
+                        android:columnCount="2" android:rowCount="2">
+            </GridLayout>
+        </TableRow>
+    </TableLayout>
+</GridLayout>

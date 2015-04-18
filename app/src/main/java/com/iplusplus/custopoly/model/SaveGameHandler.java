@@ -104,7 +104,7 @@ public class SaveGameHandler {
      * @throws IOException            When there is an error while loading the game
      * @throws ClassNotFoundException When there is an error while loading the game
      */
-    public GameFacade loadGame()
+    public Game loadGame()
             throws IOException, ClassNotFoundException {
         Context context = Custopoly.getAppContext();
         File file = new File(context.getFilesDir(), this.GENERIC_GAME_NAME);
