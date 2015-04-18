@@ -3,6 +3,8 @@ package com.iplusplus.custopoly.model;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+import java.lang.reflect.Field;
+
 /**
  * Created by fran on 19/04/2015.
  */
@@ -39,5 +41,16 @@ public class Utilities {
         int dp = Math.round(px
                 / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
+    }
+
+    public static int getResId(String variableNameresName, Class<?> c) {
+
+        try {
+            Field idField = c.getDeclaredField(variableNameresName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

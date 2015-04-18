@@ -9,6 +9,10 @@
                 tools:context="com.iplusplus.custopoly.app.GameActivity"
                 android:background="@android:color/holo_purple">
 
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+    </RelativeLayout>
     <TextView
             android:text="GAME ACTIVITY"
             android:layout_width="match_parent"
