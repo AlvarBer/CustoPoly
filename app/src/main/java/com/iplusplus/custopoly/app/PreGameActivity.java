@@ -118,7 +118,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
                 Game g = this.initGame(this.players, theme);
-                this.initCards(g, theme);
+
                 try {
                     SaveGameHandler.getInstance().saveGame(g); //TODO here breaks
                 } catch (IOException e) {
@@ -242,8 +242,10 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
      * @return
      */
     private Game initGame(ArrayList<Player> players, GameTheme theme) {
-        Board board = BoardFactory.readBoard(new File(theme.getBackgroundPath()));
-        return new Game(players,board);
+        Board board = BoardFactory.readBoard(new File(theme.getBoardDataPath()));
+        Game newGame = new Game(players,board,theme);
+        initCards(newGame, theme);
+        return newGame;
     }
 
     /**
@@ -253,8 +255,8 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
      */
     private void initCards(Game game,GameTheme theme) {
         Bank bank = game.getBank();
-        bank.chanceCards = CardFactory.readChanceCards(new File(theme.getFortuneCardPath()));
-        bank.communityCards = CardFactory.readCommunityCards(new File(theme.getCommunityBoxCardPath()));
+        bank.chanceCards = CardFactory.readChanceCards(new File(theme.getCardsDataPath()));
+        bank.communityCards = CardFactory.readCommunityCards(new File(theme.getCardsDataPath()));
     }
 
     /**

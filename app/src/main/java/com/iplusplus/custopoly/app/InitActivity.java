@@ -24,6 +24,7 @@ public class InitActivity extends ActionBarActivity {
     //Constants
     protected static final String THEME_PATH = "res/drawable/themes/";
     protected static final String TOKEN_PATH = "res/drawable/tokens/";
+    protected static final String DATA_PATH = "res/gameData/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,8 @@ public class InitActivity extends ActionBarActivity {
         HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
         skins.add(vaderSkin);
         skins.add(meGustaSkin);
-        GameTheme defaultTheme =  new GameTheme("default",0, THEME_PATH + "template/board.png",
-                THEME_PATH + "template/communityBackground.png",THEME_PATH + "template/chanceBackground.png",skins);
+        GameTheme defaultTheme =  new GameTheme("default",0, R.drawable.template_board,R.drawable.template_board,R.drawable.template_board,
+                DATA_PATH + "template_board.txt", DATA_PATH + "template_cards.txt",skins);
         ThemeHandler.getInstance().switchThemeTo(defaultTheme);
 
         //Starts the Main Activity

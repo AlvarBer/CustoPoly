@@ -48,7 +48,8 @@ public class ShopKeeper {
     private HashSet<GameTheme> purchasedThemesList;
     //Set containing the player purchased skins
     private HashSet<PlayerSkin> purchasedPlayerSkinsList;
-    
+
+    //TODO:Adapt Parser to the new GameTheme scheme
     //Private auxiliary class for reading the xml for the themes
     private class shopXMLParser
     {
@@ -194,7 +195,7 @@ public class ShopKeeper {
             }
 
             //Save the theme
-           themesInShopList.add(new GameTheme(name, price, backgroundPath, communityBoxCardPath, fortuneCardPath, themeSkinsList));
+           //themesInShopList.add(new GameTheme(name, price, backgroundPath, communityBoxCardPath, fortuneCardPath, themeSkinsList));
     	}
 
         /***
