@@ -1,5 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
+import com.iplusplus.custopoly.Custopoly;
+import com.iplusplus.custopoly.app.R;
+import com.iplusplus.custopoly.model.exceptions.PlayerNotFoundException;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.command.AskBuyCommand;
 import com.iplusplus.custopoly.model.gamemodel.command.RollDiceCommand;
@@ -52,27 +55,25 @@ public class Game implements GameFacade, Serializable {
     }
 
     //Auxiliary methods for the getters
-    private Player getPlayerById(int playerId) {
+    private Player findPlayerById(int playerId) {
         Player player = null;
         for (Player p : this.players) {
             if (p.getPlayerID() == playerId) {
                 player = p;
             }
         }
-        //TODO: Implement the playernotfound exception
-        //if (player == null) throw new PlayerNotFoundException();
+        if (player == null) throw new PlayerNotFoundException();
         return player;
     }
 
-    private Player getPlayerByName(String playerName) {
+    private Player findPlayerByName(String playerName) {
         Player player = null;
         for (Player p : this.players) {
             if (p.getName().equals(playerName)) {
                 player = p;
             }
         }
-        //TODO: Implement the playernotfound exception
-        //if (player == null) throw new PlayerNotFoundException();
+        if (player == null) throw new PlayerNotFoundException();
         return player;
     }
 
@@ -101,7 +102,7 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public ArrayList<String> getAssetNamesOwnedByPlayer(int playerId) {
-        Player player = getPlayerById(playerId);
+        Player player = findPlayerById(playerId);
         ArrayList<String> names = new ArrayList<String>();
         for (PropertyLand pr : player.getProperties()) {
             names.add(pr.getName());
@@ -111,7 +112,7 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public ArrayList<String> getAssetNamesOwnedByPlayer(String playerName) {
-        Player player = getPlayerByName(playerName);
+        Player player = findPlayerByName(playerName);
         ArrayList<String> names = new ArrayList<String>();
         for (PropertyLand pr : player.getProperties()) {
             names.add(pr.getName());
@@ -121,91 +122,114 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public String getOwnerName(String propertyName) {
-        return null;
+        String name = null;
+        for (Player p : this.players) {
+            for (PropertyLand pr : p.getProperties()) {
+                if (pr.getName().equals(propertyName))
+                    name = p.getName();
+            }
+        }
+        if (name == null) throw new PlayerNotFoundException();
+        return name;
     }
 
     @Override
     public int getOwnerId(String propertyName) {
-        return 0;
+        int id = -1;
+        for (Player p : this.players) {
+            for (PropertyLand pr : p.getProperties()) {
+                if (pr.getName().equals(propertyName))
+                    id = p.getPlayerID();
+            }
+        }
+        if (id == -1) throw new PlayerNotFoundException();
+        return id;
     }
 
     @Override
     public Bank getBank() {
-        return null;
+        return this.bank;
     }
 
     @Override
     public int getBoardSize() {
-        return 0;
+        return this.board.getSize();
     }
 
     @Override
     public ArrayList<String> getPlayerNames() {
-        return null;
+        ArrayList<String> names = new ArrayList<String>();
+        for (Player p : this.players) {
+            names.add(p.getName());
+        }
+        return names;
     }
 
     @Override
     public int getPlayerIdByName(String playerName) {
-        return 0;
+        return findPlayerByName(playerName).getPlayerID();
     }
 
     @Override
     public String getPlayerNameById(int playerID) {
-        return null;
+        return findPlayerById(playerID).getName();
     }
 
     @Override
     public boolean isEnded() {
+        //TODO: Unfinished
         return false;
     }
 
     @Override
     public String getWinnerName() {
+        //TODO: Unfinished
         return null;
     }
 
     @Override
     public String getCurrentPlayerSkinResPath() {
-        return null;
+        return this.currentPlayer.getSkin().getImageResourceName();
     }
 
     @Override
     public String getPlayerSkinResPathById(int playerId) {
-        return null;
+        return findPlayerById(playerId).getSkin().getImageResourceName();
     }
 
     @Override
     public String getPlayerSkinResPathByName(String playerName) {
-        return null;
+        return findPlayerByName(playerName).getSkin().getImageResourceName();
     }
 
     @Override
     public String getCurrentPlayerName() {
-        return null;
+        return this.currentPlayer.getName();
     }
 
     @Override
     public int getCurrentPlayerId() {
-        return 0;
+        return this.currentPlayer.getPlayerID();
     }
 
     @Override
     public int getPlayerBalanceById(int playerId) {
-        return 0;
+        return findPlayerById(playerId).getBalance();
     }
 
     @Override
     public int getPlayerBalanceByName(String playerName) {
-        return 0;
+        return findPlayerByName(playerName).getBalance();
     }
 
     @Override
     public int getCurrentPlayerBalance() {
-        return 0;
+        return this.currentPlayer.getBalance();
     }
 
     @Override
     public ArrayList<String> getCurrentPlayerCardList() {
+
         return null;
     }
 
@@ -221,13 +245,18 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public String getCurrentThemeBackgroundResPath() {
-        return null;
+        return this.theme.getBackgroundPathResource();
     }
 
     @Override
-    public String getCurrentThemeCardsResPath() {
-        return null;
+    public String getCurrentThemeCCBoxCardResPath() {
+        return this.theme.getCommunityBoxCardPathResource();
     }
+
+    public String getCurrentThemeFortuneCardResPath() {
+        return this.theme.getFortuneCardPathResource();
+    }
+
 
 
     // //
