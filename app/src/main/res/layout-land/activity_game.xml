@@ -2,18 +2,50 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="com.iplusplus.custopoly.app.GameActivity"
                 android:background="@android:color/holo_purple">
 
-    <TextView
-            android:text="GAME ACTIVITY"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:autoText="false"
-            android:layout_centerVertical="true" android:layout_centerHorizontal="true" android:width="200dp"
-            android:gravity="center" android:textSize="100dp"/>
-
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_game_iv_boardBackground"
+            android:maxHeight="400dp" android:maxWidth="400dp"
+            android:minHeight="400dp" android:minWidth="400dp" android:background="#ff7ec0ff"
+            android:layout_alignWithParentIfMissing="false"
+            android:focusable="true"
+            android:padding="0dp" android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:layout_alignParentTop="true" android:layout_toRightOf="@+id/button3"
+            android:layout_toEndOf="@+id/button3" android:scaleType="fitXY" android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="false" android:layout_toLeftOf="@+id/button4"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BUY"
+            android:id="@+id/button" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:layout_toLeftOf="@+id/activity_game_iv_boardBackground"
+            android:layout_toStartOf="@+id/activity_game_iv_boardBackground"/>
+    <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="SELL" android:id="@+id/button2"
+            android:layout_centerVertical="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:layout_toLeftOf="@+id/activity_game_iv_boardBackground"
+            android:layout_toStartOf="@+id/activity_game_iv_boardBackground"/>
+    <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="MOR." android:id="@+id/button3"
+            android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+    <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="VIEW PROPERTIES" android:id="@+id/button4"
+            android:textSize="11dp"
+            android:textStyle="normal" android:textAlignment="textEnd"
+            android:singleLine="true"
+            android:layout_above="@+id/button2" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+    <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="ROLL DICE" android:id="@+id/button5"
+            android:textSize="11dp" android:textStyle="normal" android:textAlignment="textEnd" android:singleLine="true"
+            android:layout_below="@+id/button4" android:layout_alignRight="@+id/button4"
+            android:layout_alignEnd="@+id/button4" android:layout_toRightOf="@+id/activity_game_iv_boardBackground"
+            android:layout_toEndOf="@+id/activity_game_iv_boardBackground"/>
 </RelativeLayout>

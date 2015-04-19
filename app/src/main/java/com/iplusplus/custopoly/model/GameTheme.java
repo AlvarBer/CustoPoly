@@ -1,11 +1,12 @@
 package com.iplusplus.custopoly.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 /**
  * Created by Kerith on 23/03/2015.
  */
-public class GameTheme {
+public class GameTheme implements Serializable {
    
 	private String name;
 	private double price;

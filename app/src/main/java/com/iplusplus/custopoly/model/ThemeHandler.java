@@ -5,6 +5,7 @@ import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Class that has to:
@@ -15,10 +16,10 @@ public class ThemeHandler {
 
     private static ThemeHandler INSTANCE;
     private GameTheme currentTheme;
-    private ArrayList<PlayerSkin> skins;
+    private HashSet<PlayerSkin> skins;
     private ShopKeeper shop;
 
-    
+
     /**
      * Constructor of the class. Private as it's a Singleton class
      */
@@ -43,16 +44,16 @@ public class ThemeHandler {
     }
 
     public boolean changePlayerSkin(Player p, PlayerSkin s) {
-    	boolean changed = false;
-    	
-    	if (this.shop.isPlayerSkinPurchased(s)) {
+        boolean changed = false;
+
+        if (this.shop.isPlayerSkinPurchased(s)) {
             changed = true;
             p.setSkin(s);
         }
-    	
-    	return changed;
+
+        return changed;
     }
-    
+
     /**
      * Method to change the current theme.
      *
@@ -60,7 +61,7 @@ public class ThemeHandler {
      *              The theme it should change to.
      */
     public  void switchThemeTo(GameTheme theme) {
-    	this.currentTheme = theme;
+        this.currentTheme = theme;
     }
 
     /**
@@ -72,7 +73,7 @@ public class ThemeHandler {
      *              Name of the player whose skin we want changed.
      */
     public void switchPlayerSkinTo (PlayerSkin skin, String playerName) {
-    	
+
     }
 
     /**
@@ -116,8 +117,8 @@ public class ThemeHandler {
      *              The skin of the player.
      */
     public static PlayerSkin getPlayerSkin (String playerName) {
-    	return null;
+        return null;
     }
-    
-    
+
+
 }

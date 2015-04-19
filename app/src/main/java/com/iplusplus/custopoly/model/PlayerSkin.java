@@ -1,6 +1,11 @@
 package com.iplusplus.custopoly.model;
 
-public class PlayerSkin {
+import java.io.Serializable;
+
+/**
+ * Created by Kerith on 23/03/2015.
+ */
+public class PlayerSkin implements Serializable {
    
 	private String name;
 	private double price;

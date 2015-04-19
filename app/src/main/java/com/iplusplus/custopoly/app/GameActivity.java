@@ -4,6 +4,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 
@@ -23,20 +25,25 @@ public class GameActivity extends ActionBarActivity {
 
     //Attributes
     private Game game;
+    private ImageView boardBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //TODO:Repair the system of loading and saving the game
         //Loads the information of the new game from the memory
         try {
-            this.game = SaveGameHandler.getInstance().loadGame("Game");
+            this.game = SaveGameHandler.getInstance().loadGame();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        setupViews();
+        buildBoard();
 
     }
 
@@ -61,5 +68,13 @@ public class GameActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void buildBoard() {
+        this.boardBackground.setImageResource(game.getTheme().getBackgroundPathResource());
+    }
+
+    private void setupViews() {
+        this.boardBackground = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
     }
 }

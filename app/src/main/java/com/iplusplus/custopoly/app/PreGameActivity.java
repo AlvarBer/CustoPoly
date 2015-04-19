@@ -1,16 +1,29 @@
 package com.iplusplus.custopoly.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
+import android.graphics.drawable.Drawable;
+import android.content.res.Resources.Theme;
 import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.widget.RadioGroup.LayoutParams;
 
-import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.*;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
@@ -25,6 +38,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
+//TODO In all the activities.java the uppercase R doesn't work I have look on internet and it
+//TODO says that is an Android Studio failure, but it builds ok.
+
 //TODO: Should only allow to have player 3 after player 2 is on, and so on.
 
 public class PreGameActivity extends ActionBarActivity implements View.OnClickListener  {
@@ -35,10 +51,11 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
     private ArrayList<Player> players;
     private EditText Player1Name, Player2Name, Player3Name, Player4Name;
     private GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-    private ArrayList<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
+    private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_pre_game);
         //First I initialize all the items of the UI
@@ -79,32 +96,31 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {//function called from the click listener by default
-
         switch(v.getId()) {//the switch gets the id of the item clicked
             case R.id.bPlay:
                 //Create and save game.
                 // Initialize players
                 //Insert first player (always there)
-                Player player = new Player(0, this.Player1Name.toString(), 0, this.skins.get(0));
+                Player player = new Player(0, this.Player1Name.toString() ,0, theme.getPlayerSkinsList().iterator().next());
                 this.players.add(player);
                 //Insert rest of players if it is required
                 if(this.checkPlayer2.isChecked()) {
-                    player = new Player(1, this.Player2Name.toString(), 0, this.skins.get(0));
+                    player = new Player(1, this.Player2Name.toString() ,0,  theme.getPlayerSkinsList().iterator().next());
                     this.players.add(player);
                 }
                 if(this.checkPlayer3.isChecked()) {
-                    player = new Player(2, this.Player2Name.toString(), 0, this.skins.get(0));
+                    player = new Player(2, this.Player2Name.toString() , 0, theme.getPlayerSkinsList().iterator().next());
                     this.players.add(player);
                 }
                 if(this.checkPlayer4.isChecked()) {
-                    player = new Player(3, this.Player2Name.toString(), 0, this.skins.get(0));
+                    player = new Player(3, this.Player2Name.toString() , 0, theme.getPlayerSkinsList().iterator().next());
                     this.players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
                 Game g = this.initGame(this.players, theme);
 
                 try {
-                    SaveGameHandler.getInstance().saveGame(g); //TODO here breaks
+                    SaveGameHandler.getInstance().saveGame(g);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -145,8 +161,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.flipperPlayer3.setEnabled(true);
                     this.checkPlayer4.setEnabled(true);
                     this.Player3Name.setEnabled(true);
-
-                    Player player3 = new Player(2, "Player3", 0, this.skins.get(0));
+                    Player player3 = new Player(2, "Player3", 0,  this.theme.getPlayerSkinsList().iterator().next());
                     this.players.add(player3);
                 }
                 else {
@@ -164,7 +179,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 if(this.checkPlayer4.isChecked()) {
                     this.flipperPlayer4.setEnabled(true);
                     this.Player4Name.setEnabled(true);
-                    Player player4 = new Player(3, "Player4", 0, this.skins.get(0));
+                    Player player4 = new Player(3, "Player4", 0 , this.theme.getPlayerSkinsList().iterator().next());
                     this.players.add(player4);
                 }
                 else {

@@ -4,7 +4,9 @@ import com.iplusplus.custopoly.model.gamemodel.behaviour.ConstructionAllowance;
 import com.iplusplus.custopoly.model.gamemodel.command.Command;
 import com.iplusplus.custopoly.model.gamemodel.command.EmptyCommand;
 
-public abstract class Land {
+import java.io.Serializable;
+
+public abstract class Land implements Serializable {
 
 	private ConstructionAllowance constructionBehavior;
 	private Command assignment;
