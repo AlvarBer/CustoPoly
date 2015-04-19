@@ -57,6 +57,14 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
 
 
         setContentView(R.layout.activity_pre_game);
+
+        setupViews();
+        getSkinsView();
+        setupListener();
+    }
+
+    private void setupViews()
+    {
         //First I initialize all the items of the UI
         this.bPlay = (Button)findViewById(R.id.bPlay);
         this.bCancel = (Button)findViewById(R.id.bCancel);
@@ -73,7 +81,16 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         this.flipperPlayer2 = (ViewFlipper)findViewById(R.id.FlipperPlayer2);
         this.flipperPlayer3 = (ViewFlipper)findViewById(R.id.FlipperPlayer3);
         this.flipperPlayer4 = (ViewFlipper)findViewById(R.id.FlipperPlayer4);
-        getSkinsView();
+
+        //XML enable=false not working. We do it here by bruteforce
+        this.flipperPlayer2.setEnabled(false);
+        this.flipperPlayer3.setEnabled(false);
+        this.flipperPlayer4.setEnabled(false);
+
+    }
+
+    private void setupListener()
+    {
         //UNDER CONSTRUCTION
         //this.imagePlayer1 = (ImageView)findViewById(R.id.ImageForPlayer1);
         //Then I set the listeners for each item
@@ -101,19 +118,19 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 //Create and save game.
                 // Initialize players
                 //Insert first player (always there)
-                Player player = new Player(0, this.Player1Name.toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                Player player = new Player(0, this.Player1Name.getText().toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
                 players.add(player);
                 //Insert rest of players if it is required
                 if(this.checkPlayer2.isChecked()) {
-                    player = new Player(1, this.Player2Name.toString(), 0,  skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                    player = new Player(1, this.Player2Name.getText().toString(), 0,  skinsList.get(this.flipperPlayer2.getCurrentView().getId()));
                     players.add(player);
                 }
                 if(this.checkPlayer3.isChecked()) {
-                    player = new Player(2, this.Player2Name.toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                    player = new Player(2, this.Player3Name.getText().toString(), 0, skinsList.get(this.flipperPlayer3.getCurrentView().getId()));
                     players.add(player);
                 }
                 if(this.checkPlayer4.isChecked()) {
-                    player = new Player(3, this.Player2Name.toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                    player = new Player(3, this.Player4Name.getText().toString(), 0, skinsList.get(this.flipperPlayer4.getCurrentView().getId()));
                     players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
@@ -143,9 +160,11 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 else {
                     this.flipperPlayer2.setEnabled(false);
                     this.checkPlayer3.setEnabled(false);
-                    this.checkPlayer4.setEnabled(false);
                     this.checkPlayer3.setChecked(false);
+                    this.flipperPlayer3.setEnabled(false);
+                    this.checkPlayer4.setEnabled(false);
                     this.checkPlayer4.setChecked(false);
+                    this.flipperPlayer4.setEnabled(false);
                     this.Player2Name.setEnabled(false);
                     this.Player2Name.setText("Player2");
                 }
@@ -163,6 +182,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.Player3Name.setText("Player3");
                     this.checkPlayer4.setEnabled(false);
                     this.checkPlayer4.setChecked(false);
+                    this.flipperPlayer4.setEnabled(false);
                 }
                 break;
             case R.id.checkPlayer4:
@@ -274,8 +294,9 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         Iterator it = this.skins.iterator();
         int count = 0;
         ImageView skinImage1, skinImage2, skinImage3, skinImage4;
-        PlayerSkin skin = (PlayerSkin) it.next();
+
         while (it.hasNext()) {
+            PlayerSkin skin = (PlayerSkin) it.next();
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,
                                                                               LayoutParams.WRAP_CONTENT);
             skinImage1 = createImage(count, params, skin.getImageResourceId());
@@ -286,7 +307,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
             this.flipperPlayer2.addView(skinImage2, count);
             this.flipperPlayer3.addView(skinImage3, count);
             this.flipperPlayer4.addView(skinImage4, count);
-            skin = (PlayerSkin) it.next(); //I use every skin of the list
             count++;
         }
     }
