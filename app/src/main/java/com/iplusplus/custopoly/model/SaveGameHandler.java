@@ -97,7 +97,6 @@ public class SaveGameHandler {
         }
         return null;
     }
-
     /**
      * Load a game from a file, the game saved under the generic_game_name resource name.
      *

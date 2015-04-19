@@ -2,7 +2,9 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 
 import com.iplusplus.custopoly.model.gamemodel.command.Command;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
 	
 	public String text;
 	public Command command;

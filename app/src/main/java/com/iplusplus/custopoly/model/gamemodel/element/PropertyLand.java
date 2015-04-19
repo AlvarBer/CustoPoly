@@ -2,7 +2,9 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 
 import com.iplusplus.custopoly.model.gamemodel.util.RentCalculator;
 
-public abstract class PropertyLand extends Land {
+import java.io.Serializable;
+
+public abstract class PropertyLand extends Land implements Serializable {
 
 	private String name;
 	private int price;
