@@ -9,6 +9,7 @@ import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -43,10 +44,13 @@ public class InitActivity extends ActionBarActivity {
         skins.add(meGustaSkin);
         GameTheme defaultTheme =  new GameTheme("default",0, R.drawable.template_board,R.drawable.template_board,R.drawable.template_board,
                 DATA_PATH + "template_board.txt", DATA_PATH + "template_cards.txt",skins);
-        ThemeHandler.getInstance().switchThemeTo(defaultTheme);
+
+
+        //ThemeHandler.getInstance().switchThemeTo(defaultTheme);
 
         //Starts the Main Activity
         Intent act = new Intent(this, MainActivity.class);
+        act.putExtra("Theme", (Serializable) defaultTheme);
         startActivity(act);
         finish();
     }
