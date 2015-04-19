@@ -13,7 +13,7 @@
     <string name="logoDescription">The logo of our team</string>
 
     //ShopKeeper
-    <string name="ShopFilePath"></string>
+    <string name="shopkeeper_filepath">res/Custopoly/shop/</string>
 
     //GameModel
     <string formatted="false" name="ingame_notWantToBuy">Player %s did not want to purchase %s</string>
