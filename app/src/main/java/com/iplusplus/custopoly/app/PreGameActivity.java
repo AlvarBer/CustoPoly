@@ -10,6 +10,7 @@ import android.widget.*;
 import android.net.Uri;
 import android.widget.RadioGroup.LayoutParams;
 
+import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.*;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
@@ -23,9 +24,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-
-//TODO In all the activities.java the uppercase R doesn't work I have look on internet and it
-//TODO says that is an Android Studio failure, but it builds ok.
 
 //TODO: Should only allow to have player 3 after player 2 is on, and so on.
 
@@ -41,7 +39,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_pre_game);
         //First I initialize all the items of the UI

@@ -2,6 +2,7 @@ package com.iplusplus.custopoly;
 
 import android.app.Application;
 import android.content.Context;
+import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.ShopKeeper;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
@@ -19,13 +20,15 @@ public class Custopoly extends Application {
     public void onCreate(){
         super.onCreate();
         Custopoly.context = getApplicationContext();
-
+        shopKeeper = new ShopKeeper(Custopoly.getAppContext().getString(R.string.shopkeeper_filepath));
     }
 
     public static Context getAppContext() {
         return Custopoly.context;
     }
 
-
+    public static ShopKeeper getShopKeeper() {
+        return shopKeeper;
+    }
 }
 
