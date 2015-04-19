@@ -263,9 +263,17 @@ public interface GameFacade {
      * Observer method
      * -> String
      *
-     * @return Returns the current theme's card resource path.
+     * @return Returns the current theme's community box card resource path.
      */
-    public abstract String getCurrentThemeCardsResPath();
+    public abstract String getCurrentThemeCCBoxCardResPath();
+
+    /**
+     * Observer method
+     * -> String
+     *
+     * @return Returns the current theme's fortune card resource path.
+     */
+    public abstract String getCurrentThemeFortuneCardResPath();
 
     // //
     // Game attribute observers
