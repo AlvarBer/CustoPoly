@@ -48,7 +48,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
     private CheckBox checkPlayer2,checkPlayer3,checkPlayer4;
     private Button bPlay,bCancel;
     private ViewFlipper flipperPlayer1, flipperPlayer2, flipperPlayer3, flipperPlayer4;
-    private ArrayList<Player> players;
     private EditText Player1Name, Player2Name, Player3Name, Player4Name;
     private GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
     private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
@@ -89,35 +88,36 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         this.flipperPlayer4.setOnClickListener(this);
         //UNDER CONSTRUCTION
         //this.imagePlayer1.setOnClickListener(this);
-
-        this.players = new ArrayList<Player>();
-
     }
 
     @Override
     public void onClick(View v) {//function called from the click listener by default
         switch(v.getId()) {//the switch gets the id of the item clicked
             case R.id.bPlay:
+                ArrayList<Player> players = new ArrayList<Player>();
+
+                ArrayList<PlayerSkin> skinsList = new ArrayList<>(skins);
+
                 //Create and save game.
                 // Initialize players
                 //Insert first player (always there)
-                Player player = new Player(0, this.Player1Name.toString() ,0, theme.getPlayerSkinsList().iterator().next());
-                this.players.add(player);
+                Player player = new Player(0, this.Player1Name.toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                players.add(player);
                 //Insert rest of players if it is required
                 if(this.checkPlayer2.isChecked()) {
-                    player = new Player(1, this.Player2Name.toString() ,0,  theme.getPlayerSkinsList().iterator().next());
-                    this.players.add(player);
+                    player = new Player(1, this.Player2Name.toString(), 0,  skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                    players.add(player);
                 }
                 if(this.checkPlayer3.isChecked()) {
-                    player = new Player(2, this.Player2Name.toString() , 0, theme.getPlayerSkinsList().iterator().next());
-                    this.players.add(player);
+                    player = new Player(2, this.Player2Name.toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                    players.add(player);
                 }
                 if(this.checkPlayer4.isChecked()) {
-                    player = new Player(3, this.Player2Name.toString() , 0, theme.getPlayerSkinsList().iterator().next());
-                    this.players.add(player);
+                    player = new Player(3, this.Player2Name.toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                    players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-                Game g = this.initGame(this.players, theme);
+                Game g = this.initGame(players, theme);
 
                 try {
                     SaveGameHandler.getInstance().saveGame(g);
@@ -148,12 +148,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.checkPlayer4.setChecked(false);
                     this.Player2Name.setEnabled(false);
                     this.Player2Name.setText("Player2");
-                    //We may need to remove this
-                    for (int i = 1; i < this.players.size(); i++) {
-                        this.players.remove(i);
-                    }
-                    //And substitude with
-                    //this.players.remove(1);
                 }
                 break;
             case R.id.checkPlayer3:
@@ -162,17 +156,13 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.checkPlayer4.setEnabled(true);
                     this.Player3Name.setEnabled(true);
                     Player player3 = new Player(2, "Player3", 0,  this.theme.getPlayerSkinsList().iterator().next());
-                    this.players.add(player3);
-                }
+                   }
                 else {
                     this.flipperPlayer3.setEnabled(false);
                     this.Player3Name.setEnabled(false);
                     this.Player3Name.setText("Player3");
                     this.checkPlayer4.setEnabled(false);
                     this.checkPlayer4.setChecked(false);
-                    for (int i = 2; i < this.players.size(); i++) {
-                        this.players.remove(i);
-                    }
                 }
                 break;
             case R.id.checkPlayer4:
@@ -180,13 +170,11 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.flipperPlayer4.setEnabled(true);
                     this.Player4Name.setEnabled(true);
                     Player player4 = new Player(3, "Player4", 0 , this.theme.getPlayerSkinsList().iterator().next());
-                    this.players.add(player4);
                 }
                 else {
                     this.flipperPlayer4.setEnabled(false);
                     this.Player4Name.setEnabled(false);
                     this.Player4Name.setText("Player4");
-                    this.players.remove(3);
                 }
                 break;
             case R.id.FlipperPlayer1://TODO: in each flipper is where you should change the skin you can do it by checking the id of the image
