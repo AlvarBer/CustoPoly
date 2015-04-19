@@ -4,7 +4,7 @@ package com.iplusplus.custopoly.model.gamemodel.command;
 import android.content.Context;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
-import com.iplusplus.custopoly.model.gamemodel.element.Token;
+import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 public abstract class MoveTokenCommand implements Command {
 
@@ -13,9 +13,9 @@ public abstract class MoveTokenCommand implements Command {
         int landIndex = getLandIndex(game);
         Land land = game.getBoard().getLands().get(landIndex);
 
-        Token token = game.getCurrentPlayer().getToken();
-        checkPassedStart(token.getLandIndex(), landIndex, game);
-        token.setLocation(landIndex);
+        Player player = game.getCurrentPlayer();
+        checkPassedStart(player.getLandIndex(), landIndex, game);
+        player.setLandIndex(landIndex);
         //TODO: We need to update the controller
         //controller.update();
 

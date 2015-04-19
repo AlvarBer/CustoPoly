@@ -1,27 +1,13 @@
 package com.iplusplus.custopoly.app;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
-import android.graphics.drawable.Drawable;
-import android.content.res.Resources.Theme;
 import android.net.Uri;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.widget.RadioGroup.LayoutParams;
 
 import com.iplusplus.custopoly.model.*;
@@ -51,7 +37,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
     private ArrayList<Player> players;
     private EditText Player1Name, Player2Name, Player3Name, Player4Name;
     private GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-    private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
+    private ArrayList<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,24 +82,25 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {//function called from the click listener by default
+
         switch(v.getId()) {//the switch gets the id of the item clicked
             case R.id.bPlay:
                 //Create and save game.
                 // Initialize players
                 //Insert first player (always there)
-                Player player = new Player(0, this.Player1Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                Player player = new Player(0, this.Player1Name.toString(), 0, this.skins.get(0));
                 this.players.add(player);
                 //Insert rest of players if it is required
                 if(this.checkPlayer2.isChecked()) {
-                    player = new Player(1, this.Player2Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                    player = new Player(1, this.Player2Name.toString(), 0, this.skins.get(0));
                     this.players.add(player);
                 }
                 if(this.checkPlayer3.isChecked()) {
-                    player = new Player(2, this.Player2Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                    player = new Player(2, this.Player2Name.toString(), 0, this.skins.get(0));
                     this.players.add(player);
                 }
                 if(this.checkPlayer4.isChecked()) {
-                    player = new Player(3, this.Player2Name.toString() , theme.getPlayerSkinsList().iterator().next().getImagePath());
+                    player = new Player(3, this.Player2Name.toString(), 0, this.skins.get(0));
                     this.players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
@@ -161,7 +148,8 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     this.flipperPlayer3.setEnabled(true);
                     this.checkPlayer4.setEnabled(true);
                     this.Player3Name.setEnabled(true);
-                    Player player3 = new Player(2, "Player3", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
+
+                    Player player3 = new Player(2, "Player3", 0, this.skins.get(0));
                     this.players.add(player3);
                 }
                 else {
@@ -179,7 +167,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 if(this.checkPlayer4.isChecked()) {
                     this.flipperPlayer4.setEnabled(true);
                     this.Player4Name.setEnabled(true);
-                    Player player4 = new Player(3, "Player4", this.theme.getPlayerSkinsList().iterator().next().getImagePath());
+                    Player player4 = new Player(3, "Player4", 0, this.skins.get(0));
                     this.players.add(player4);
                 }
                 else {
@@ -290,10 +278,10 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         while (it.hasNext()) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,
                                                                               LayoutParams.WRAP_CONTENT);
-            skinImage1 = createImage(count, params, skin.getImagePath());
-            skinImage2 = createImage(count, params, skin.getImagePath());
-            skinImage3 = createImage(count, params, skin.getImagePath());
-            skinImage4 = createImage(count, params, skin.getImagePath());
+            skinImage1 = createImage(count, params, skin.getImageResourceId());
+            skinImage2 = createImage(count, params, skin.getImageResourceId());
+            skinImage3 = createImage(count, params, skin.getImageResourceId());
+            skinImage4 = createImage(count, params, skin.getImageResourceId());
             this.flipperPlayer1.addView(skinImage1, count);
             this.flipperPlayer2.addView(skinImage2, count);
             this.flipperPlayer3.addView(skinImage3, count);
@@ -303,11 +291,11 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         }
     }
 
-    private ImageView createImage(int count, LinearLayout.LayoutParams params, String path) {
+    private ImageView createImage(int count, LinearLayout.LayoutParams params, int imageResId) {
         ImageView image = new ImageView(this);
         image.setLayoutParams(params);//I set wrap_content to the layout params
         image.setId(count);//I set the id from 0 to numImages - 1, I don't know how to put a string (es muy oscuro jeje)
-        image.setImageURI(Uri.parse(path));//I set the src to the image
+        image.setImageResource(imageResId);
         return image;
     }
 

@@ -22,7 +22,7 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
     public void execute(Game game) {
         Context context = Custopoly.getAppContext();
         PropertyLand land = (PropertyLand) game.getBoard().getLands().
-                                            get(game.getCurrentPlayer().getToken().getLandIndex());
+                get(game.getCurrentPlayer().getLandIndex());
 
         this.askPurchase(game, land);
         if (this.buyOrNot) {

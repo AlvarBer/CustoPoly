@@ -1,28 +1,26 @@
 package com.iplusplus.custopoly.model;
 
-/**
- * Created by Kerith on 23/03/2015.
- */
 public class PlayerSkin {
    
 	private String name;
 	private double price;
-	private String imagePath;
+    private int imageResourceId;
 
     /***
      * Contructs a skin with all the information needed
      * @param name Name of the Skin
      * @param price Price in euros
-     * @param imagePath Path of the skin iamge
+     * @param imageResourceId Path of the skin image: E.G: R.drawable.player_skin_darth_vader
+     *                        These should be stored in all 4 drawable folders, each resolution with the same name.
+     *                        It's just like strings.xml
      */
-	public PlayerSkin(String name, double price, String imagePath)
-	{
-		this.name = name;
+    public PlayerSkin(String name, double price, int imageResourceId) {
+        this.name = name;
 		this.price = price;
-		this.imagePath = imagePath;
-	}
-	
-	public String getName()
+        this.imageResourceId = imageResourceId;
+    }
+
+    public String getName()
 	{
 		return name;
 	}
@@ -31,11 +29,10 @@ public class PlayerSkin {
 	{
 		return price;
 	}
-	
-	public String getImagePath()
-	{
-		return imagePath;
-	}
+
+    public int getImageResourceId() {
+        return imageResourceId;
+    }
 
     /***
      * Define if two PlayerSkins are equal looking at his names (useful for AbstractCollections
@@ -48,12 +45,19 @@ public class PlayerSkin {
         if(o instanceof PlayerSkin)
         {
             PlayerSkin s = (PlayerSkin)o;
-            return this.name.equals(s.name);
+            return this.name.equals(s.name) &&
+                    this.imageResourceId == s.imageResourceId &&
+                    this.price == s.price &&
+                    this.hashCode() == s.hashCode();
         }
         else
         {
             return false;
         }
     }
-	
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

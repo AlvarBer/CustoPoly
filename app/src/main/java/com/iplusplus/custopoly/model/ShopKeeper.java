@@ -208,10 +208,9 @@ public class ShopKeeper {
             //Variables for creating the theme
     		String name = "";
     		double price = 0.0;
-    		String imagePath = "";
-    		
-    		while(xmlParser.next() != XmlPullParser.END_TAG)
-    		{
+            int imageResId = 0;
+
+            while (xmlParser.next() != XmlPullParser.END_TAG) {
 	    		String tag = xmlParser.getName();
 	    		switch(tag)
 	    		{
@@ -227,13 +226,13 @@ public class ShopKeeper {
 					break;
 				case "backgroundPath":
                     xmlParser.require(XmlPullParser.START_TAG, null, "imagePath");
-		    		imagePath = xmlParser.nextText();
+                    imageResId = Integer.decode(xmlParser.nextText());
                     xmlParser.require(XmlPullParser.END_TAG, null, "imagePath");
 					break;
 	    		}
     		}
 
-            PlayerSkin skin = new PlayerSkin(name, price, imagePath);
+            PlayerSkin skin = new PlayerSkin(name, price, imageResId);
             skinsInShopList.add(skin);
 
             return skin;
