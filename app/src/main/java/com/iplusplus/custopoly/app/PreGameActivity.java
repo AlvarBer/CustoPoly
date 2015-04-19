@@ -124,7 +124,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-                GameFacade g = this.initGame(players, theme);
+                Game g = this.initGame(players, theme);
 
                 try {
                     SaveGameHandler.getInstance().saveGame(g);
@@ -216,9 +216,9 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
      * @param theme The current theme of the application
      * @return
      */
-    private GameFacade initGame(ArrayList<Player> players, GameTheme theme) {
+    private Game initGame(ArrayList<Player> players, GameTheme theme) {
         Board board = BoardFactory.readBoard(new File(theme.getBoardDataPath()));
-        GameFacade newGameFacade = new Game(players, board, theme);
+        Game newGameFacade = new Game(players, board, theme);
         initCards(newGameFacade, theme);
         return newGameFacade;
     }
@@ -228,10 +228,11 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
      * @param game The new game that will be passed to the Game Activity
      * @param theme The current theme of the application
      */
-    private void initCards(GameFacade game, GameTheme theme) {
+    private void initCards(Game game, GameTheme theme) {
         Bank bank = game.getBank();
-        bank.chanceCards = CardFactory.readChanceCards(new File(theme.getCardsDataPath()));
-        bank.communityCards = CardFactory.readCommunityCards(new File(theme.getCardsDataPath()));
+        //TODO: Repair this
+        //bank.chanceCards = CardFactory.readChanceCards(new File(theme.getCardsDataPath()));
+        //bank.communityCards = CardFactory.readCommunityCards(new File(theme.getCardsDataPath()));
     }
 
     /**
