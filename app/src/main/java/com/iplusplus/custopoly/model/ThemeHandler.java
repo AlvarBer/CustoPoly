@@ -1,6 +1,10 @@
 package com.iplusplus.custopoly.model;
 
+import com.iplusplus.custopoly.Custopoly;
+import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
+
+import java.util.ArrayList;
 
 /**
  * Class that has to:
@@ -10,7 +14,8 @@ import com.iplusplus.custopoly.model.gamemodel.element.Player;
 public class ThemeHandler {
 
     private static ThemeHandler INSTANCE;
-    private GameTheme currentTheme; 
+    private GameTheme currentTheme;
+    private ArrayList<PlayerSkin> skins;
     private ShopKeeper shop;
 
     
@@ -18,8 +23,8 @@ public class ThemeHandler {
      * Constructor of the class. Private as it's a Singleton class
      */
     private ThemeHandler() {
-        //Commented because broken
-        //shop = new ShopKeeper();
+        shop = new ShopKeeper(Custopoly.getAppContext().getString(R.string.shopkeeper_filepath));
+        skins = shop.getPurchasedPlayerSkinsList();
     }
 
     /**
@@ -42,7 +47,7 @@ public class ThemeHandler {
     	
     	if (this.shop.isPlayerSkinPurchased(s)) {
             changed = true;
-            // setSkin(s); TODO Falta por implementar en la clase Player
+            p.setSkin(s);
         }
     	
     	return changed;
