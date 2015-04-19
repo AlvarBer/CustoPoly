@@ -20,16 +20,18 @@ public class Game implements GameFacade, Serializable{
 	private ArrayList<Player> players;
 	
 	private Player currentPlayer;
+	private GameTheme theme;
 	
 	public final int PAYMENT = 1500; 
 	public static final int INITIAL_PAYMENT = 15000;
 
 	//Constructor
-	public Game(ArrayList<Player> players, Board board) {
+	public Game(ArrayList<Player> players, Board board, GameTheme theme) {
 		initBank(board.getLands());
 		this.board = board;
 		this.players = players;
 		this.currentPlayer = players.get(0);
+		this.theme = theme;
 	}
 
 	//Methods
@@ -97,7 +99,10 @@ public class Game implements GameFacade, Serializable{
 	}
 
 	private Board initBoard(GameTheme theme) {
-		return BoardFactory.readBoard(new File(theme.getBackgroundPath()));
+		return BoardFactory.readBoard(new File(theme.getBoardDataPath()));
 	}
 
+	public GameTheme getTheme() {
+		return theme;
+	}
 }

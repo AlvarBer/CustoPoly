@@ -9,30 +9,36 @@ public class GameTheme {
    
 	private String name;
 	private double price;
-	private String backgroundPath;
-	private String communityBoxCardPath;
-	private String fortuneCardPath;
+	private int backgroundPathResource;
+	private int communityBoxCardPathResource;
+	private int fortuneCardPathResource;
+	private String boardDataPath;
+	private String cardsDataPath;
 	private HashSet<PlayerSkin> playerSkinsList;
 
-    /***
+	/***
      * Constructor to create the theme given all the data needed
      * @param name Name of the theme
      * @param price Price in euros
-     * @param background Path where the background image is
-     * @param communityBoxCard Path where the community box card is
-     * @param fortuneCardPath Path where the fortune card path is
-     * @param skinsList List with the skins attached to the theme
+     * @param backgroundPathResource Path where the background image is
+     * @param communityBoxCardPathResource Path where the community box card is
+     * @param fortuneCardPathResource Path where the fortune card path is
+     * @param playerSkinsList List with the skins attached to the theme
      */
-	public GameTheme(String name, double price, String background, String communityBoxCard, String fortuneCardPath, HashSet<PlayerSkin> skinsList)
-	{
+
+	public GameTheme(String name, double price, int backgroundPathResource, int communityBoxCardPathResource,
+					 int fortuneCardPathResource, String boardDataPath, String cardsDataPath, HashSet<PlayerSkin> playerSkinsList) {
 		this.name = name;
 		this.price = price;
-		this.backgroundPath = background;
-		this.communityBoxCardPath = communityBoxCard;
-		this.fortuneCardPath = fortuneCardPath;
-		this.playerSkinsList = skinsList;
+		this.backgroundPathResource = backgroundPathResource;
+		this.communityBoxCardPathResource = communityBoxCardPathResource;
+		this.fortuneCardPathResource = fortuneCardPathResource;
+		this.boardDataPath = boardDataPath;
+		this.cardsDataPath = cardsDataPath;
+		this.playerSkinsList = playerSkinsList;
+
 	}
-	
+
 	public String getName()
 	{
 		return name;
@@ -42,24 +48,28 @@ public class GameTheme {
 	{
 		return price;
 	}
-	
-	public String getBackgroundPath()
-	{
-		return backgroundPath;
-	}
-	
-	public String getCommunityBoxCardPath()
-	{
-		return communityBoxCardPath;
-	}
-	
-	public String getFortuneCardPath()
-	{
-		return fortuneCardPath;
+
+	public int getBackgroundPathResource() {
+		return backgroundPathResource;
 	}
 
+	public int getCommunityBoxCardPathResource() {
+		return communityBoxCardPathResource;
+	}
 
-    /***
+	public int getFortuneCardPathResource() {
+		return fortuneCardPathResource;
+	}
+
+	public String getCardsDataPath() {
+		return cardsDataPath;
+	}
+
+	public String getBoardDataPath() {
+		return boardDataPath;
+	}
+
+	/***
      * Given a name of the skin return the skin inside the theme skins list. Null if it doesn't exist.
      * @param name Name of the skin to search
      * @return null if not found PlayerSkin if found
@@ -104,4 +114,7 @@ public class GameTheme {
             return false;
         }
     }
+
 }
+
+
