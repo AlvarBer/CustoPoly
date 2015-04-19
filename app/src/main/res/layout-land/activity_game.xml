@@ -48,4 +48,11 @@
             android:layout_below="@+id/button4" android:layout_alignRight="@+id/button4"
             android:layout_alignEnd="@+id/button4" android:layout_toRightOf="@+id/activity_game_iv_boardBackground"
             android:layout_toEndOf="@+id/activity_game_iv_boardBackground"/>
+    <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/button4" android:layout_toRightOf="@+id/button"
+            android:layout_toEndOf="@+id/button" android:id="@+id/activity_game_fl_players"
+            >
+    </FrameLayout>
 </RelativeLayout>
