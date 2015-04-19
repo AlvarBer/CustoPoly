@@ -5,7 +5,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -42,13 +41,13 @@ public class ShopKeeper {
     //Variable that keeps track of the player points
     private int playerPoints;
     //Set containing the available themes in shop
-    private ArrayList<GameTheme> themesInShopList;
+    private HashSet<GameTheme> themesInShopList;
     //Set containing the available skins in shop
-    private ArrayList<PlayerSkin> skinsInShopList;
+    private HashSet<PlayerSkin> skinsInShopList;
     //Set containing the player purchased themes
-    private ArrayList<GameTheme> purchasedThemesList;
+    private HashSet<GameTheme> purchasedThemesList;
     //Set containing the player purchased skins
-    private ArrayList<PlayerSkin> purchasedPlayerSkinsList;
+    private HashSet<PlayerSkin> purchasedPlayerSkinsList;
 
     //TODO:Adapt Parser to the new GameTheme scheme
     //Private auxiliary class for reading the xml for the themes
@@ -246,10 +245,10 @@ public class ShopKeeper {
      */
     public ShopKeeper(String filePath)
     {
-        themesInShopList = new ArrayList<>();
-        skinsInShopList = new ArrayList<>();
-        purchasedThemesList = new ArrayList<>();
-        purchasedPlayerSkinsList = new ArrayList<>();
+        themesInShopList = new HashSet<>();
+        skinsInShopList = new HashSet<>();
+        purchasedThemesList = new HashSet<>();
+        purchasedPlayerSkinsList = new HashSet<>();
 
         //Load with the parser the shop information
         new shopXMLParser(filePath);
@@ -299,7 +298,7 @@ public class ShopKeeper {
      * @param themeName
      *              The theme name.
      * @return
-      *              The theme with that name. Null if it doesn't exis
+     *              The theme with that name. Null if it doesnt exis
      */
     public GameTheme getPurchasedTheme(String themeName)
     {
@@ -505,28 +504,4 @@ public class ShopKeeper {
         }
     }
 
-    //---------------
-    //STANDARD GETTERS
-    //---------------
-
-
-    public int getPlayerPoints() {
-        return playerPoints;
-    }
-
-    public ArrayList<GameTheme> getThemesInShopList() {
-        return themesInShopList;
-    }
-
-    public ArrayList<PlayerSkin> getSkinsInShopList() {
-        return skinsInShopList;
-    }
-
-    public ArrayList<GameTheme> getPurchasedThemesList() {
-        return purchasedThemesList;
-    }
-
-    public ArrayList<PlayerSkin> getPurchasedPlayerSkinsList() {
-        return purchasedPlayerSkinsList;
-    }
 }
