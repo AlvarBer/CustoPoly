@@ -1,6 +1,5 @@
 package com.iplusplus.custopoly.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -15,7 +14,7 @@ public class GameTheme {
 	private int fortuneCardPathResource;
 	private String boardDataPath;
 	private String cardsDataPath;
-    private ArrayList<PlayerSkin> playerSkinsList;
+	private HashSet<PlayerSkin> playerSkinsList;
 
 	/***
      * Constructor to create the theme given all the data needed
@@ -28,9 +27,9 @@ public class GameTheme {
      */
 
 	public GameTheme(String name, double price, int backgroundPathResource, int communityBoxCardPathResource,
-                     int fortuneCardPathResource, String boardDataPath, String cardsDataPath, ArrayList<PlayerSkin> playerSkinsList) {
-        this.name = name;
-        this.price = price;
+					 int fortuneCardPathResource, String boardDataPath, String cardsDataPath, HashSet<PlayerSkin> playerSkinsList) {
+		this.name = name;
+		this.price = price;
 		this.backgroundPathResource = backgroundPathResource;
 		this.communityBoxCardPathResource = communityBoxCardPathResource;
 		this.fortuneCardPathResource = fortuneCardPathResource;
@@ -92,7 +91,7 @@ public class GameTheme {
      * Get the skin list
      * @return HashSet<PlayerSkin>
      */
-    public ArrayList<PlayerSkin> getPlayerSkinsList()
+    public HashSet<PlayerSkin> getPlayerSkinsList()
     {
         return this.playerSkinsList;
     }
