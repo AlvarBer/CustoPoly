@@ -20,7 +20,7 @@ public class PayRentCommand implements Command {
     }
 
     protected Land getCurrentLand(Game game) {
-        return game.getBoard().getLands().get(game.getCurrentPlayer().getToken().getLandIndex());
+        return game.getBoard().getLands().get(game.getCurrentPlayer().getLandIndex());
     }
 
     private void makeTransaction(Game game, int payment) {

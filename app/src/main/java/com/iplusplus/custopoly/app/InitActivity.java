@@ -9,6 +9,7 @@ import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -23,7 +24,6 @@ import java.util.HashSet;
 public class InitActivity extends ActionBarActivity {
     //Constants
     protected static final String THEME_PATH = "res/drawable/themes/";
-    protected static final String TOKEN_PATH = "res/drawable/tokens/";
     protected static final String DATA_PATH = "res/gameData/";
 
     @Override
@@ -36,9 +36,9 @@ public class InitActivity extends ActionBarActivity {
         setContentView(R.layout.activity_init);
 
         //Creates a default theme (Debugging)
-        PlayerSkin vaderSkin = new PlayerSkin("vader",0,TOKEN_PATH + "vader.png");
-        PlayerSkin meGustaSkin = new PlayerSkin("meGusta",0,TOKEN_PATH + "meGusta.png");
-        HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
+        PlayerSkin vaderSkin = new PlayerSkin("vader", 0, R.drawable.placeholder_player_skin_star);
+        PlayerSkin meGustaSkin = new PlayerSkin("meGusta", 0, R.drawable.placeholder_player_skin_bullseye);
+        ArrayList<PlayerSkin> skins = new ArrayList<PlayerSkin>();
         skins.add(vaderSkin);
         skins.add(meGustaSkin);
         GameTheme defaultTheme =  new GameTheme("default",0, R.drawable.template_board,R.drawable.template_board,R.drawable.template_board,
