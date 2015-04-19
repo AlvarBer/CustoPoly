@@ -89,7 +89,7 @@
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer1"
         android:background="#D2691E"
-        android:clickable="true"
+        android:enabled="true"
         android:layout_below="@+id/activity_pre_game_tv_title"
         android:layout_toRightOf="@+id/checkPlayer3"
         android:layout_toEndOf="@+id/checkPlayer3">
@@ -103,7 +103,6 @@
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer2"
         android:background="#D2691E"
-        android:clickable="false"
         android:layout_above="@+id/checkPlayer2"
         android:layout_alignRight="@+id/activity_pre_game_tv_title"
         android:layout_alignEnd="@+id/activity_pre_game_tv_title">
@@ -116,7 +115,6 @@
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer3"
         android:background="#D2691E"
-        android:clickable="false"
         android:layout_alignTop="@+id/FlipperPlayer4"
         android:layout_toRightOf="@+id/checkPlayer3"
         android:layout_toEndOf="@+id/checkPlayer3">
@@ -129,7 +127,6 @@
         android:layout_height="120dp"
         android:id="@+id/FlipperPlayer4"
         android:background="#D2691E"
-        android:clickable="false"
         android:layout_above="@+id/checkPlayer4"
         android:layout_alignLeft="@+id/FlipperPlayer2"
         android:layout_alignStart="@+id/FlipperPlayer2">
