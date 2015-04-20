@@ -10,9 +10,9 @@ public class GameTheme implements Serializable {
    
 	private String name;
 	private double price;
-	private int backgroundPathResource;
-	private int communityBoxCardPathResource;
-	private int fortuneCardPathResource;
+	private String backgroundPathResource;
+	private String communityBoxCardPathResource;
+	private String fortuneCardPathResource;
 	private String boardDataPath;
 	private String cardsDataPath;
 	private HashSet<PlayerSkin> playerSkinsList;
@@ -27,8 +27,8 @@ public class GameTheme implements Serializable {
      * @param playerSkinsList List with the skins attached to the theme
      */
 
-	public GameTheme(String name, double price, int backgroundPathResource, int communityBoxCardPathResource,
-					 int fortuneCardPathResource, String boardDataPath, String cardsDataPath, HashSet<PlayerSkin> playerSkinsList) {
+	public GameTheme(String name, double price, String backgroundPathResource, String communityBoxCardPathResource,
+                     String fortuneCardPathResource, String boardDataPath, String cardsDataPath, HashSet<PlayerSkin> playerSkinsList) {
 		this.name = name;
 		this.price = price;
 		this.backgroundPathResource = backgroundPathResource;
@@ -50,15 +50,15 @@ public class GameTheme implements Serializable {
 		return price;
 	}
 
-	public int getBackgroundPathResource() {
+	public String getBackgroundPathResource() {
 		return backgroundPathResource;
 	}
 
-	public int getCommunityBoxCardPathResource() {
+	public String getCommunityBoxCardPathResource() {
 		return communityBoxCardPathResource;
 	}
 
-	public int getFortuneCardPathResource() {
+	public String getFortuneCardPathResource() {
 		return fortuneCardPathResource;
 	}
 

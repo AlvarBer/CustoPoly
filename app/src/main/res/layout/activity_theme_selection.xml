@@ -11,97 +11,6 @@
                 android:background="@android:color/holo_blue_dark"
                 android:id="@+id/activity_theme_selection">
 
-    <ImageView
-        android:id="@+id/theme1"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_above="@+id/bTheme1"
-        android:layout_alignLeft="@+id/theme3"
-        android:layout_alignStart="@+id/theme3" />
-
-    <ImageView
-        android:id="@+id/theme2"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_above="@+id/bTheme2"
-        android:layout_alignLeft="@+id/theme8"
-        android:layout_alignStart="@+id/theme8" />
-
-    <ImageView
-        android:id="@+id/theme3"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_alignTop="@+id/theme4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="39dp"
-        android:layout_marginStart="39dp" />
-
-    <ImageView
-        android:id="@+id/theme4"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_above="@+id/bTheme3"
-        android:layout_alignLeft="@+id/theme2"
-        android:layout_alignStart="@+id/theme2" />
-
-    <ImageView
-        android:id="@+id/theme5"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_above="@+id/bTheme5"
-        android:layout_alignLeft="@+id/theme3"
-        android:layout_alignStart="@+id/theme3" />
-
-    <ImageView
-        android:id="@+id/theme6"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_alignBottom="@+id/theme5"
-        android:layout_alignLeft="@+id/theme4"
-        android:layout_alignStart="@+id/theme4" />
-
-    <ImageView
-        android:id="@+id/theme7"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_alignBottom="@+id/theme8"
-        android:layout_alignLeft="@+id/theme5"
-        android:layout_alignStart="@+id/theme5" />
-
-    <ImageView
-        android:id="@+id/theme8"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo"
-        android:clickable="false"
-        android:background="#D2691E"
-        android:layout_above="@+id/bBack"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="31dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -112,125 +21,34 @@
         android:layout_alignParentTop="true"
         android:textStyle="bold" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:id="@+id/bTheme1"
-        android:enabled="true"
-        android:checked="true"
-        android:buttonTint="#ffffffff"
-        android:textColor="#ffffffff"
-        android:layout_below="@+id/theme2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="89dp"
-        android:layout_marginStart="89dp" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2"
-        android:id="@+id/bTheme2"
-        android:enabled="true"
-        android:checked="false"
-        android:textColor="#ffffffff"
-        android:buttonTint="#ffffffff"
-        android:layout_above="@+id/theme4"
-        android:layout_alignLeft="@+id/bTheme4"
-        android:layout_alignStart="@+id/bTheme4" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3"
-        android:id="@+id/bTheme3"
-        android:enabled="true"
-        android:checked="false"
-        android:buttonTint="#ffffffff"
-        android:textColor="#ffffffff"
-        android:layout_above="@+id/theme5"
-        android:layout_alignRight="@+id/theme3"
-        android:layout_alignEnd="@+id/theme3"
-        android:layout_marginRight="40dp"
-        android:layout_marginEnd="40dp" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="4"
-        android:id="@+id/bTheme4"
-        android:enabled="true"
-        android:checked="false"
-        android:buttonTint="#ffffffff"
-        android:textColor="#ffffffff"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/bTheme6"
-        android:layout_alignStart="@+id/bTheme6" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="5"
-        android:id="@+id/bTheme5"
-        android:enabled="true"
-        android:checked="false"
-        android:buttonTint="#ffffffff"
-        android:textColor="#ffffffff"
-        android:layout_above="@+id/theme7"
-        android:layout_alignRight="@+id/theme7"
-        android:layout_alignEnd="@+id/theme7"
-        android:layout_marginRight="41dp"
-        android:layout_marginEnd="41dp" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="6"
-        android:id="@+id/bTheme6"
-        android:enabled="true"
-        android:checked="false"
-        android:textColor="#ffffffff"
-        android:layout_above="@+id/theme8"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_marginRight="36dp"
-        android:layout_marginEnd="36dp" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="7"
-        android:id="@+id/bTheme7"
-        android:enabled="true"
-        android:checked="false"
-        android:buttonTint="#ffffffff"
-        android:textColor="#ffffffff"
-        android:layout_above="@+id/bBack"
-        android:layout_alignLeft="@+id/bTheme5"
-        android:layout_alignStart="@+id/bTheme5" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="8"
-        android:id="@+id/bTheme8"
-        android:enabled="true"
-        android:checked="false"
-        android:buttonTint="#ffffffff"
-        android:textColor="#ffffffff"
-        android:layout_above="@+id/bBack"
-        android:layout_alignLeft="@+id/bTheme6"
-        android:layout_alignStart="@+id/bTheme6" />
-
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bBack"
         android:drawableLeft="@drawable/ic_action_back"
         android:text="Back"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/theme8"
-        android:layout_toStartOf="@+id/theme8" />
+        android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Theme name.."
+        android:id="@+id/themeNameTextView"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        android:layout_above="@+id/bBack"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/themeFlipper"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/holo_blue_dark"
+        android:layout_above="@+id/themeNameTextView" />
 
 </RelativeLayout>

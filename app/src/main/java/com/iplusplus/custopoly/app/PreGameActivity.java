@@ -289,7 +289,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         return players;
     }*/
 
-    //TODO aqui hay algo que no va, me da que no se inicializa el ArrayList this.skins
     private void getSkinsView() { // here I add the images in the arrayList so I can put them in the flippers;
         Iterator it = this.skins.iterator();
         int count = 0;
@@ -297,12 +296,12 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
 
         while (it.hasNext()) {
             PlayerSkin skin = (PlayerSkin) it.next();
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,
-                                                                              LayoutParams.WRAP_CONTENT);
-            skinImage1 = createImage(count, params, skin.getImageResourceId());
-            skinImage2 = createImage(count, params, skin.getImageResourceId());
-            skinImage3 = createImage(count, params, skin.getImageResourceId());
-            skinImage4 = createImage(count, params, skin.getImageResourceId());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.MATCH_PARENT,
+                                                                              LayoutParams.MATCH_PARENT);
+            skinImage1 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
+            skinImage2 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
+            skinImage3 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
+            skinImage4 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
             this.flipperPlayer1.addView(skinImage1, count);
             this.flipperPlayer2.addView(skinImage2, count);
             this.flipperPlayer3.addView(skinImage3, count);
