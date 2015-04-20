@@ -65,4 +65,6 @@ public class PlayerSkin implements Serializable {
     public String toString() {
         return this.name;
     }
+
+
 }

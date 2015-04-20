@@ -118,19 +118,19 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 //Create and save game.
                 // Initialize players
                 //Insert first player (always there)
-                Player player = new Player(0, this.Player1Name.getText().toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                Player player = new Player(0, this.Player1Name.getText().toString(), 1, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
                 players.add(player);
                 //Insert rest of players if it is required
                 if(this.checkPlayer2.isChecked()) {
-                    player = new Player(1, this.Player2Name.getText().toString(), 0,  skinsList.get(this.flipperPlayer2.getCurrentView().getId()));
+                    player = new Player(1, this.Player2Name.getText().toString(), 2,  skinsList.get(this.flipperPlayer2.getCurrentView().getId()));
                     players.add(player);
                 }
                 if(this.checkPlayer3.isChecked()) {
-                    player = new Player(2, this.Player3Name.getText().toString(), 0, skinsList.get(this.flipperPlayer3.getCurrentView().getId()));
+                    player = new Player(2, this.Player3Name.getText().toString(), 3, skinsList.get(this.flipperPlayer3.getCurrentView().getId()));
                     players.add(player);
                 }
                 if(this.checkPlayer4.isChecked()) {
-                    player = new Player(3, this.Player4Name.getText().toString(), 0, skinsList.get(this.flipperPlayer4.getCurrentView().getId()));
+                    player = new Player(3, this.Player4Name.getText().toString(), 4, skinsList.get(this.flipperPlayer4.getCurrentView().getId()));
                     players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();

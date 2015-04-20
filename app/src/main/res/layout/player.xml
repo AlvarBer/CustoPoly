@@ -4,12 +4,18 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ImageView
+    <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/player_iv_skin" android:layout_gravity="center_horizontal" android:maxWidth="10dp"
-            android:maxHeight="10dp" android:minHeight="10dp" android:minWidth="10dp"
-            android:src="#ffff2100"
-            android:focusable="false" android:nestedScrollingEnabled="false"
-            android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+            android:layout_centerVertical="true" android:layout_centerHorizontal="true" android:minWidth="10dp"
+            android:minHeight="10dp">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/player_iv_skin" android:layout_gravity="center_horizontal" android:maxWidth="8dp"
+                android:maxHeight="8dp" android:minHeight="8dp" android:minWidth="8dp"
+                android:src="#ffff2100"
+                android:focusable="false" android:nestedScrollingEnabled="false"
+                android:layout_centerVertical="true" android:layout_centerHorizontal="true"/>
+    </FrameLayout>
 </RelativeLayout>
