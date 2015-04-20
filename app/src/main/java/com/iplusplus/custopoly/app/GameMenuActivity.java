@@ -47,7 +47,18 @@ public class GameMenuActivity extends ActionBarActivity {
 
                 //Starts the Pre-Game Activity
                 Intent myIntent = new Intent(GameMenuActivity.this, PreGameActivity.class);
-                GameMenuActivity.this.startActivity(myIntent);
+                startActivity(myIntent);
+
+            }
+        });
+
+        //Define behaviour of Load Button when is pressed
+        loadGame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                //Starts the Pre-Game Activity
+                Intent myIntent = new Intent(GameMenuActivity.this, GameActivity.class);
+                startActivity(myIntent);
 
             }
         });

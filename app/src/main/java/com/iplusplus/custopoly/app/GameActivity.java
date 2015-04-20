@@ -1,11 +1,11 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.iplusplus.custopoly.model.GameTheme;
@@ -15,6 +15,8 @@ import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Corresponds with the game_activity in the mockup.
@@ -32,31 +34,78 @@ public class GameActivity extends ActionBarActivity {
     private Game game;
     private ImageView boardBackground;
     private FrameLayout players;
+    private HashMap<Integer,Square> squarePositions;
 
     //Constants
-    private static final int SPACE_WIDTH = 390;
+    //private static final int SPACE_WIDTH = 390;
+    private static final double POS_X_START = 196;
+    private static final double POS_Y_START = 158;
+    private static final double SMALL_SMALL_H_DISTANCE = 36.5;
+    private static final double SMALL_SMALL_V_DISTANCE = 29.5;
+    private static final double BIG_SMALL_H_DISTANCE = 50;
+    private static final double BIG_SMALL_V_DISTANCE = 40;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //TODO:Repair the system of loading and saving the game
-        //Loads the information of the new game from the memory
-        try {
-            this.game = SaveGameHandler.getInstance().loadGame();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        loadGame();
         setupViews();
+        initSquarePositions();
         drawBoard();
         drawPlayers();
-
     }
 
+    /**
+     * Called when the GameActivity is hidden. Automatically saves the game.
+     *
+     * @see android.app.Activity#onPause()
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveGame();
+    }
+
+    /**
+     * Called every time the app is resumed. Loads the game and draw the board
+     * and the players
+     *
+     * @see android.app.Activity#onResume()
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadGame();
+        drawBoard();
+        drawPlayers();
+    }
+
+
+    /**
+     * Defines the behaviour of the back button.
+     * It shows a dialog asking the user to confirm if he wants to quit the game
+     */
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Quit game")
+                .setMessage("Are you sure you want to quit the game?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent play = new Intent(GameActivity.this, MainActivity.class);
+                        startActivity(play);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,44 +129,138 @@ public class GameActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Displays the skins of the players according to their current position in the board
+     */
     private void drawPlayers() {
         LayoutInflater inflater = getLayoutInflater();
         int i = 0;
+        float x, y;
+        Square sqPos;
         for (Player player : game.getPlayers()) {
+            sqPos = squarePositions.get(player.getLandIndex());
             View view = inflater.inflate(R.layout.player, players,false);
+            view.setScaleX((float) 0.5);
+            view.setScaleY((float) 0.5);
             ImageView skin = (ImageView) view.findViewById(R.id.player_iv_skin);
             skin.setImageResource(getResources().getIdentifier(player.getSkin().getImageResourceName(), "drawable", getPackageName()));
             view.setTag(i);
-            view.setX(Utilities.dpToPx(
-                    (int) (SPACE_WIDTH * (player.getLandIndex() + 0.5)), this)
-                    + calculateSpaceRelativePositionX(player));
-            view.setY(calculatePositionY(player));
-            players.addView(view);
 
+            x = Utilities.dpToPx((int) (sqPos.getX()), this);
+            y = Utilities.dpToPx((int) (sqPos.getY()), this);
+
+            if (isSharedSquare(game.getPlayers(), player.getLandIndex())) {
+                x += calculateSpaceRelativePositionX(player, sqPos);
+                y += calculateSpaceRelativePositionY(player, sqPos);
+            }
+            view.setX(x);
+            view.setY(y);
+
+            players.addView(view);
             i++;
         }
     }
 
+    private boolean isSharedSquare(ArrayList<Player> players, int landIndex) {
+        int i = 0;
+        for (Player p:players) {
+            if (p.getLandIndex() == landIndex)
+                i++;
+        }
+        return i > 1;
+    }
+
+    /**
+     * Displays the board of the theme on the image of the board
+     */
     private void drawBoard() {
         this.boardBackground.setImageResource(getResources().getIdentifier(game.getTheme().getBackgroundPathResource(), "drawable", getPackageName()));
     }
 
+    /**
+     * Initializes all the components of the view
+     */
     private void setupViews() {
         this.boardBackground = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
         this.players = (FrameLayout)findViewById(R.id.activity_game_fl_players);
     }
 
+    private void initSquarePositions() {
+        squarePositions = new HashMap<Integer,Square>();
+
+        //Initializes the squares of the bottom
+        Square bigSquare = new Square(POS_X_START,POS_Y_START,Position.DOWN,Size.BIG);
+        squarePositions.put(0,bigSquare);
+        double posXSmall = POS_X_START-BIG_SMALL_H_DISTANCE;
+        double posYSmall = POS_Y_START;
+        Square smallSquare;
+
+        for (int i = 1; i < 10; i++) {
+            smallSquare = new Square(posXSmall, posYSmall, Position.DOWN,Size.SMALL);
+            if (i < 9)
+                posXSmall -= SMALL_SMALL_H_DISTANCE;
+            squarePositions.put(i,smallSquare);
+        }
+
+        //Initializes Jail Square
+        posXSmall -= BIG_SMALL_H_DISTANCE;
+        posXSmall += 0.2; //Little Adjustment
+        bigSquare = new Square(posXSmall, posYSmall, Position.DOWN,Size.BIG);
+        squarePositions.put(10,bigSquare);
+
+        //Initializes the squares of the left
+        posYSmall -= BIG_SMALL_V_DISTANCE;
+        for (int i = 11; i < 20; i++) {
+            smallSquare = new Square(posXSmall, posYSmall, Position.LEFT,Size.SMALL);
+            if (i < 19)
+                posYSmall -= SMALL_SMALL_V_DISTANCE;
+            squarePositions.put(i,smallSquare);
+        }
+
+        //Initializes Parking Square
+        posYSmall -= BIG_SMALL_V_DISTANCE;
+        bigSquare = new Square(posXSmall, posYSmall, Position.LEFT,Size.BIG);
+        squarePositions.put(20,bigSquare);
+
+        //Initializes the squares of the top
+        posXSmall += BIG_SMALL_H_DISTANCE;
+        for (int i = 21; i < 30; i++) {
+            smallSquare = new Square(posXSmall, posYSmall, Position.UP,Size.SMALL);
+            if (i < 29)
+                posXSmall += SMALL_SMALL_H_DISTANCE;
+            squarePositions.put(i,smallSquare);
+        }
+
+        //Initializes Go Jail Square
+        posXSmall += BIG_SMALL_H_DISTANCE;
+        bigSquare = new Square(posXSmall, posYSmall, Position.UP,Size.BIG);
+        squarePositions.put(30,bigSquare);
+
+        //Initializes the squares of the right
+        posYSmall += BIG_SMALL_V_DISTANCE;
+        for (int i = 31; i < 40; i++) {
+            smallSquare = new Square(posXSmall, posYSmall, Position.LEFT,Size.SMALL);
+            if (i < 39)
+                posYSmall += SMALL_SMALL_V_DISTANCE;
+            squarePositions.put(i,smallSquare);
+        }
+    }
+
     /**
      * Utility function for all functions related to moving the player views.
-     * Calculates the X position of a player relative to the center of his
-     * current space, so that the players don't all sit on the same spot.
-     *
      * @param player
      *            the player to calculate the position for
      * @return X position relative to the center of the current space, in pixels
      */
-    private int calculateSpaceRelativePositionX(Player player) {
-        return Utilities.dpToPx((player.getPlayerID() % 2 == 0 ? 1 : -1) * 12,
+    private int calculateSpaceRelativePositionX(Player player, Square sq) {
+        int distanceToCenter;
+        if (sq.getSize() == Size.BIG)
+            distanceToCenter = 12;
+        else if (sq.getPos() == Position.DOWN || sq.getPos() == Position.UP)
+            distanceToCenter = 8;
+        else
+            distanceToCenter = 14;
+        return Utilities.dpToPx((player.getPlayerID() % 2 == 0 ? 1 : -1) * distanceToCenter,
                 this);
     }
 
@@ -130,9 +273,74 @@ public class GameActivity extends ActionBarActivity {
      *            the player to calculate the position for
      * @return Y position in pixels
      */
-    private int calculatePositionY(Player player) {
-        return Utilities.dpToPx(146 + 22 * (player.getPlayerID() / 2), this);
+    private int calculateSpaceRelativePositionY(Player player, Square sq) {
+        int distanceToCenter;
+        if (sq.getSize() == Size.BIG || sq.getPos() == Position.DOWN || sq.getPos() == Position.UP)
+            distanceToCenter = 11;
+        else
+            distanceToCenter = 6;
+        return Utilities.dpToPx((player.getPlayerID() / 2 == 0 ? 1 : -1) * distanceToCenter, this);
     }
 
+    /**
+     * Loads the current game from memory
+     */
+    private void loadGame() {
+        try {
+            this.game = SaveGameHandler.getInstance().loadGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Saves the current game in memory
+     */
+    private void saveGame() {
+        if (game != null)
+            try {
+                SaveGameHandler.getInstance().saveGame(game);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+    private enum Position{UP,RIGHT,DOWN,LEFT}
+    private enum Size{BIG,SMALL}
+
+    private class Square {
+
+        //Attributes
+        private double x;
+        private double y;
+        private Position pos;
+        private Size size;
+
+        //Constructor
+        public Square(double x, double y, Position pos, Size size) {
+            this.x = x;
+            this.y = y;
+            this.pos = pos;
+            this.size = size;
+        }
+
+        //Methods
+        public double getX() {
+            return x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public Position getPos() {
+            return pos;
+        }
+
+        public Size getSize() {
+            return size;
+        }
+    }
 
 }
