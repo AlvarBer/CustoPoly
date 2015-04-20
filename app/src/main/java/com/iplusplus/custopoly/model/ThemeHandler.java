@@ -43,6 +43,12 @@ public class ThemeHandler {
         return INSTANCE;
     }
 
+
+    public ShopKeeper getShopKeeperInstance()
+    {
+        return shop;
+    }
+
     public boolean changePlayerSkin(Player p, PlayerSkin s) {
         boolean changed = false;
 

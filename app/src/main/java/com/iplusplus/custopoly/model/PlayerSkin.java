@@ -9,20 +9,20 @@ public class PlayerSkin implements Serializable {
    
 	private String name;
 	private double price;
-    private int imageResourceId;
+    private String imageResourceName;
 
     /***
      * Contructs a skin with all the information needed
      * @param name Name of the Skin
      * @param price Price in euros
-     * @param imageResourceId Path of the skin image: E.G: R.drawable.player_skin_darth_vader
+     * @param imageResourceName Path of the skin image: E.G: R.drawable.player_skin_darth_vader
      *                        These should be stored in all 4 drawable folders, each resolution with the same name.
      *                        It's just like strings.xml
      */
-    public PlayerSkin(String name, double price, int imageResourceId) {
+    public PlayerSkin(String name, double price, String imageResourceName) {
         this.name = name;
 		this.price = price;
-        this.imageResourceId = imageResourceId;
+        this.imageResourceName = imageResourceName;
     }
 
     public String getName()
@@ -35,8 +35,8 @@ public class PlayerSkin implements Serializable {
 		return price;
 	}
 
-    public int getImageResourceId() {
-        return imageResourceId;
+    public String getImageResourceName() {
+        return imageResourceName;
     }
 
     /***
@@ -51,7 +51,7 @@ public class PlayerSkin implements Serializable {
         {
             PlayerSkin s = (PlayerSkin)o;
             return this.name.equals(s.name) &&
-                    this.imageResourceId == s.imageResourceId &&
+                    this.imageResourceName == s.imageResourceName &&
                     this.price == s.price &&
                     this.hashCode() == s.hashCode();
         }

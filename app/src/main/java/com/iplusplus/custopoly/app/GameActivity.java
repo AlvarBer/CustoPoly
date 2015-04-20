@@ -86,7 +86,7 @@ public class GameActivity extends ActionBarActivity {
         for (Player player : game.getPlayers()) {
             View view = inflater.inflate(R.layout.player, players,false);
             ImageView skin = (ImageView) view.findViewById(R.id.player_iv_skin);
-            skin.setImageResource(player.getSkin().getImageResourceId());
+            skin.setImageResource(getResources().getIdentifier(player.getSkin().getImageResourceName(), "drawable", getPackageName()));
             view.setTag(i);
             view.setX(Utilities.dpToPx(
                     (int) (SPACE_WIDTH * (player.getLandIndex() + 0.5)), this)
@@ -99,7 +99,7 @@ public class GameActivity extends ActionBarActivity {
     }
 
     private void drawBoard() {
-        this.boardBackground.setImageResource(game.getTheme().getBackgroundPathResource());
+        this.boardBackground.setImageResource(getResources().getIdentifier(game.getTheme().getBackgroundPathResource(), "drawable", getPackageName()));
     }
 
     private void setupViews() {

@@ -39,7 +39,11 @@ import java.util.Iterator;
 public class ThemeSelectionActivity extends ActionBarActivity implements View.OnClickListener{
 
     private Button bBack;
-    private RadioButton t1, t2, t3, t4, t5, t6, t7, t8;
+    private ViewFlipper themeFlipper;
+    private TextView themeNameText;
+
+    private final ShopKeeper shopKeeperInstance = ThemeHandler.getInstance().getShopKeeperInstance();
+
     //TODO I have put all the RadioButtons but the first disable, so it can be handled by the shopKeeper
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,154 +51,29 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         setContentView(R.layout.activity_theme_selection);
 
         this.bBack = (Button)findViewById(R.id.bBack);
-        this.t1 = (RadioButton)findViewById(R.id.bTheme1);
-        this.t2 = (RadioButton)findViewById(R.id.bTheme2);
-        this.t3 = (RadioButton)findViewById(R.id.bTheme3);
-        this.t4 = (RadioButton)findViewById(R.id.bTheme4);
-        this.t5 = (RadioButton)findViewById(R.id.bTheme5);
-        this.t6 = (RadioButton)findViewById(R.id.bTheme6);
-        this.t7 = (RadioButton)findViewById(R.id.bTheme7);
-        this.t8 = (RadioButton)findViewById(R.id.bTheme8);
+        this.themeFlipper = (ViewFlipper)findViewById(R.id.themeFlipper);
+        this.themeNameText = (TextView)findViewById(R.id.themeNameTextView);
+
+        setupThemeFlipper();
+
+        //TODO Quitar el hack y hacverlo para la lsita de themes en la shopkeeper
+        this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getBackgroundPathResource());
 
         this.bBack.setOnClickListener(this);
-        this.t1.setOnClickListener(this);
-        this.t2.setOnClickListener(this);
-        this.t3.setOnClickListener(this);
-        this.t4.setOnClickListener(this);
-        this.t5.setOnClickListener(this);
-        this.t6.setOnClickListener(this);
-        this.t7.setOnClickListener(this);
-        this.t8.setOnClickListener(this);
+        this.themeFlipper.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bBack:
-                if(this.t1.isChecked()) {
-                    //TODO call the function to choose theme1
-                }
-                else if(this.t2.isChecked()) {
-                    //TODO call the function to choose theme2
-                }
-                else if(this.t3.isChecked()) {
-                    //TODO call the function to choose theme3
-                }
-                else if(this.t4.isChecked()) {
-                    //TODO call the function to choose theme4
-                }
-                else if(this.t5.isChecked()) {
-                    //TODO call the function to choose theme5
-                }
-                else if(this.t6.isChecked()) {
-                    //TODO call the function to choose theme6
-                }
-                else if(this.t7.isChecked()) {
-                    //TODO call the function to choose theme7
-                }
-                else if(this.t8.isChecked()) {
-                    //TODO call the function to choose theme8
-                }
                 Intent back = new Intent(ThemeSelectionActivity.this, MainActivity.class);
                 startActivity(back);
                 break;
-            case R.id.bTheme1:
-                if(this.t1.isChecked()) {
-                    this.t2.setChecked(false);
-                    this.t3.setChecked(false);
-                    this.t4.setChecked(false);
-                    this.t5.setChecked(false);
-                    this.t6.setChecked(false);
-                    this.t7.setChecked(false);
-                    this.t8.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
-            case R.id.bTheme2:
-                if(this.t2.isChecked()) {
-                    this.t1.setChecked(false);
-                    this.t3.setChecked(false);
-                    this.t4.setChecked(false);
-                    this.t5.setChecked(false);
-                    this.t6.setChecked(false);
-                    this.t7.setChecked(false);
-                    this.t8.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
-            case R.id.bTheme3:
-                if(this.t3.isChecked()) {
-                    this.t1.setChecked(false);
-                    this.t2.setChecked(false);
-                    this.t4.setChecked(false);
-                    this.t5.setChecked(false);
-                    this.t6.setChecked(false);
-                    this.t7.setChecked(false);
-                    this.t8.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
-            case R.id.bTheme4:
-                if(this.t4.isChecked()) {
-                    this.t1.setChecked(false);
-                    this.t2.setChecked(false);
-                    this.t3.setChecked(false);
-                    this.t5.setChecked(false);
-                    this.t6.setChecked(false);
-                    this.t7.setChecked(false);
-                    this.t8.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
-            case R.id.bTheme5:
-                if(this.t5.isChecked()) {
-                    this.t1.setChecked(false);
-                    this.t2.setChecked(false);
-                    this.t3.setChecked(false);
-                    this.t4.setChecked(false);
-                    this.t6.setChecked(false);
-                    this.t7.setChecked(false);
-                    this.t8.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
-            case R.id.bTheme6:
-                if(this.t6.isChecked()) {
-                    this.t1.setChecked(false);
-                    this.t2.setChecked(false);
-                    this.t3.setChecked(false);
-                    this.t4.setChecked(false);
-                    this.t5.setChecked(false);
-                    this.t7.setChecked(false);
-                    this.t8.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
-            case R.id.bTheme7:
-                if(this.t7.isChecked()) {
-                    this.t1.setChecked(false);
-                    this.t2.setChecked(false);
-                    this.t3.setChecked(false);
-                    this.t4.setChecked(false);
-                    this.t5.setChecked(false);
-                    this.t6.setChecked(false);
-                    this.t8.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
-            case R.id.bTheme8:
-                if(this.t8.isChecked()) {
-                    this.t1.setChecked(false);
-                    this.t2.setChecked(false);
-                    this.t3.setChecked(false);
-                    this.t4.setChecked(false);
-                    this.t5.setChecked(false);
-                    this.t6.setChecked(false);
-                    this.t7.setChecked(false);
-                    //if you click a button yo choose that theme and quit all others
-                }
-                break;
 
+            case R.id.FlipperPlayer1:
+                this.themeFlipper.showNext();
+                break;
         }
     }
 
@@ -221,5 +100,30 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         return super.onOptionsItemSelected(item);
     }
 
+    private void setupThemeFlipper() { // here I add the images in the arrayList so I can put them in the flippers;
+        //TODO ESTE ES EL CÓDIGO CORRECTO, PERO VOY A USAR EL HACK DE ABAJO PARA DEBUGGEAR
+      /*  Iterator it = this.shopKeeperInstance.getPurchasedThemesList().iterator();
+        int count = 0;
+        ImageView skinImage;
 
+        while (it.hasNext()) {
+            GameTheme theme = (GameTheme)it.next();
+
+            skinImage = createImage(count, getResources().getIdentifier(theme.getBackgroundPathResource(), "drawable", getPackageName()));
+            this.themeFlipper.addView(skinImage, count);
+
+            count++;
+        }*/
+
+        ImageView skinImage = createImage(0, getResources().getIdentifier(ThemeHandler.getInstance().getCurrentTheme().getBackgroundPathResource(), "drawable", getPackageName()));
+        this.themeFlipper.addView(skinImage, 0);
+    }
+
+    private ImageView createImage(int count, int imageResId) {
+        ImageView image = new ImageView(this);
+      //  image.setLayoutParams(new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,          LayoutParams.WRAP_CONTENT));//I set wrap_content to the layout params
+        image.setId(count);//I set the id from 0 to numImages - 1, I don't know how to put a string (es muy oscuro jeje)
+        image.setImageResource(imageResId);
+        return image;
+    }
 }
