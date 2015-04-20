@@ -38,9 +38,13 @@ public class InitActivity extends ActionBarActivity {
         //Creates a default theme (Debugging)
         PlayerSkin vaderSkin = new PlayerSkin("vader", 0, R.drawable.placeholder_player_skin_star);
         PlayerSkin meGustaSkin = new PlayerSkin("meGusta", 0, R.drawable.placeholder_player_skin_bullseye);
+        PlayerSkin queenSkin = new PlayerSkin("queen", 0, R.drawable.placeholder_player_skin_queen);
+        PlayerSkin kingSkin = new PlayerSkin("king", 0, R.drawable.placeholder_player_skin_king);
         HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
         skins.add(vaderSkin);
         skins.add(meGustaSkin);
+        skins.add(queenSkin);
+        skins.add(kingSkin);
         GameTheme defaultTheme =  new GameTheme("default",0, R.drawable.template_board,R.drawable.template_board,R.drawable.template_board,
                 DATA_PATH + "template_board.txt", DATA_PATH + "template_cards.txt",skins);
         ThemeHandler.getInstance().switchThemeTo(defaultTheme);
