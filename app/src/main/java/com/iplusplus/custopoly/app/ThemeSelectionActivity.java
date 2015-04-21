@@ -3,27 +3,18 @@ package com.iplusplus.custopoly.app;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.*;
+import android.support.v7.app.ActionBarActivity;
+import android.view.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
+import com.iplusplus.custopoly.model.GameTheme;
+import com.iplusplus.custopoly.model.ShopKeeper;
+import com.iplusplus.custopoly.model.ThemeHandler;
 
-import com.iplusplus.custopoly.model.*;
-import com.iplusplus.custopoly.model.gamemodel.element.Bank;
-import com.iplusplus.custopoly.model.gamemodel.element.Board;
-import com.iplusplus.custopoly.model.gamemodel.element.Game;
-import com.iplusplus.custopoly.model.gamemodel.element.Player;
-import com.iplusplus.custopoly.model.gamemodel.util.BoardFactory;
-import com.iplusplus.custopoly.model.gamemodel.util.CardFactory;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * Corresponds with the theme_activity in the mockup.
@@ -49,6 +40,10 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
     //TODO I have put all the RadioButtons but the first disable, so it can be handled by the shopKeeper
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //These will put the app on full screen
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_selection);
 
@@ -60,7 +55,7 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
 
         setupThemeFlipper();
 
-        //TODO Quitar el hack y hacverlo para la lsita de themes en la shopkeeper
+        //TODO Quitar el hack y hacerlo para la lista de themes en la shopkeeper
         this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getName());
 
         this.bBack.setOnClickListener(this);
@@ -113,31 +108,6 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         }
 
         return false;
-    }
-
-
-
-    //TODO the following functions may be erased
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_theme_selection, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupThemeFlipper() { // here I add the images in the arrayList so I can put them in the flippers;

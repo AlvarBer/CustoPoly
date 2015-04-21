@@ -1,30 +1,17 @@
 package com.iplusplus.custopoly.app;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.os.Parcelable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.*;
-import android.graphics.drawable.Drawable;
-import android.content.res.Resources.Theme;
-import android.net.Uri;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.widget.RadioGroup.LayoutParams;
-
-import com.iplusplus.custopoly.model.*;
+import com.iplusplus.custopoly.model.GameTheme;
+import com.iplusplus.custopoly.model.PlayerSkin;
+import com.iplusplus.custopoly.model.SaveGameHandler;
+import com.iplusplus.custopoly.model.ThemeHandler;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
@@ -53,8 +40,11 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
     private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        //These will put the app on full screen
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_pre_game);
 
@@ -217,29 +207,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 break;
 
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_pre_game, menu);
-        return true;
-    }
-
-    @Override//TODO this may be erased, is here because it could be needed
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
