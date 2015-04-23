@@ -1,5 +1,6 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -36,11 +37,12 @@ import java.util.Iterator;
  */
 
 
-public class ThemeSelectionActivity extends ActionBarActivity implements View.OnClickListener{
+public class ThemeSelectionActivity extends ActionBarActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private Button bBack;
     private ViewFlipper themeFlipper;
     private TextView themeNameText;
+    private ArrayList<GameTheme> purchasedThemes;
 
     private final ShopKeeper shopKeeperInstance = ThemeHandler.getInstance().getShopKeeperInstance();
 
@@ -50,6 +52,8 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_selection);
 
+        purchasedThemes = new ArrayList<GameTheme>(shopKeeperInstance.getPurchasedThemesList());
+
         this.bBack = (Button)findViewById(R.id.bBack);
         this.themeFlipper = (ViewFlipper)findViewById(R.id.themeFlipper);
         this.themeNameText = (TextView)findViewById(R.id.themeNameTextView);
@@ -57,10 +61,11 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         setupThemeFlipper();
 
         //TODO Quitar el hack y hacverlo para la lsita de themes en la shopkeeper
-        this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getBackgroundPathResource());
+        this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getName());
 
         this.bBack.setOnClickListener(this);
         this.themeFlipper.setOnClickListener(this);
+        this.themeFlipper.setOnLongClickListener(this);
     }
 
     @Override
@@ -71,11 +76,46 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
                 startActivity(back);
                 break;
 
-            case R.id.FlipperPlayer1:
+            case R.id.themeFlipper:
+
                 this.themeFlipper.showNext();
+                //TODO version buena, pero usamos el pequeño hack
+                // we access to the name of the current view
+                //this.themeNameText.setText(purchasedThemes.get(themeFlipper.getCurrentView().getId()).getName());
+                this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getName());
                 break;
         }
     }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch(v.getId()) {
+            case R.id.themeFlipper:
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Select Theme")
+                    .setMessage("Do you want to select this theme?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //TODO esto esta bien cambiar por el hack
+                           // ThemeHandler.getInstance().switchThemeTo(purchasedThemes.get(themeFlipper.getCurrentView().getId()));
+                            ThemeHandler.getInstance().switchThemeTo(ThemeHandler.getInstance().getCurrentTheme());
+
+                            Intent main = new Intent(ThemeSelectionActivity.this, MainActivity.class);
+                            startActivity(main);
+                        }
+
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+                break;
+        }
+
+        return false;
+    }
+
+
 
     //TODO the following functions may be erased
     @Override
@@ -102,7 +142,7 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
 
     private void setupThemeFlipper() { // here I add the images in the arrayList so I can put them in the flippers;
         //TODO ESTE ES EL CÓDIGO CORRECTO, PERO VOY A USAR EL HACK DE ABAJO PARA DEBUGGEAR
-      /*  Iterator it = this.shopKeeperInstance.getPurchasedThemesList().iterator();
+      /*  Iterator it = this.purchasedThemes.iterator();
         int count = 0;
         ImageView skinImage;
 
@@ -126,4 +166,6 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         image.setImageResource(imageResId);
         return image;
     }
+
+
 }
