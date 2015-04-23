@@ -20,12 +20,8 @@ import java.util.HashMap;
 
 /**
  * Corresponds with the game_activity in the mockup.
- *
- * Allows to play the entire game, from start to finish.
- *
- * Access to the model is doe via ModelFacade.getInstance().[methodname]
- *  EXAMPLE:
- *          ModelFacade.getInstance().switchThemeTo(Themes.THEME1);
+ * Allows to play a game, displaying it on the screen. In addition, it allows the communication
+   with the game through a system of buttons
  */
 
 public class GameActivity extends ActionBarActivity {
@@ -37,7 +33,6 @@ public class GameActivity extends ActionBarActivity {
     private HashMap<Integer,Square> squarePositions;
 
     //Constants
-    //private static final int SPACE_WIDTH = 390;
     private static final double POS_X_START = 196;
     private static final double POS_Y_START = 158;
     private static final double SMALL_SMALL_H_DISTANCE = 36.5;
@@ -46,11 +41,16 @@ public class GameActivity extends ActionBarActivity {
     private static final double BIG_SMALL_V_DISTANCE = 40;
 
 
+	/**
+	* Called when GameActivity is created. It's in charge of creating the activity, loading
+	* the game and initializing all the visual components of the view and display them on 
+	* the screen
+	*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
+		
         loadGame();
         setupViews();
         initSquarePositions();
@@ -130,32 +130,49 @@ public class GameActivity extends ActionBarActivity {
     }
 
     /**
-     * Displays the skins of the players according to their current position in the board
+     * Displays the skins of the players according to their current position 
+	 * in the board. If there are more than one player in the same square, it 
+	 * spreads the players to the border of the square to fit them in them.
+	 * Each player is a view that is include in a FrameLayout (players).
      */
     private void drawPlayers() {
+		
         LayoutInflater inflater = getLayoutInflater();
         int i = 0;
         float x, y;
         Square sqPos;
+		
+		//The following process is repeated for each player in the game
         for (Player player : game.getPlayers()) {
+		
+			//Gets the position (Square) of the square in which the player is from the map of positions
             sqPos = squarePositions.get(player.getLandIndex());
+			
             View view = inflater.inflate(R.layout.player, players,false);
+			
+			//Set the size of the skin
             view.setScaleX((float) 0.5);
             view.setScaleY((float) 0.5);
+			
+			//Recover the imageView that is in Player.xml (Static layout) and set the skin of the player
             ImageView skin = (ImageView) view.findViewById(R.id.player_iv_skin);
             skin.setImageResource(getResources().getIdentifier(player.getSkin().getImageResourceName(), "drawable", getPackageName()));
             view.setTag(i);
 
+			//Defines the position of the player in the center of the square
             x = Utilities.dpToPx((int) (sqPos.getX()), this);
             y = Utilities.dpToPx((int) (sqPos.getY()), this);
 
+			//If the position is already occupied by another player, spreads the player to the border of the square
             if (isSharedSquare(game.getPlayers(), player.getLandIndex())) {
                 x += calculateSpaceRelativePositionX(player, sqPos);
                 y += calculateSpaceRelativePositionY(player, sqPos);
             }
+			
+			//Set the position of the player and add it to view 
+			//TODO: Here we must set the position according to the center of the board, not the activity. ex: view.setX(players.getX() + x);
             view.setX(x);
-            view.setY(y);
-
+            view.setY(y);		
             players.addView(view);
             i++;
         }
@@ -185,6 +202,9 @@ public class GameActivity extends ActionBarActivity {
         this.players = (FrameLayout)findViewById(R.id.activity_game_fl_players);
     }
 
+	/**
+	* Initializes the coordinates, size and position of each square of the map
+	*/
     private void initSquarePositions() {
         squarePositions = new HashMap<Integer,Square>();
 
@@ -309,6 +329,10 @@ public class GameActivity extends ActionBarActivity {
     private enum Position{UP,RIGHT,DOWN,LEFT}
     private enum Size{BIG,SMALL}
 
+	/**
+	* Inner class that defines the coordinates of the square, its position and its size.
+	* It's private as it must be used only in this class
+	*/
     private class Square {
 
         //Attributes
