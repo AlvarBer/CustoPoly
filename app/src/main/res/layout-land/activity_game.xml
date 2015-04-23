@@ -55,4 +55,16 @@
             android:layout_toEndOf="@+id/button" android:id="@+id/activity_game_fl_players"
             >
     </FrameLayout>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/moneyView" android:layout_alignParentTop="true" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" android:layout_above="@+id/button4"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playerView" android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/activity_game_iv_boardBackground"
+            android:layout_above="@+id/button4"
+            android:layout_toStartOf="@+id/moneyView" android:layout_toLeftOf="@+id/moneyView"/>
 </RelativeLayout>
