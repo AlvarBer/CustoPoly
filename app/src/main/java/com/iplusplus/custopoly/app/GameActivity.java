@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
@@ -59,6 +61,7 @@ public class GameActivity extends ActionBarActivity {
         initSquarePositions();
         drawBoard();
         drawPlayers();
+		drawMoney();
     }
 
     /**
@@ -84,6 +87,7 @@ public class GameActivity extends ActionBarActivity {
         loadGame();
         drawBoard();
         drawPlayers();
+		drawMoney();
     }
 
     /**
@@ -327,6 +331,24 @@ public class GameActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
     }
+
+ 	private void drawMoney() {
+		ArrayList<Player> playerList = game.getPlayers();
+		TextView playerText = (TextView) findViewById(R.id.playerView);
+		TextView moneyText = (TextView) findViewById(R.id.moneyView);
+		String playersString = new String();
+		String moneyString = new String();
+
+		for(Player p : playerList) {
+			playersString = playersString.concat(p.getName());
+			playersString = playersString.concat("\n");
+			moneyString = moneyString.concat((String.valueOf(p.getBalance())));
+			moneyString = moneyString.concat("\n");
+		}
+
+		moneyText.setText(moneyString);
+		playerText.setText(playersString);
+	}
 
     private enum Position{UP,RIGHT,DOWN,LEFT}
     private enum Size{BIG,SMALL}
