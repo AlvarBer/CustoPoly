@@ -40,11 +40,18 @@ public class InitActivity extends ActionBarActivity {
         PlayerSkin meGustaSkin = new PlayerSkin("meGusta", 0, "placeholder_player_skin_bullseye");
         PlayerSkin queenSkin = new PlayerSkin("queen", 0, "placeholder_player_skin_queen");
         PlayerSkin kingSkin = new PlayerSkin("king", 0, "placeholder_player_skin_king");
+        //TODO qutiar esto...
+        PlayerSkin trollSkin = new PlayerSkin("troll", 0, "troll");
+        PlayerSkin megustaSkin = new PlayerSkin("megusta", 0, "megusta");
+        PlayerSkin trollfaceSkin = new PlayerSkin("trollface", 0, "trollface");
         HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
-        skins.add(vaderSkin);
+
         skins.add(meGustaSkin);
         skins.add(queenSkin);
         skins.add(kingSkin);
+        skins.add(trollSkin);
+        skins.add(megustaSkin);
+        skins.add(trollfaceSkin);
         GameTheme defaultTheme =  new GameTheme("default",0, "template_board", "template_board","template_board", DATA_PATH + "template_board.txt", DATA_PATH + "template_cards.txt",skins);
         ThemeHandler.getInstance().switchThemeTo(defaultTheme);
 
