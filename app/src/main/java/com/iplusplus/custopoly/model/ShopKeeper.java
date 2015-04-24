@@ -312,11 +312,6 @@ public class ShopKeeper {
         return null;
     }
 
-    public HashSet<PlayerSkin> getPurchasedPlayerSkinsList()
-    {
-        return purchasedPlayerSkinsList;
-    }
-
     /**
      * Method to buy a theme.
      * It also purchases the skins associated to that theme
@@ -512,6 +507,11 @@ public class ShopKeeper {
         catch(Exception e)
         {
         }
+    }
+
+    public HashSet<PlayerSkin> getPurchasedPlayerSkinsList()
+    {
+        return purchasedPlayerSkinsList;
     }
 
 }

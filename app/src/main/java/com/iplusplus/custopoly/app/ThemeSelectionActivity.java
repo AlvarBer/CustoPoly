@@ -110,6 +110,15 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         return false;
     }
 
+    /**
+     * Defines the behaviour of the back button. (Of the phone)
+     */
+    @Override
+    public void onBackPressed() {
+        Intent play = new Intent(ThemeSelectionActivity.this, MainActivity.class);
+        startActivity(play);
+    }
+
     private void setupThemeFlipper() { // here I add the images in the arrayList so I can put them in the flippers;
         //TODO ESTE ES EL CÓDIGO CORRECTO, PERO VOY A USAR EL HACK DE ABAJO PARA DEBUGGEAR
       /*  Iterator it = this.purchasedThemes.iterator();
