@@ -1,6 +1,10 @@
 package com.iplusplus.custopoly.model;
 
+import android.content.Context;
 import android.util.Xml;
+
+import com.iplusplus.custopoly.Custopoly;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -68,7 +72,7 @@ public class ShopKeeper {
                 xmlParser = Xml.newPullParser();
 
                 //Read the file and send it to the parser
-                in  = new FileInputStream(file);
+                in  = Custopoly.getAppContext().getAssets().open(file);
                 xmlParser.setInput(in, null);
 
                 //Search first tag in the file
@@ -134,6 +138,8 @@ public class ShopKeeper {
             String backgroundPath = "";
             String communityBoxCardPath = "";
             String fortuneCardPath = "";
+            String boardDataPath = "";
+            String cardsDataPath = "";
             HashSet<PlayerSkin> themeSkinsList = new HashSet<>();
 
             //Set the new starting tag
@@ -181,6 +187,18 @@ public class ShopKeeper {
                         fortuneCardPath = xmlParser.nextText();
                         xmlParser.require(XmlPullParser.END_TAG, null, "fortuneCardPath");
                         break;
+                    case "boardDataPath":
+                        //Change the starting point and read the text inside it
+                        xmlParser.require(XmlPullParser.START_TAG, null, "boardDataPath");
+                        fortuneCardPath = xmlParser.nextText();
+                        xmlParser.require(XmlPullParser.END_TAG, null, "boardDataPath");
+                        break;
+                    case "cardsDataPath":
+                        //Change the starting point and read the text inside it
+                        xmlParser.require(XmlPullParser.START_TAG, null, "cardsDataPath");
+                        fortuneCardPath = xmlParser.nextText();
+                        xmlParser.require(XmlPullParser.END_TAG, null, "cardsDataPath");
+                        break;
                     case "skin":
                         //Change the starting point and read the tags inside it. Then add it to the skins list
                         xmlParser.require(XmlPullParser.START_TAG, null, "skin");
@@ -195,7 +213,7 @@ public class ShopKeeper {
             }
 
             //Save the theme
-            //themesInShopList.add(new GameTheme(name, price, backgroundPath, communityBoxCardPath, fortuneCardPath, themeSkinsList));
+            themesInShopList.add(new GameTheme(name, price, backgroundPath, communityBoxCardPath, fortuneCardPath, boardDataPath, cardsDataPath, themeSkinsList));
         }
 
         /***
@@ -211,6 +229,12 @@ public class ShopKeeper {
             String imageResName = null;
 
             while (xmlParser.next() != XmlPullParser.END_TAG) {
+
+                if(xmlParser.getEventType() != XmlPullParser.START_TAG)
+                {
+                    continue;
+                }
+
                 String tag = xmlParser.getName();
                 switch(tag)
                 {
@@ -225,9 +249,9 @@ public class ShopKeeper {
                         xmlParser.require(XmlPullParser.END_TAG, null, "price");
                         break;
                     case "backgroundPath":
-                        xmlParser.require(XmlPullParser.START_TAG, null, "imagePath");
+                        xmlParser.require(XmlPullParser.START_TAG, null, "backgroundPath");
                         imageResName = xmlParser.nextText();
-                        xmlParser.require(XmlPullParser.END_TAG, null, "imagePath");
+                        xmlParser.require(XmlPullParser.END_TAG, null, "backgroundPath");
                         break;
                 }
             }
@@ -351,6 +375,11 @@ public class ShopKeeper {
     public HashSet<GameTheme> getPurchasedThemesList()
     {
         return purchasedThemesList;
+    }
+
+    public HashSet<GameTheme> getThemesInShopList()
+    {
+        return themesInShopList;
     }
 
     //PLAYER SKIN HANDLING
@@ -512,6 +541,11 @@ public class ShopKeeper {
     public HashSet<PlayerSkin> getPurchasedPlayerSkinsList()
     {
         return purchasedPlayerSkinsList;
+    }
+
+    public HashSet<PlayerSkin> getSkinsInShopList()
+    {
+        return skinsInShopList;
     }
 
 }

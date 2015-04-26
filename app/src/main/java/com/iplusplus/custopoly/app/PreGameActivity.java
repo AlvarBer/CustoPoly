@@ -45,7 +45,6 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_pre_game);
 
         setupViews();

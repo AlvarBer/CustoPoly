@@ -1,6 +1,9 @@
 package com.iplusplus.custopoly.model;
 
+import android.content.res.Resources;
+
 import com.iplusplus.custopoly.Custopoly;
+import com.iplusplus.custopoly.app.MainActivity;
 import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
@@ -14,7 +17,7 @@ import java.util.HashSet;
  */
 public class ThemeHandler {
 
-    private static ThemeHandler INSTANCE;
+    private static ThemeHandler INSTANCE = null;
     private GameTheme currentTheme;
     private HashSet<PlayerSkin> skins;
     private ShopKeeper shop;
