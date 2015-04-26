@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shop>
+
+    <theme>
+        <name>Prueba1</name>
+        <price>10</price>
+        <backgroundPath>asdasda</backgroundPath>
+        <communityBoxCardPath>asdasdasd</communityBoxCardPath>
+        <fortuneCardPath>asdasdas</fortuneCardPath>
+        <skin>
+            <name>skin1</name>
+            <price>99</price>
+            <backgroundPath>asdasda</backgroundPath>
+        </skin>
+    </theme>
+
+</shop>

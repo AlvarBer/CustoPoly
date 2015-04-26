@@ -14,21 +14,15 @@ import com.iplusplus.custopoly.model.ThemeHandler;
 public class Custopoly extends Application {
 
     private static Context context;
-    private static ThemeHandler themeHandler;
-    private static ShopKeeper shopKeeper;
 
     public void onCreate(){
         super.onCreate();
         Custopoly.context = getApplicationContext();
-        shopKeeper = new ShopKeeper(Custopoly.getAppContext().getString(R.string.shopkeeper_filepath));
+        ThemeHandler.getInstance(); //Create singleton instance
     }
 
     public static Context getAppContext() {
         return Custopoly.context;
-    }
-
-    public static ShopKeeper getShopKeeper() {
-        return shopKeeper;
     }
 }
 

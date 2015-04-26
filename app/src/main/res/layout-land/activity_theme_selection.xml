@@ -35,7 +35,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Theme name..."
         android:id="@+id/textView3"
         android:layout_alignTop="@+id/bBack"
         android:layout_alignParentLeft="true"
@@ -46,7 +45,7 @@
         android:layout_height="match_parent"
         android:id="@+id/viewFlipper2"
         android:layout_below="@+id/textView2"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@android:color/holo_blue_dark"
         android:layout_above="@+id/textView3"
         android:layout_alignRight="@+id/bBack"
         android:layout_alignEnd="@+id/bBack" />
