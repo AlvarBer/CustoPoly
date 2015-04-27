@@ -21,6 +21,4 @@ public class Board implements Serializable {
 	public void setLands(ArrayList<Land> lands) {
 		this.lands = lands;
 	}
-	
-	
 }

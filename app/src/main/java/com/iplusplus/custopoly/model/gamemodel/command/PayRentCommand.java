@@ -20,11 +20,11 @@ public class PayRentCommand implements Command {
         makeTransaction(game, payment);
     }
 
-    protected Land getCurrentLand(GameFacade game) {
+    protected Land getCurrentLand(Game game) {
         return game.getBoard().getLands().get(game.getCurrentPlayer().getLandIndex());
     }
 
-    private void makeTransaction(GameFacade game, int payment) {
+    private void makeTransaction(Game game, int payment) {
         Context context = Custopoly.getAppContext();
         Player source = game.getCurrentPlayer();
         Player target = game.getOwner((PropertyLand) getCurrentLand(game));

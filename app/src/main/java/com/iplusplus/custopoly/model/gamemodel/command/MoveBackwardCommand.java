@@ -1,6 +1,7 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
+import com.iplusplus.custopoly.model.gamemodel.element.Game;
 
 public class MoveBackwardCommand extends MoveTokenCommand {
 
@@ -11,7 +12,7 @@ public class MoveBackwardCommand extends MoveTokenCommand {
     }
 
     @Override
-    public int getLandIndex(GameFacade game) {
+    public int getLandIndex(Game game) {
         int currentIndex = game.getCurrentPlayer().getLandIndex();
         int movedIndex = ((currentIndex - stepBackward) + game.getBoard().getLands().size()) % game.getBoard().getSize();
         return movedIndex;

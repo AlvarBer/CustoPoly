@@ -11,11 +11,11 @@ public class GameTheme implements Serializable {
 	private String name;
 	private double price;
 	private String backgroundPathResource;
-	private String communityBoxCardPathResource;
-	private String fortuneCardPathResource;
-	private String boardDataPath;
-	private String cardsDataPath;
-	private HashSet<PlayerSkin> playerSkinsList;
+    private String communityBoxCardPathResource;
+    private String fortuneCardPathResource;
+    private String boardDataPath;
+    private String cardsDataPath;
+    private HashSet<PlayerSkin> playerSkinsList;
 
 	/***
      * Constructor to create the theme given all the data needed

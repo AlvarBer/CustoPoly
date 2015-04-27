@@ -16,8 +16,6 @@ public abstract class MoveTokenCommand implements Command {
         Player player = game.getCurrentPlayer();
         checkPassedStart(player.getLandIndex(), landIndex, game);
         player.setLandIndex(landIndex);
-        //TODO: We need to update the controller
-        //controller.update();
 
         Command command = land.getAssignment();
         command.execute(game);
@@ -32,7 +30,7 @@ public abstract class MoveTokenCommand implements Command {
 
     public abstract boolean isForward();
 
-    public abstract int getLandIndex(GameFacade game);
+    public abstract int getLandIndex(Game game);
 
 
 }
