@@ -213,31 +213,32 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public String getCurrentPlayerName() {
-        return null;
+        return this.currentPlayer.getName();
     }
 
     @Override
     public int getCurrentPlayerId() {
-        return 0;
+        return this.currentPlayer.getPlayerID();
     }
 
     @Override
     public int getPlayerBalanceById(int playerId) {
-        return 0;
+        return findPlayerById(playerId).getBalance();
     }
 
     @Override
     public int getPlayerBalanceByName(String playerName) {
-        return 0;
+        return findPlayerByName(playerName).getBalance();
     }
 
     @Override
     public int getCurrentPlayerBalance() {
-        return 0;
+        return this.currentPlayer.getBalance();
     }
 
     @Override
     public ArrayList<String> getCurrentPlayerCardList() {
+
         return null;
     }
 
@@ -253,13 +254,18 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public String getCurrentThemeBackgroundResPath() {
-        return null;
+        return this.theme.getBackgroundPathResource();
     }
 
     @Override
-    public String getCurrentThemeCardsResPath() {
-        return null;
+    public String getCurrentThemeCCBoxCardResPath() {
+        return this.theme.getCommunityBoxCardPathResource();
     }
+
+    public String getCurrentThemeFortuneCardResPath() {
+        return this.theme.getFortuneCardPathResource();
+    }
+
 
 
     // //
