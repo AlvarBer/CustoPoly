@@ -1,5 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
+import com.iplusplus.custopoly.Custopoly;
+import com.iplusplus.custopoly.app.R;
+import com.iplusplus.custopoly.model.exceptions.PlayerNotFoundException;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.command.AskBuyCommand;
 import com.iplusplus.custopoly.model.gamemodel.command.RollDiceCommand;
@@ -59,8 +62,7 @@ public class Game implements GameFacade, Serializable {
                 player = p;
             }
         }
-        //TODO: Implement the playernotfound exception
-        //if (player == null) throw new PlayerNotFoundException();
+        if (player == null) throw new PlayerNotFoundException();
         return player;
     }
 
@@ -71,8 +73,7 @@ public class Game implements GameFacade, Serializable {
                 player = p;
             }
         }
-        //TODO: Implement the playernotfound exception
-        //if (player == null) throw new PlayerNotFoundException();
+        if (player == null) throw new PlayerNotFoundException();
         return player;
     }
 
@@ -128,6 +129,7 @@ public class Game implements GameFacade, Serializable {
                     name = p.getName();
             }
         }
+        if (name == null) throw new PlayerNotFoundException();
         return name;
     }
 
@@ -140,6 +142,7 @@ public class Game implements GameFacade, Serializable {
                     id = p.getPlayerID();
             }
         }
+        if (id == -1) throw new PlayerNotFoundException();
         return id;
     }
 
@@ -164,24 +167,12 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public int getPlayerIdByName(String playerName) {
-        int id = -1;
-        for (Player p : this.players) {
-            if (p.getName().equals(playerName)) {
-                id = p.getPlayerID();
-            }
-        }
-        return id;
+        return findPlayerByName(playerName).getPlayerID();
     }
 
     @Override
     public String getPlayerNameById(int playerID) {
-        String name = null;
-        for (Player p : this.players) {
-            if (p.getPlayerID() == playerID) {
-                name = p.getName();
-            }
-        }
-        return name;
+        return findPlayerById(playerID).getName();
     }
 
     @Override
