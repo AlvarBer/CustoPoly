@@ -31,6 +31,8 @@
     <string name="ingame_mortgageYes">Yes</string>
     <string formatted="false" name="ingame_feepaidmsg">%s paid : %dK</string>
     <string formatted="false" name="ingame_rentpaidmsg">%s paid %dK to %s</string>
+    <string name="ingame_quitgame_title">Quit game?</string>
+    <string name="ingame_quitgame_message">Are you sure you want to quit the game?</string>
 
     //MainActivity
     <string name="playButtonText">Play</string>
