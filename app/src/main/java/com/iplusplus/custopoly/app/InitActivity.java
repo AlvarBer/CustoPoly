@@ -37,7 +37,7 @@ public class InitActivity extends ActionBarActivity {
 
         //Creates a default theme (Debugging)
         PlayerSkin vaderSkin = new PlayerSkin("vader", 0, "placeholder_player_skin_star");
-        PlayerSkin meGustaSkin = new PlayerSkin("meGusta", 0, "placeholder_player_skin_bullseye");
+        PlayerSkin bullseyeSkin = new PlayerSkin("bullseye", 0, "placeholder_player_skin_bullseye");
         PlayerSkin queenSkin = new PlayerSkin("queen", 0, "placeholder_player_skin_queen");
         PlayerSkin kingSkin = new PlayerSkin("king", 0, "placeholder_player_skin_king");
         //TODO qutiar esto...
@@ -46,7 +46,7 @@ public class InitActivity extends ActionBarActivity {
         PlayerSkin trollfaceSkin = new PlayerSkin("trollface", 0, "trollface");
         HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
 
-        skins.add(meGustaSkin);
+        skins.add(bullseyeSkin);
         skins.add(queenSkin);
         skins.add(kingSkin);
         skins.add(trollSkin);
