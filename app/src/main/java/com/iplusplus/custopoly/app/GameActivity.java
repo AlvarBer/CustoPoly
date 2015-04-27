@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class GameActivity extends ActionBarActivity {
 
     //Attributes
-    private GameFacade game;
+    private Game game;
     private ImageView boardBackground;
     private FrameLayout players;
     private HashMap<Integer,Square> squarePositions;
@@ -312,8 +312,9 @@ public class GameActivity extends ActionBarActivity {
      * Loads the current game from memory
      */
     private void loadGame() {
+        //TODO: Remove casting when the facade is properly integrated
         try {
-            this.game = SaveGameHandler.getInstance().loadGame();
+            this.game = (Game) SaveGameHandler.getInstance().loadGame();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

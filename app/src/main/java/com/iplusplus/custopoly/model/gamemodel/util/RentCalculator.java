@@ -6,9 +6,9 @@ import com.iplusplus.custopoly.model.gamemodel.element.*;
 
 public class RentCalculator {
 
-    private GameFacade game;
+    private Game game;
 
-    public RentCalculator(GameFacade game) {
+    public RentCalculator(Game game) {
         this.game = game;
 	}
 

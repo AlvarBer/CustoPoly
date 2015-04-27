@@ -42,7 +42,7 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      * @param game
      * @param land
      */
-    private void askPurchase(GameFacade game, PropertyLand land) {
+    private void askPurchase(Game game, PropertyLand land) {
         Context context = Custopoly.getAppContext();
 
         String message = context.getText(R.string.ingame_askWantToBuy).toString();
@@ -62,7 +62,7 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      * @param context
      * @param land
      */
-    private void makePurchase(GameFacade game, Context context, PropertyLand land) {
+    private void makePurchase(Game game, Context context, PropertyLand land) {
         Player player = game.getCurrentPlayer();
         if (player.getBalance() > land.getPrice()) {
             player.decreaseBalance(land.getPrice());
