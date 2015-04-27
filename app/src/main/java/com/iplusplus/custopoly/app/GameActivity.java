@@ -98,10 +98,9 @@ public class GameActivity extends ActionBarActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Quit game")
-                .setMessage("Are you sure you want to quit the game?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
-                {
+                .setTitle(getString(R.string.ingame_quitgame_title))
+                .setMessage(getString(R.string.ingame_quitgame_message))
+                .setPositiveButton(getString(R.string.ingame_buyyesbutton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent play = new Intent(GameActivity.this, MainActivity.class);
@@ -109,7 +108,7 @@ public class GameActivity extends ActionBarActivity {
                     }
 
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(getString(R.string.ingame_buynobutton), null)
                 .show();
     }
 
