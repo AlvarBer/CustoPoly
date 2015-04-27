@@ -36,10 +36,9 @@
         android:id="@+id/themeNameTextView"
         android:textSize="38sp"
         android:textStyle="bold"
+        android:singleLine="false"
         android:layout_above="@+id/bBack"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:singleLine="false" />
+        android:layout_centerHorizontal="true" />
 
     <ViewFlipper
         android:layout_width="match_parent"
