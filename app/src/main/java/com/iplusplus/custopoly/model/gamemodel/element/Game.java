@@ -51,6 +51,31 @@ public class Game implements GameFacade, Serializable {
         return BoardFactory.readBoard(new File(theme.getBoardDataPath()));
     }
 
+    //Auxiliary methods for the getters
+    private Player getPlayerById(int playerId) {
+        Player player = null;
+        for (Player p : this.players) {
+            if (p.getPlayerID() == playerId) {
+                player = p;
+            }
+        }
+        //TODO: Implement the playernotfound exception
+        //if (player == null) throw new PlayerNotFoundException();
+        return player;
+    }
+
+    private Player getPlayerByName(String playerName) {
+        Player player = null;
+        for (Player p : this.players) {
+            if (p.getName().equals(playerName)) {
+                player = p;
+            }
+        }
+        //TODO: Implement the playernotfound exception
+        //if (player == null) throw new PlayerNotFoundException();
+        return player;
+    }
+
     // //
     // Methods implemented from interface
     // //
@@ -67,7 +92,31 @@ public class Game implements GameFacade, Serializable {
 
     @Override
     public ArrayList<String> getAssetsOwnedByCurrentPlayer() {
-        return null;
+        ArrayList<String> names = new ArrayList<String>();
+        for (PropertyLand pr : this.currentPlayer.getProperties()) {
+            names.add(pr.getName());
+        }
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getAssetNamesOwnedByPlayer(int playerId) {
+        Player player = getPlayerById(playerId);
+        ArrayList<String> names = new ArrayList<String>();
+        for (PropertyLand pr : player.getProperties()) {
+            names.add(pr.getName());
+        }
+        return names;
+    }
+
+    @Override
+    public ArrayList<String> getAssetNamesOwnedByPlayer(String playerName) {
+        Player player = getPlayerByName(playerName);
+        ArrayList<String> names = new ArrayList<String>();
+        for (PropertyLand pr : player.getProperties()) {
+            names.add(pr.getName());
+        }
+        return names;
     }
 
     @Override
@@ -96,6 +145,16 @@ public class Game implements GameFacade, Serializable {
     }
 
     @Override
+    public int getPlayerIdByName(String playerName) {
+        return 0;
+    }
+
+    @Override
+    public String getPlayerNameById(int playerID) {
+        return null;
+    }
+
+    @Override
     public boolean isEnded() {
         return false;
     }
@@ -106,7 +165,57 @@ public class Game implements GameFacade, Serializable {
     }
 
     @Override
+    public String getCurrentPlayerSkinResPath() {
+        return null;
+    }
+
+    @Override
+    public String getPlayerSkinResPathById(int playerId) {
+        return null;
+    }
+
+    @Override
+    public String getPlayerSkinResPathByName(String playerName) {
+        return null;
+    }
+
+    @Override
     public String getCurrentPlayerName() {
+        return null;
+    }
+
+    @Override
+    public int getCurrentPlayerId() {
+        return 0;
+    }
+
+    @Override
+    public int getPlayerBalanceById(int playerId) {
+        return 0;
+    }
+
+    @Override
+    public int getPlayerBalanceByName(String playerName) {
+        return 0;
+    }
+
+    @Override
+    public int getCurrentPlayerBalance() {
+        return 0;
+    }
+
+    @Override
+    public ArrayList<String> getCurrentPlayerCardList() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getPlayerCardListById(int playerId) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getPlayerCardListByName(String playerName) {
         return null;
     }
 
