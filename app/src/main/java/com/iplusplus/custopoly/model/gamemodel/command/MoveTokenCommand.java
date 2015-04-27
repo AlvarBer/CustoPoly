@@ -1,7 +1,7 @@
 package com.iplusplus.custopoly.model.gamemodel.command;
 
 
-import android.content.Context;
+import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
@@ -32,7 +32,7 @@ public abstract class MoveTokenCommand implements Command {
 
     public abstract boolean isForward();
 
-    public abstract int getLandIndex(Game game);
+    public abstract int getLandIndex(GameFacade game);
 
 
 }

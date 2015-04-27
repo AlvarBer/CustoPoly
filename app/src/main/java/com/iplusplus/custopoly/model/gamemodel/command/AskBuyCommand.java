@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.app.R;
+import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
@@ -41,7 +42,7 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      * @param game
      * @param land
      */
-    private void askPurchase(Game game, PropertyLand land) {
+    private void askPurchase(GameFacade game, PropertyLand land) {
         Context context = Custopoly.getAppContext();
 
         String message = context.getText(R.string.ingame_askWantToBuy).toString();
@@ -61,7 +62,7 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      * @param context
      * @param land
      */
-    private void makePurchase(Game game, Context context, PropertyLand land) {
+    private void makePurchase(GameFacade game, Context context, PropertyLand land) {
         Player player = game.getCurrentPlayer();
         if (player.getBalance() > land.getPrice()) {
             player.decreaseBalance(land.getPrice());
@@ -82,7 +83,7 @@ public class AskBuyCommand implements Command, DialogInterface.OnClickListener {
      * @param info
      * @param game
      */
-    private void display(String info, Game game) {
+    private void display(String info, GameFacade game) {
         Context context = Custopoly.getAppContext();
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);

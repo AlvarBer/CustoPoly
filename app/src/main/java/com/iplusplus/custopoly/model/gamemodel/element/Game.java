@@ -1,6 +1,5 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-import android.content.Context;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.command.AskBuyCommand;
 import com.iplusplus.custopoly.model.gamemodel.command.RollDiceCommand;
@@ -12,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Game implements GameFacade, Serializable{
+public class Game implements GameFacade, Serializable {
 
 	//Attributes
 	private Bank bank;
@@ -44,13 +43,15 @@ public class Game implements GameFacade, Serializable{
 	public void rollDice() {new RollDiceCommand();}
 
 
-	public ArrayList<PropertyLand> getAssetsOwnedByPlayer() {
-		return currentPlayer.getProperties();
+    @Override
+    public ArrayList<PropertyLand> getAssetsOwnedByPlayer() {
+        return currentPlayer.getProperties();
 	}
 
 
-	public Player getOwner(PropertyLand property){
-		for (Player player: players) {
+    @Override
+    public Player getOwner(PropertyLand property) {
+        for (Player player: players) {
 			if(player.getProperties().contains(property))
 				return player;
 		}
@@ -58,34 +59,40 @@ public class Game implements GameFacade, Serializable{
 	}
 
 
-	public Bank getBank() {
-		return bank;
+    @Override
+    public Bank getBank() {
+        return bank;
 	}
 
 
-	public Board getBoard() {
-		return board;
+    @Override
+    public Board getBoard() {
+        return board;
 	}
 
 
-	public ArrayList<Player> getPlayers() {
-		return players;
+    @Override
+    public ArrayList<Player> getPlayers() {
+        return players;
 	}
 
 
-	public boolean hasWinner() {
-		if(players.size() == 1) return true;
+    @Override
+    public boolean hasWinner() {
+        if(players.size() == 1) return true;
 		else return false;
 	}
 
 
-	public Player getCurrentPlayer() {
-		return currentPlayer;
+    @Override
+    public Player getCurrentPlayer() {
+        return currentPlayer;
 	}
 
 
-	public void setCurrentPlayer(Player player) {
-		this.currentPlayer = player;
+    @Override
+    public void setCurrentPlayer(Player player) {
+        this.currentPlayer = player;
 	}
 
 	private void initBank(ArrayList<Land> lands) {
@@ -102,7 +109,8 @@ public class Game implements GameFacade, Serializable{
 		return BoardFactory.readBoard(new File(theme.getBoardDataPath()));
 	}
 
-	public GameTheme getTheme() {
-		return theme;
+    @Override
+    public GameTheme getTheme() {
+        return theme;
 	}
 }

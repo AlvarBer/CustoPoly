@@ -1,14 +1,15 @@
 package com.iplusplus.custopoly.model.gamemodel.util;
 
 
+import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.element.*;
 
 public class RentCalculator {
 
-	private Game game;
+    private GameFacade game;
 
-	public RentCalculator(Game game) {
-		this.game = game;
+    public RentCalculator(GameFacade game) {
+        this.game = game;
 	}
 
 	public int calculate(ColoredLand land){

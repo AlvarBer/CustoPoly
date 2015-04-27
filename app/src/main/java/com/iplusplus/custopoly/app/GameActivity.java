@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
+import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
@@ -28,7 +29,7 @@ import java.util.HashMap;
 public class GameActivity extends ActionBarActivity {
 
     //Attributes
-    private Game game;
+    private GameFacade game;
     private ImageView boardBackground;
     private FrameLayout players;
     private HashMap<Integer,Square> squarePositions;
