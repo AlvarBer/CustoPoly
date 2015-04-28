@@ -1,9 +1,6 @@
 package com.iplusplus.custopoly.app;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -145,52 +142,41 @@ public class GameActivity extends ActionBarActivity {
         int i = 0;
         float x = 0, y = 0;
         Square sqPos;
-        GridLayout layout;
-
-
 
         for (Player player : game.getPlayers()) {
             //Gets the position (Square) of the square in which the player is from the map of positions
             sqPos = squares.get(player.getLandIndex());
-            layout = sqPos.getLayout();
-            layout.removeAllViews();
+            GridLayout layout = sqPos.getLayout();
+            layout.removeAllViewsInLayout();
 
         }
 
 		//The following process is repeated for each player in the game
         for (Player player : game.getPlayers()) {
-            //Gets the position (Square) of the square in which the player is from the map of positions
+
+			//Gets the position (Square) of the square in which the player is from the map of positions
             sqPos = squares.get(player.getLandIndex());
-            layout = sqPos.getLayout();
-            View playerView = inflater.inflate(R.layout.fragment_player, layout,false);
-            ImageView skin = (ImageView) playerView.findViewById(R.id.fragment_player_iv_skin);
-            skin.setImageResource(getResources().getIdentifier(player.getSkin().getImageResourceName(), "drawable", getPackageName()));
 
-            //FrameLayout.LayoutParams p = new RelativeLayout.LayoutParams(40,40);
-            //playerView.setLayoutParams(p);
-            //playerView.requestLayout();
+            GridLayout layout = sqPos.getLayout();
+            x = layout.getX();
+            y = layout.getY();
 
-            //Set the size of the skin
-            skin.setScaleX((float) 0.5);
-            skin.setScaleY((float) 0.5);
+            ImageView skin = new ImageView(this);
 
-            playerView.setTag(i);
-
-
-            //Defines the position of the player in the center of the square
-            x = Utilities.dpToPx((int) (layout.getX()), this);
-            y = Utilities.dpToPx((int) (layout.getY()), this);
 
             //If the position is already occupied by another player, spreads the player to the border of the square
             if (isSharedSquare(game.getPlayers(), player.getLandIndex())) {
-                x += calculateSpaceRelativePositionX(player, sqPos);
-                y += calculateSpaceRelativePositionY(player, sqPos);
+
+
+
+            } else {
+
+
             }
 
-            //Set the position of the player and add it to view
-            playerView.setX(x);
-            playerView.setY(y);
-            layout.addView(playerView);
+			//Set the position of the player and add it to view
+            layout.addView(skin);
+
             i++;
         }
     }
@@ -259,8 +245,6 @@ public class GameActivity extends ActionBarActivity {
             else  pos = Position.RIGHT;
 
             squareLayout = (GridLayout) findViewById(id);
-
-
 
             square = new Square (squareLayout,pos,size);
 
