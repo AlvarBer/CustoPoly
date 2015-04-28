@@ -124,6 +124,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                     players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
+                //TODO: THIS SHOULDN'T BE A CAST, BUT WE'LL SORT IT OUT WHEN WE COMPLETE GAMEFACADE
                 GameFacade g = this.initGame(players, theme);
 
                 try {

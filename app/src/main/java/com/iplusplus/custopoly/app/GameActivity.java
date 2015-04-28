@@ -1,13 +1,17 @@
 package com.iplusplus.custopoly.app;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
+import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
@@ -36,6 +40,9 @@ public class GameActivity extends ActionBarActivity {
     //Constants
     private final String BOARDRESOURCE = "activity_game_board_";
 
+    //Test for drawing players
+    private ArrayList<SquareCell> cells;
+    private int boardWidth, boardHeight;
 
 	/**
 	* Called when GameActivity is created. It's in charge of creating the activity, loading
@@ -129,6 +136,7 @@ public class GameActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * Displays the skins of the players according to their current position 
 	 * in the board. If there are more than one player in the same square, it 
@@ -137,7 +145,17 @@ public class GameActivity extends ActionBarActivity {
      */
     private void drawPlayers() {
 
+        int boardHeight = this.boardHeight;
+        int boardWidth = this.boardWidth;
 
+        for (int i = 0; i < this.game.getBoardSize(); i++) {
+            ImageView cellView = this.cells.get(i).createImageOfPlayersInCell();
+            this.addContentView(cellView, new ActionBar.LayoutParams(this.cells.get(i).posX,
+                    this.cells.get(i).posY));
+            Log.d("BORJA DEBUG", "NEW CELL ADDED: Width:" + cellView.getWidth() + "Height: " + cellView.getHeight());
+        }
+
+        /*
         LayoutInflater inflater = getLayoutInflater();
         int i = 0;
         float x = 0, y = 0;
@@ -166,7 +184,7 @@ public class GameActivity extends ActionBarActivity {
 
             //If the position is already occupied by another player, spreads the player to the border of the square
             if (isSharedSquare(game.getPlayers(), player.getLandIndex())) {
-
+                sqPos.spreadPlayers();
 
 
             } else {
@@ -179,7 +197,9 @@ public class GameActivity extends ActionBarActivity {
 
             i++;
         }
+        */
     }
+
 
     private boolean isSharedSquare(ArrayList<Player> players, int landIndex) {
         int i = 0;
@@ -202,6 +222,11 @@ public class GameActivity extends ActionBarActivity {
      */
     private void setupViews() {
         this.boardBackground = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
+        //Get the dimensions of the board
+        this.boardBackground.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        this.boardWidth = this.boardBackground.getMeasuredWidth();
+        this.boardHeight = this.boardBackground.getMeasuredHeight();
+
         this.board = (TableLayout)findViewById(R.id.activity_game_tl_board);
         this.buyButton = (Button) findViewById(R.id.activity_game_bt_buy);
 
@@ -221,9 +246,69 @@ public class GameActivity extends ActionBarActivity {
     }
 
 	/**
-	* Initializes the coordinates, size and position of each square of the map
-	*/
+     * Initializes the coordinates, size and position of each square of the map
+     */
     private void initSquares() {
+
+        this.cells = new ArrayList<SquareCell>();
+
+        int bigSquareHeight = (this.boardHeight / 13) * 2; //The height of a big square
+        int bigSquareWidth = (this.boardWidth / 13) * 2; //The width of a big square
+        int posY = this.boardHeight - bigSquareHeight;
+        int posX = this.boardWidth - bigSquareWidth;
+        Position edge = Position.DOWN;
+
+        for (int i = 0; i < this.game.getBoardSize(); i++) {
+            //Create square
+            if (i % 10 == 0) {
+                //Create big square
+                this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight));
+                //Change current edge
+                edge = Position.nextPosition(edge);
+            } else {
+                //Create small square
+                switch (edge) {
+
+                    case UP:
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth / 2, bigSquareHeight));
+                        break;
+                    case RIGHT:
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight / 2));
+                        break;
+                    case DOWN:
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth / 2, bigSquareHeight));
+                        break;
+                    case LEFT:
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight / 2));
+                        break;
+                }
+            }
+            //Update position
+            switch (edge) {
+
+                case UP:
+                    posX += bigSquareWidth / 2;
+                    break;
+                case RIGHT:
+                    posY += bigSquareHeight / 2;
+                    break;
+                case DOWN:
+                    posX -= bigSquareWidth / 2;
+                    break;
+                case LEFT:
+                    posY -= bigSquareHeight / 2;
+                    break;
+            }
+
+
+        }
+
+        //Fill in with players
+        for (Player p : this.game.getPlayers()) {
+            this.cells.get(p.getLandIndex()).addPlayerSkin(p.getSkin().getImageResourceName());
+        }
+
+        /*
         squares = new HashMap<Integer,Square>();
         String resourceName;
         int id;
@@ -250,6 +335,7 @@ public class GameActivity extends ActionBarActivity {
 
             squares.put(i,square);
         }
+        */
     }
 
     /**
@@ -292,9 +378,8 @@ public class GameActivity extends ActionBarActivity {
      * Loads the current game from memory
      */
     private void loadGame() {
-        //TODO: Remove casting when the facade is properly integrated
         try {
-            this.game = SaveGameHandler.getInstance().loadGame();
+            this.game = (Game) SaveGameHandler.getInstance().loadGame();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -329,7 +414,29 @@ public class GameActivity extends ActionBarActivity {
 		playerText.setText(playersString);
 	}
 
-    private enum Position{UP,RIGHT,DOWN,LEFT}
+    private enum Position {
+        UP, RIGHT, DOWN, LEFT;
+
+        public static Position nextPosition(Position edge) {
+            Position newEdge = DOWN;
+            switch (edge) {
+
+                case UP:
+                    newEdge = RIGHT;
+                    break;
+                case RIGHT:
+                    newEdge = DOWN;
+                    break;
+                case DOWN:
+                    newEdge = LEFT;
+                    break;
+                case LEFT:
+                    newEdge = UP;
+                    break;
+            }
+            return newEdge;
+        }
+    }
     private enum Size{BIG,SMALL}
 
 	/**
@@ -359,6 +466,50 @@ public class GameActivity extends ActionBarActivity {
 
         public Size getSize() {
             return size;
+        }
+
+        public void spreadPlayers() {
+
+        }
+    }
+
+    private class SquareCell {
+
+        private int posX, posY; //Upper-left coordinates
+        private int width, height;
+
+        private ArrayList<String> playerSkins;
+
+        public SquareCell(int posX, int posY, int width, int height) {
+            this.posX = posX;
+            this.posY = posY;
+            this.width = width;
+            this.height = height;
+            this.playerSkins = new ArrayList<String>();
+        }
+
+        public void addPlayerSkin(String skin) {
+            playerSkins.add(skin);
+        }
+
+
+        public ImageView createImageOfPlayersInCell() {
+            ImageView playerView = new ImageView(Custopoly.getAppContext());
+            if (this.playerSkins.size() == 1) {
+                //playerView.setMaxWidth(this.width);
+                playerView.setMinimumWidth(this.width);
+                //playerView.setMaxHeight(this.height);
+                playerView.setMinimumHeight(this.height);
+
+                playerView.setX(posX);
+                playerView.setY(posY);
+
+                playerView.setImageResource(Custopoly.getAppContext().getResources().getIdentifier(this.playerSkins.get(0), "drawable", getPackageName()));
+            } else if (this.playerSkins.size() > 1) {
+                //TODO: IMPLEMENT
+            }
+
+            return playerView;
         }
     }
 

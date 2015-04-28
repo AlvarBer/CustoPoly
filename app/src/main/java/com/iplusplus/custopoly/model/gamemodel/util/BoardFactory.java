@@ -24,8 +24,8 @@ public class BoardFactory {
 
 	public static Board readBoard(File file) {
 		Board board = new Board();
-
-		try {
+        /*
+        try {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
 				String landInfo = scanner.nextLine();
@@ -36,7 +36,12 @@ public class BoardFactory {
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			System.err.println("File : " + file.getAbsolutePath() + " NOT FOUND!");
-		}
+		}*/
+
+        //TODO: FAKE INITIALIZE THE BOARD
+        for (int i = 0; i < 39; i++) {
+            board.getLands().add(new Chance());
+        }
 
 		return board;
 	}
