@@ -44,16 +44,16 @@ public class SaveGameHandler {
     /**
      * Save a Custopoly game to a file.
      *
-     *
+     * @param gameFacade The {@link Game} to save
      * @param name The file name to save this game under
      * @throws IOException When there is an error saving the game
      */
-    public void saveGame(Game game, String name) throws IOException {
+    public void saveGame(GameFacade gameFacade, String name) throws IOException {
         Context context = Custopoly.getAppContext();
         FileOutputStream fos = context.openFileOutput(name,
                 Context.MODE_PRIVATE);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(game);
+        oos.writeObject(gameFacade);
         oos.close();
         fos.close();
     }
@@ -64,7 +64,7 @@ public class SaveGameHandler {
      * @param game The {@link com.iplusplus.custopoly.model.gamemodel.element.Game} to save.
      * @throws IOException When there is an error saving the game
      */
-    public void saveGame(Game game) throws IOException {
+    public void saveGame(GameFacade game) throws IOException {
         Context context = Custopoly.getAppContext();
         FileOutputStream fos = context.openFileOutput(this.GENERIC_GAME_NAME,
                 Context.MODE_PRIVATE);
@@ -82,7 +82,7 @@ public class SaveGameHandler {
      * @throws IOException When there is an error while loading the game
      * @throws ClassNotFoundException When there is an error while loading the game
      */
-    public Game loadGame(String name)
+    public GameFacade loadGame(String name)
             throws IOException, ClassNotFoundException {
         Context context = Custopoly.getAppContext();
         File file = new File(context.getFilesDir(), name);
@@ -90,7 +90,7 @@ public class SaveGameHandler {
             FileInputStream fis;
             fis = context.openFileInput(name);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            Game game = (Game) ois.readObject();
+            GameFacade game = (Game) ois.readObject();
             ois.close();
             fis.close();
             return game;
@@ -112,7 +112,7 @@ public class SaveGameHandler {
             FileInputStream fis;
             fis = context.openFileInput(this.GENERIC_GAME_NAME);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            Game game = (Game) ois.readObject();
+            GameFacade game = (Game) ois.readObject();
             ois.close();
             fis.close();
             return game;
