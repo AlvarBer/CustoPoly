@@ -34,7 +34,6 @@ public class GameActivity extends ActionBarActivity {
     private Game game;
     private ImageView boardBackground;
     private TableLayout board;
-    private HashMap<Integer,Square> squares;
     private Button buyButton;
 
     //Constants
@@ -149,55 +148,12 @@ public class GameActivity extends ActionBarActivity {
         int boardWidth = this.boardWidth;
 
         for (int i = 0; i < this.game.getBoardSize(); i++) {
-            ImageView cellView = this.cells.get(i).createImageOfPlayersInCell();
-            this.addContentView(cellView, new ActionBar.LayoutParams(this.cells.get(i).posX,
-                    this.cells.get(i).posY));
-            Log.d("BORJA DEBUG", "NEW CELL ADDED: Width:" + cellView.getWidth() + "Height: " + cellView.getHeight());
-        }
-
-        /*
-        LayoutInflater inflater = getLayoutInflater();
-        int i = 0;
-        float x = 0, y = 0;
-        Square sqPos;
-
-        for (Player player : game.getPlayers()) {
-            //Gets the position (Square) of the square in which the player is from the map of positions
-            sqPos = squares.get(player.getLandIndex());
-            GridLayout layout = sqPos.getLayout();
-            layout.removeAllViewsInLayout();
-
-        }
-
-		//The following process is repeated for each player in the game
-        for (Player player : game.getPlayers()) {
-
-			//Gets the position (Square) of the square in which the player is from the map of positions
-            sqPos = squares.get(player.getLandIndex());
-
-            GridLayout layout = sqPos.getLayout();
-            x = layout.getX();
-            y = layout.getY();
-
-            ImageView skin = new ImageView(this);
-
-
-            //If the position is already occupied by another player, spreads the player to the border of the square
-            if (isSharedSquare(game.getPlayers(), player.getLandIndex())) {
-                sqPos.spreadPlayers();
-
-
-            } else {
-
-
+            if (this.cells.get(i).playerSkins.size() != 0) {
+                ImageView cellView = this.cells.get(i).createImageOfPlayersInCell();
+                this.addContentView(cellView, new ActionBar.LayoutParams((this.cells.get(i).posX),
+                        this.cells.get(i).posY));
             }
-
-			//Set the position of the player and add it to view
-            layout.addView(skin);
-
-            i++;
         }
-        */
     }
 
 
@@ -299,43 +255,12 @@ public class GameActivity extends ActionBarActivity {
                     posY -= bigSquareHeight / 2;
                     break;
             }
-
-
         }
 
         //Fill in with players
         for (Player p : this.game.getPlayers()) {
             this.cells.get(p.getLandIndex()).addPlayerSkin(p.getSkin().getImageResourceName());
         }
-
-        /*
-        squares = new HashMap<Integer,Square>();
-        String resourceName;
-        int id;
-        Square square;
-        Position pos;
-        Size size;
-        GridLayout squareLayout;
-
-        for (int i = 0; i < 40; i++) {
-
-            resourceName = BOARDRESOURCE + i;
-            id = Utilities.getResId(resourceName,R.id.class);
-            if (i == 0 || i == 10 || i == 20 || i == 30 )  size = Size.BIG;
-            else size = Size.SMALL;
-
-            if (i <= 10) pos = Position.DOWN;
-            else if( i <= 20) pos = Position.LEFT;
-            else if( i <= 20) pos = Position.UP;
-            else  pos = Position.RIGHT;
-
-            squareLayout = (GridLayout) findViewById(id);
-
-            square = new Square (squareLayout,pos,size);
-
-            squares.put(i,square);
-        }
-        */
     }
 
     /**
@@ -343,7 +268,7 @@ public class GameActivity extends ActionBarActivity {
      * @param player
      *            the player to calculate the position for
      * @return X position relative to the center of the current space, in pixels
-     */
+
     private int calculateSpaceRelativePositionX(Player player, Square sq) {
         int distanceToCenter;
         if (sq.getSize() == Size.BIG)
@@ -354,7 +279,7 @@ public class GameActivity extends ActionBarActivity {
             distanceToCenter = 14;
         return Utilities.dpToPx((player.getPlayerID() % 2 == 0 ? 1 : -1) * distanceToCenter,
                 this);
-    }
+    }*/
 
     /**
      * Utility function for all functions related to moving the player views.
@@ -364,7 +289,7 @@ public class GameActivity extends ActionBarActivity {
      * @param player
      *            the player to calculate the position for
      * @return Y position in pixels
-     */
+
     private int calculateSpaceRelativePositionY(Player player, Square sq) {
         int distanceToCenter;
         if (sq.getSize() == Size.BIG || sq.getPos() == Position.DOWN || sq.getPos() == Position.UP)
@@ -372,7 +297,7 @@ public class GameActivity extends ActionBarActivity {
         else
             distanceToCenter = 6;
         return Utilities.dpToPx((player.getPlayerID() / 2 == 0 ? 1 : -1) * distanceToCenter, this);
-    }
+    }*/
 
     /**
      * Loads the current game from memory
@@ -437,41 +362,11 @@ public class GameActivity extends ActionBarActivity {
             return newEdge;
         }
     }
-    private enum Size{BIG,SMALL}
 
 	/**
 	* Inner class that defines the coordinates of the square, its position and its size.
 	* It's private as it must be used only in this class
 	*/
-    private class Square {
-
-        //Attributes
-        private GridLayout layout;
-        private Position pos;
-        private Size size;
-
-        public Square(GridLayout layout, Position pos, Size size) {
-            this.layout = layout;
-            this.pos = pos;
-            this.size = size;
-        }
-
-        public GridLayout getLayout() {
-            return layout;
-        }
-
-        public Position getPos() {
-            return pos;
-        }
-
-        public Size getSize() {
-            return size;
-        }
-
-        public void spreadPlayers() {
-
-        }
-    }
 
     private class SquareCell {
 
@@ -496,12 +391,12 @@ public class GameActivity extends ActionBarActivity {
         public ImageView createImageOfPlayersInCell() {
             ImageView playerView = new ImageView(Custopoly.getAppContext());
             if (this.playerSkins.size() == 1) {
-                //playerView.setMaxWidth(this.width);
+                playerView.setMaxWidth(this.width);
                 playerView.setMinimumWidth(this.width);
                 //playerView.setMaxHeight(this.height);
                 playerView.setMinimumHeight(this.height);
 
-                playerView.setX(posX);
+                playerView.setX(posX + boardBackground.getX());
                 playerView.setY(posY);
 
                 playerView.setImageResource(Custopoly.getAppContext().getResources().getIdentifier(this.playerSkins.get(0), "drawable", getPackageName()));
