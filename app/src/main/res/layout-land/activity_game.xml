@@ -236,6 +236,6 @@
             android:id="@+id/activity_game_iv_square" android:layout_row="3" android:layout_column="2" android:layout_columnSpan="2"
             android:layout_gravity="center_horizontal|fill" android:layout_rowSpan="2"
             android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" android:adjustViewBounds="true" android:scaleType="centerCrop"
+            android:layout_marginBottom="10dp" android:adjustViewBounds="true" android:scaleType="fitXY"
             android:maxHeight="30dp" android:maxWidth="50dp"/>
 </GridLayout>
