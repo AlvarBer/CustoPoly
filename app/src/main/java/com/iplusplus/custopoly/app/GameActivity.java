@@ -8,18 +8,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.*;
-import android.widget.*;
-
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
-import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Corresponds with the game_activity in the mockup.
@@ -319,7 +319,6 @@ public class GameActivity extends ActionBarActivity {
      * Saves the current game in memory
      */
     private void saveGame() {
-        if (game != null)
             try {
                 SaveGameHandler.getInstance().saveGame(game);
             } catch (IOException e) {
@@ -327,24 +326,19 @@ public class GameActivity extends ActionBarActivity {
             }
     }
 
+	/**
+	 * Draws the money and name of the current player
+	 */
  	private void drawResources() {
-
-        //Draw Money
-		ArrayList<Player> playerList = game.getPlayers();
 		TextView playerText = (TextView) findViewById(R.id.activity_game_tv_player);
 		TextView moneyText = (TextView) findViewById(R.id.activity_game_tv_money);
-		String playersString = "";
-		String moneyString = "";
 
-		for(Player p : playerList) {
-			playersString = playersString.concat(p.getName());
-			playersString = playersString.concat("\n");
-			moneyString = moneyString.concat((String.valueOf(p.getBalance())));
-			moneyString = moneyString.concat("\n");
-		}
+		Log.i("MORTADELEGLE", game.getCurrentPlayerName());
+		Log.i("MORTADELEGLE", String.valueOf(game.getCurrentPlayerBalance()));
 
-		moneyText.setText(moneyString);
-		playerText.setText(playersString);
+		//We set the text
+		playerText.setText("PLAYER" + "\n" + game.getCurrentPlayerName());
+		moneyText.setText("MONEY" + "\n" + String.valueOf(game.getCurrentPlayerBalance()));
 
         //Draw square
         int index = game.getCurrentPlayer().getLandIndex();
