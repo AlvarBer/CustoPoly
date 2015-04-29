@@ -29,6 +29,7 @@ public class Game implements GameFacade, Serializable {
 
     //Constructor
     public Game(ArrayList<Player> playersList, Board board, GameTheme theme) {
+        observersList = new ArrayList<GameObserver>();
         initBank(board.getLands());
         this.board = board;
         this.playersList = playersList;

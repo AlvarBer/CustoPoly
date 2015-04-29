@@ -59,9 +59,11 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
 		
         loadGame();
         setupViews();
+        gameFacade.addObserver(this);
     }
 
     /**
@@ -330,8 +332,8 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
 		Log.i("MORTADELEGLE", String.valueOf(currentPlayer.getBalance()));
 
 		//We set the text
-		playerText.setText("PLAYER" + "\n" + currentPlayer.getName());
-		moneyText.setText("MONEY" + "\n" + String.valueOf(currentPlayer.getBalance()));
+		playerText.setText(/*"PLAYER" + "\n" + */currentPlayer.getName());
+		moneyText.setText(/*"MONEY" + "\n" + */String.valueOf(currentPlayer.getBalance()));
 
         //Draw square
         int index = currentPlayer.getLandIndex();
@@ -352,7 +354,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     @Override
     public void onGameBegin(GameTheme theme, Board board, Player currentPlayer) {
         drawBoard(theme);
-        drawPlayers(board);
+        //drawPlayers(board);
         drawResources(currentPlayer);
     }
 
