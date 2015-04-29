@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_game_tv_money" android:layout_row="0"
             android:layout_column="3" android:text="MONEY" android:layout_gravity="center_horizontal"
-            android:textColor="#ff1f844c" android:layout_columnWeight="1" android:layout_marginTop="20dp"/>
+            android:textColor="#ff36f76f" android:layout_columnWeight="1" android:layout_marginTop="20dp"/>
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:text="END TURN" android:id="@+id/activity_game_bt_endTurn"
             android:textSize="12sp" android:textStyle="normal"
