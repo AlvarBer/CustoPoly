@@ -135,6 +135,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 //Switch activities.
                 Intent play = new Intent(PreGameActivity.this, GameActivity.class);
                 startActivity(play);
+                finish();
                 break;
             case R.id.bCancel:
                 Intent cancel = new Intent(PreGameActivity.this, MainActivity.class);

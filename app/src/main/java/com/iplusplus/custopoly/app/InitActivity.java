@@ -52,7 +52,7 @@ public class InitActivity extends ActionBarActivity {
         skins.add(trollSkin);
         skins.add(megustaSkin);
         skins.add(trollfaceSkin);
-        GameTheme defaultTheme =  new GameTheme("default",0, "template_board", "template_board","template_board", DATA_PATH + "template_board.txt", DATA_PATH + "template_cards.txt",skins);
+        GameTheme defaultTheme =  new GameTheme("template",0, "template_board", "template_board","template_board", DATA_PATH + "template_board.txt", DATA_PATH + "template_cards.txt",skins);
         ThemeHandler.getInstance().switchThemeTo(defaultTheme);
 
         //Starts the Main Activity

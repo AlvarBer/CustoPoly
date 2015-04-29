@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="com.iplusplus.custopoly.app.GameActivity"
-                android:background="@android:color/holo_purple" android:rowCount="7" android:columnCount="3"
+                android:background="@android:color/holo_purple" android:rowCount="6" android:columnCount="4"
             android:rowOrderPreserved="true" android:useDefaultMargins="false" android:alignmentMode="alignMargins"
             android:orientation="horizontal">
 
@@ -13,15 +13,9 @@
             android:layout_height="wrap_content"
             android:text="BUY"
             android:id="@+id/activity_game_bt_buy"
-            android:layout_row="0" android:layout_column="0"
-            android:layout_marginTop="50dp" android:layout_gravity="fill_horizontal|center_horizontal"
-            android:layout_rowSpan="3"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/activity_game_tv_money" android:layout_row="1"
-            android:layout_column="2" android:text="MONEY" android:layout_gravity="center"
-            android:textColor="#ff1f844c"/>
+            android:layout_row="1" android:layout_column="0"
+            android:layout_marginTop="10dp" android:layout_gravity="fill_horizontal|center_horizontal"
+            android:layout_rowSpan="1"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,23 +23,30 @@
             android:layout_row="0"
             android:layout_column="2" android:text="PLAYER" android:singleLine="false"
             android:gravity="center_vertical" android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"/>
+            android:layout_columnWeight="1" android:layout_marginTop="20dp" android:layout_marginLeft="20dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_game_tv_money" android:layout_row="0"
+            android:layout_column="3" android:text="MONEY" android:layout_gravity="center_horizontal"
+            android:textColor="#ff1f844c" android:layout_columnWeight="1" android:layout_marginTop="20dp"/>
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:text="END TURN" android:id="@+id/activity_game_bt_endTurn"
             android:textSize="12sp" android:textStyle="normal"
-            android:layout_column="2" android:layout_row="3" android:layout_gravity="fill_horizontal|center_horizontal"
-            />
+            android:layout_column="2" android:layout_row="1" android:layout_gravity="fill_horizontal|center_horizontal"
+            android:layout_columnSpan="2" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:text="VIEW PROPERTIES" android:id="@+id/activity_game_bt_properties"
             android:textSize="12sp"
             android:textStyle="normal" android:textAlignment="textEnd"
-            android:singleLine="true" android:layout_row="4" android:layout_column="2"
-            android:layout_gravity="fill_horizontal"/>
+            android:singleLine="true" android:layout_row="2" android:layout_column="2"
+            android:layout_gravity="fill_horizontal" android:layout_columnSpan="2" android:layout_rowSpan="1"
+            android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:text="MOR." android:id="@+id/activity_game_bt_mortgage"
-            android:layout_row="5"
+            android:layout_row="3"
             android:layout_column="0" android:layout_gravity="fill_horizontal|center_vertical" android:layout_rowSpan="2"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="10dp"/>
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -53,24 +54,24 @@
             android:focusable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/template_board" android:layout_column="1" android:layout_row="0"
-            android:layout_rowSpan="6" android:adjustViewBounds="true" android:cropToPadding="false"
+            android:layout_rowSpan="5" android:adjustViewBounds="true" android:cropToPadding="false"
             android:layout_gravity="fill_horizontal|center_horizontal"
             android:longClickable="false"
-            android:nestedScrollingEnabled="true"/>
+            android:nestedScrollingEnabled="true" android:layout_rowWeight="1"/>
     <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:focusable="false"
             android:scaleType="fitXY"
             android:src="@drawable/template_board" android:layout_column="1" android:layout_row="0"
-            android:layout_rowSpan="6" android:adjustViewBounds="false" android:cropToPadding="false"
+            android:layout_rowSpan="5" android:adjustViewBounds="false" android:cropToPadding="false"
             android:longClickable="false" android:maxHeight="400dp" android:maxWidth="400dp"
             android:columnCount="100" android:rowCount="100"
             android:layout_gravity="fill" android:alignmentMode="alignMargins" android:columnOrderPreserved="true"
             android:useDefaultMargins="false"
             android:rowOrderPreserved="false" android:layout_columnSpan="1"
             android:showDividers="middle|beginning|end" android:divider="@android:color/holo_green_light"
-            android:stretchColumns="11" android:id="@+id/activity_game_tl_board">
+            android:stretchColumns="11" android:id="@+id/activity_game_tl_board" android:layout_rowWeight="1">
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" android:layout_weight="0.85">
@@ -229,4 +230,12 @@
             </GridLayout>
         </TableRow>
     </TableLayout>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_game_iv_square" android:layout_row="3" android:layout_column="2" android:layout_columnSpan="2"
+            android:layout_gravity="center_horizontal|fill" android:layout_rowSpan="2"
+            android:layout_marginLeft="20dp" android:layout_marginRight="20dp" android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" android:adjustViewBounds="true" android:scaleType="centerCrop"
+            android:maxHeight="30dp" android:maxWidth="50dp"/>
 </GridLayout>
