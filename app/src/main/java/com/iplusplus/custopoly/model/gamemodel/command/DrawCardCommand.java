@@ -3,7 +3,6 @@ package com.iplusplus.custopoly.model.gamemodel.command;
 import android.app.AlertDialog;
 import android.content.Context;
 import com.iplusplus.custopoly.Custopoly;
-import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.element.Card;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
 
@@ -34,6 +33,6 @@ public abstract class DrawCardCommand implements Command {
         dialog.setMessage(text).show();
     }
 
-    protected abstract ArrayList<Card> getCards(GameFacade game);
+    protected abstract ArrayList<Card> getCards(Game game);
 
 }

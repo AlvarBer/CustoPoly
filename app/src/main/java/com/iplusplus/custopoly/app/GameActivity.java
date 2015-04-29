@@ -13,9 +13,12 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import com.iplusplus.custopoly.Custopoly;
+import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
-import com.iplusplus.custopoly.model.gamemodel.element.Game;
+import com.iplusplus.custopoly.model.gamemodel.GameFacade;
+import com.iplusplus.custopoly.model.gamemodel.Observer.GameObserver;
+import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 import java.io.IOException;
@@ -23,14 +26,14 @@ import java.util.ArrayList;
 
 /**
  * Corresponds with the game_activity in the mockup.
- * Allows to play a game, displaying it on the screen. In addition, it allows the communication
-   with the game through a system of buttons
+ * Allows to play a gameFacade, displaying it on the screen. In addition, it allows the communication
+   with the gameFacade through a system of buttons
  */
 
-public class GameActivity extends ActionBarActivity {
+public class GameActivity extends ActionBarActivity implements GameObserver {
 
     //Attributes
-    private Game game;
+    private GameFacade gameFacade;
     private ImageView boardBackground;
     private TableLayout board;
     private Button buyButton;
@@ -45,7 +48,7 @@ public class GameActivity extends ActionBarActivity {
 
 	/**
 	* Called when GameActivity is created. It's in charge of creating the activity, loading
-	* the game and initializing all the visual components of the view and display them on 
+	* the gameFacade and initializing all the visual components of the view and display them on
 	* the screen
 	*/
     @Override
@@ -59,14 +62,10 @@ public class GameActivity extends ActionBarActivity {
 		
         loadGame();
         setupViews();
-        initSquares();
-        drawBoard();
-        drawPlayers();
-		drawResources();
     }
 
     /**
-     * Called when the GameActivity is hidden. Automatically saves the game.
+     * Called when the GameActivity is hidden. Automatically saves the gameFacade.
      *
      * @see android.app.Activity#onPause()
      */
@@ -77,7 +76,7 @@ public class GameActivity extends ActionBarActivity {
     }
 
     /**
-     * Called every time the app is resumed. Loads the game and draw the board
+     * Called every time the app is resumed. Loads the gameFacade and draw the board
      * and the players
      *
      * @see android.app.Activity#onResume()
@@ -85,15 +84,11 @@ public class GameActivity extends ActionBarActivity {
     @Override
     public void onResume() {
         super.onResume();
-        loadGame();
-        drawBoard();
-        drawPlayers();
-		drawResources();
     }
 
     /**
      * Defines the behaviour of the back button.
-     * It shows a dialog asking the user to confirm if he wants to quit the game
+     * It shows a dialog asking the user to confirm if he wants to quit the gameFacade
      */
     @Override
     public void onBackPressed() {
@@ -141,13 +136,14 @@ public class GameActivity extends ActionBarActivity {
 	 * in the board. If there are more than one player in the same square, it 
 	 * spreads the players to the border of the square to fit them in them.
 	 * Each player is a view that is include in a FrameLayout (players).
+     * @param board
      */
-    private void drawPlayers() {
+    private void drawPlayers(Board board) {
 
         int boardHeight = this.boardHeight;
         int boardWidth = this.boardWidth;
 
-        for (int i = 0; i < this.game.getBoardSize(); i++) {
+        for (int i = 0; i < board.getSize(); i++) {
             if (this.cells.get(i).playerSkins.size() != 0) {
                 ImageView cellView = this.cells.get(i).createImageOfPlayersInCell();
                 this.addContentView(cellView, new ActionBar.LayoutParams((this.cells.get(i).posX),
@@ -168,9 +164,10 @@ public class GameActivity extends ActionBarActivity {
 
     /**
      * Displays the board of the theme on the image of the board
+     * @param theme
      */
-    private void drawBoard() {
-        this.boardBackground.setImageResource(getResources().getIdentifier(game.getTheme().getBackgroundPathResource(), "drawable", getPackageName()));
+    private void drawBoard(GameTheme theme) {
+        this.boardBackground.setImageResource(getResources().getIdentifier(theme.getBackgroundPathResource(), "drawable", getPackageName()));
     }
 
     /**
@@ -192,12 +189,6 @@ public class GameActivity extends ActionBarActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                for (Player p : game.getPlayers()) {
-                    if (p.getLandIndex() >= 39) p.setLandIndex(0);
-                    else p.setLandIndex(p.getLandIndex() + 1);
-                }
-                drawPlayers();
             }
         });
     }
@@ -205,7 +196,7 @@ public class GameActivity extends ActionBarActivity {
 	/**
      * Initializes the coordinates, size and position of each square of the map
      */
-    private void initSquares() {
+    private void initSquares(GameTheme currentTheme, Board board, ArrayList<Player> playersList) {
 
         this.cells = new ArrayList<SquareCell>();
 
@@ -215,10 +206,10 @@ public class GameActivity extends ActionBarActivity {
         int posX = this.boardWidth - bigSquareWidth;
         Position edge = Position.DOWN;
 
-        for (int i = 0; i < this.game.getBoardSize(); i++) {
+        for (int i = 0; i < board.getSize(); i++) {
 
             //Get the resource of the square
-            String resourceName = game.getTheme().getName() + "_square_" + i;
+            String resourceName = currentTheme.getName() + "_square_" + i;
             int resource = Utilities.getResId(resourceName,R.drawable.class);
 
             //Create square
@@ -264,7 +255,7 @@ public class GameActivity extends ActionBarActivity {
         }
 
         //Fill in with players
-        for (Player p : this.game.getPlayers()) {
+        for (Player p : playersList) {
             this.cells.get(p.getLandIndex()).addPlayerSkin(p.getSkin().getImageResourceName());
         }
     }
@@ -306,21 +297,22 @@ public class GameActivity extends ActionBarActivity {
     }*/
 
     /**
-     * Loads the current game from memory
+     * Loads the current gameFacade from memory
      */
     private void loadGame() {
         try {
-            this.game = (Game) SaveGameHandler.getInstance().loadGame();
+            this.gameFacade = SaveGameHandler.getInstance().loadGame();
+            this.gameFacade.addObserver(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     /**
-     * Saves the current game in memory
+     * Saves the current gameFacade in memory
      */
     private void saveGame() {
             try {
-                SaveGameHandler.getInstance().saveGame(game);
+                SaveGameHandler.getInstance().saveGame(gameFacade);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -328,23 +320,61 @@ public class GameActivity extends ActionBarActivity {
 
 	/**
 	 * Draws the money and name of the current player
-	 */
- 	private void drawResources() {
+     * @param currentPlayer
+     */
+ 	private void drawResources(Player currentPlayer) {
 		TextView playerText = (TextView) findViewById(R.id.activity_game_tv_player);
 		TextView moneyText = (TextView) findViewById(R.id.activity_game_tv_money);
 
-		Log.i("MORTADELEGLE", game.getCurrentPlayerName());
-		Log.i("MORTADELEGLE", String.valueOf(game.getCurrentPlayerBalance()));
+		Log.i("MORTADELEGLE", currentPlayer.getName());
+		Log.i("MORTADELEGLE", String.valueOf(currentPlayer.getBalance()));
 
 		//We set the text
-		playerText.setText("PLAYER" + "\n" + game.getCurrentPlayerName());
-		moneyText.setText("MONEY" + "\n" + String.valueOf(game.getCurrentPlayerBalance()));
+		playerText.setText("PLAYER" + "\n" + currentPlayer.getName());
+		moneyText.setText("MONEY" + "\n" + String.valueOf(currentPlayer.getBalance()));
 
         //Draw square
-        int index = game.getCurrentPlayer().getLandIndex();
+        int index = currentPlayer.getLandIndex();
         int id = cells.get(index).getResource();
         squareImage.setImageResource(id);
 	}
+
+    // //
+    //GameObserver Methods
+    // //
+    @Override
+    public void onAttached(GameTheme theme, Board board, Player currentPlayer, ArrayList<Player> playersList) {
+        initSquares(theme, board, playersList);
+
+        onGameBegin(theme, board, currentPlayer);
+    }
+
+    @Override
+    public void onGameBegin(GameTheme theme, Board board, Player currentPlayer) {
+        drawBoard(theme);
+        drawPlayers(board);
+        drawResources(currentPlayer);
+    }
+
+    @Override
+    public void onGameEnd(Board board, ArrayList<Player> playersList) {
+
+    }
+
+    @Override
+    public void onGameReset(GameTheme theme, Board board, Player currentPlayer) {
+
+    }
+
+    @Override
+    public void onTurnBegin(Board board, Player player) {
+
+    }
+
+    @Override
+    public void onTurnEnd(Board board, Player player) {
+
+    }
 
     private enum Position {
         UP, RIGHT, DOWN, LEFT;
