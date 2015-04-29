@@ -1,14 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel;
 
-import com.iplusplus.custopoly.model.GameTheme;
-import com.iplusplus.custopoly.model.gamemodel.element.Bank;
-import com.iplusplus.custopoly.model.gamemodel.element.Board;
-import com.iplusplus.custopoly.model.gamemodel.element.Player;
-import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
+import com.iplusplus.custopoly.model.gamemodel.Observer.GameObservable;
 
-import java.util.ArrayList;
-
-public interface GameFacade {
+public interface GameFacade extends GameObservable {
 
     // //
     // INPUT METHODS
@@ -29,13 +23,15 @@ public interface GameFacade {
      */
     public abstract void passTurn();
 
+    void buyAsset();
+
     // //
     // OBSERVERS
     // //
 
     //Methods with assets and players
     /**
-     * Observer method
+     * GameObserver method
      *  String -> String
      *
      * @param propertyName
@@ -43,10 +39,10 @@ public interface GameFacade {
      * @return
      *          The name of the player who owns the property.
      */
-    public abstract String getOwnerName(String propertyName);
+   // public abstract String getOwnerName(String propertyName);
 
     /**
-     * Observer method
+     * GameObserver method
      *  String -> int
      *
      * @param propertyName
@@ -54,19 +50,19 @@ public interface GameFacade {
      * @return
      *          The ID of the player who owns the property.
      */
-    public abstract int getOwnerId(String propertyName);
+    //public abstract int getOwnerId(String propertyName);
 
     /**
-     * Observer method
+     * GameObserver method
      * -> ArrayList<String>
      *
      * @return Returns a list of the NAMES of the assets
      * owned by the current player.
      */
-    public abstract ArrayList<String> getAssetsOwnedByCurrentPlayer();
+    //public abstract ArrayList<String> getAssetsOwnedByCurrentPlayer();
 
     /**
-     * Observer method
+     * GameObserver method
      *  int -> ArrayList<String>
      *
      * @param playerId
@@ -74,10 +70,10 @@ public interface GameFacade {
      * @return
      *          A list with all the properties owned by the player
      */
-    public abstract ArrayList<String> getAssetNamesOwnedByPlayer(int playerId);
+   // public abstract ArrayList<String> getAssetNamesOwnedByPlayer(int playerId);
 
     /**
-     * Observer method
+     * GameObserver method
      *  String -> ArrayList<String>
      *
      * @param playerName
@@ -85,24 +81,42 @@ public interface GameFacade {
      * @return
      *          A list with all the properties owned by the player
      */
-    public abstract ArrayList<String> getAssetNamesOwnedByPlayer(String playerName);
+   // public abstract ArrayList<String> getAssetNamesOwnedByPlayer(String playerName);
 
-    public abstract Bank getBank();
+    //public abstract Bank getBank();
 
     // //
     //Observers for players
     // //
 
     /**
-     * Observer method
+     *
+     * @return Player that is able to play in the current turn
+     */
+   // Player getCurrentPlayer();
+
+    /**
+     *
+     * @param player Sets the new current player
+     */
+    //void setCurrentPlayer(Player player);
+
+    /**
+     *
+     * @return List of players playing
+     */
+    //ArrayList<Player> getPlayers();
+
+    /**
+     * GameObserver method
      * -> ArrayList<String>
      *
      * @return The names of all the players.
      */
-    public abstract ArrayList<String> getPlayerNames();
+   // public abstract ArrayList<String> getPlayerNames();
 
     /**
-     * Observer method
+     * GameObserver method
      * String -> int
      *
      * @param playerName
@@ -110,127 +124,128 @@ public interface GameFacade {
      * @return
      *          The id of the player.
      */
-    public abstract int getPlayerIdByName(String playerName);
+   // public abstract int getPlayerIdByName(String playerName);
 
     /**
-     * Observer method
+     * GameObserver method
      * int -> String
      *
      * @param playerID The id of the player who's name we want
      * @return The name of the player.
      */
-    public abstract String getPlayerNameById(int playerID);
+    //public abstract String getPlayerNameById(int playerID);
 
     /**
-     * Observer method
+     * GameObserver method
      * -> String
      *
      * @return Returns the name of the current player
      */
-    public abstract String getCurrentPlayerName();
+   // public abstract String getCurrentPlayerName();
 
     /**
-     * Observer method
+     * GameObserver method
      * -> int
      *
      * @return Returns the name of the current player
      */
-    public abstract int getCurrentPlayerId();
+    //public abstract int getCurrentPlayerId();
 
     // //
     //Balance observers
     // //
 
     /**
-     * Observer method
+     * GameObserver method
      * int -> int
      *
      * @param playerId The id of the player who's balance we want.
      * @return The amount of in-game currency owned by the player.
      */
-    public abstract int getPlayerBalanceById(int playerId);
+    //public abstract int getPlayerBalanceById(int playerId);
 
     /**
-     * Observer method
+     * GameObserver method
      * String -> int
      *
      * @param playerName The name of the player who's balance we want.
      * @return The amount of in-game currency owned by the player.
      */
-    public abstract int getPlayerBalanceByName(String playerName);
+   // public abstract int getPlayerBalanceByName(String playerName);
 
     /**
-     * Observer method
+     * GameObserver method
      * -> int
      *
      * @return The amount of in-game currency owned by the current player.
      */
-    public abstract int getCurrentPlayerBalance();
+   // public abstract int getCurrentPlayerBalance();
 
     // //
     // Card observers
     // //
 
     /**
-     * Observer method
+     * GameObserver method
      * -> ArrayList<String>
      *
      * @return A list of all the cards owned by the player.
      */
-    public abstract ArrayList<String> getCurrentPlayerCardList();
+    //public abstract ArrayList<String> getCurrentPlayerCardList();
 
     /**
-     * Observer method
+     * GameObserver method
      * int -> ArrayList<String>
      *
      * @param playerId Id of the player that we want to consult
      * @return A list with all the properties cards owned by the player
      */
-    public abstract ArrayList<String> getPlayerCardListById(int playerId);
+  //  public abstract ArrayList<String> getPlayerCardListById(int playerId);
 
     /**
-     * Observer method
+     * GameObserver method
      * String -> ArrayList<String>
      *
      * @param playerName The name of the player who's cards we want.
      * @return The names of all the cards owned by the player.
      */
-    public abstract ArrayList<String> getPlayerCardListByName(String playerName);
+    //public abstract ArrayList<String> getPlayerCardListByName(String playerName);
 
     // //
     //Game logic observers
     // //
 
     /**
-     * Observer method
+     * GameObserver method
      * -> boolean
      *
      * @return Returns whether the game has ended.
      */
-    public abstract boolean isEnded();
+   // public abstract boolean isEnded();
 
     /**
-     * Observer method
+     * GameObserver method
      * -> String
      *
      * @return Returns the name of the winner
      */
-    public abstract String getWinnerName();
+    //public abstract String getWinnerName();
 
     // //
     //Resource observers
     // //
+
     /**
-     * Observer method
+     * GameObserver method
      * -> String
      *
      * @return
      *          A String with the path to the resource of the player skin.
      */
-    public abstract String getCurrentPlayerSkinResPath();
+   // public abstract String getCurrentPlayerSkinResPath();
 
     /**
-     * Observer method
+     * GameObserver method
      *  int -> String
      *
      * @param playerId
@@ -238,10 +253,10 @@ public interface GameFacade {
      * @return
      *          A String with the path to the resource of the player skin.
      */
-    public abstract String getPlayerSkinResPathById(int playerId);
+    //public abstract String getPlayerSkinResPathById(int playerId);
 
     /**
-     * Observer method
+     * GameObserver method
      *  String -> String
      *
      * @param playerName
@@ -249,43 +264,49 @@ public interface GameFacade {
      * @return
      *          A String with the path to the resource of the player skin.
      */
-    public abstract String getPlayerSkinResPathByName(String playerName);
+   // public abstract String getPlayerSkinResPathByName(String playerName);
 
     /**
-     * Observer method
+     *
+     * @return Current theme of the game
+     */
+    //GameTheme getCurrentTheme();
+
+    /**
+     * GameObserver method
      * -> String
      *
      * @return Returns the current theme's background resource path.
      */
-    public abstract String getCurrentThemeBackgroundResPath();
+   // public abstract String getCurrentThemeBackgroundResPath();
 
     /**
-     * Observer method
+     * GameObserver method
      * -> String
      *
      * @return Returns the current theme's community box card resource path.
      */
-    public abstract String getCurrentThemeCCBoxCardResPath();
+   // public abstract String getCurrentThemeCCBoxCardResPath();
 
     /**
-     * Observer method
+     * GameObserver method
      * -> String
      *
      * @return Returns the current theme's fortune card resource path.
      */
-    public abstract String getCurrentThemeFortuneCardResPath();
+   // public abstract String getCurrentThemeFortuneCardResPath();
 
     // //
     // Game attribute observers
     // //
 
     /**
-     * Observer method
+     * GameObserver method
      * -> int
      *
      * @return The number of cells in the board
      */
-    public abstract int getBoardSize();
+   // public abstract int getBoardSize();
 
 /* OLD DEPRECATED METHODS
 
