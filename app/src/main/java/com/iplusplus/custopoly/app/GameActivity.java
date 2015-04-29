@@ -1,11 +1,10 @@
 package com.iplusplus.custopoly.app;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.*;
@@ -42,6 +41,7 @@ public class GameActivity extends ActionBarActivity {
     //Test for drawing players
     private ArrayList<SquareCell> cells;
     private int boardWidth, boardHeight;
+    private ImageView squareImage;
 
 	/**
 	* Called when GameActivity is created. It's in charge of creating the activity, loading
@@ -62,7 +62,7 @@ public class GameActivity extends ActionBarActivity {
         initSquares();
         drawBoard();
         drawPlayers();
-		drawMoney();
+		drawResources();
     }
 
     /**
@@ -88,7 +88,7 @@ public class GameActivity extends ActionBarActivity {
         loadGame();
         drawBoard();
         drawPlayers();
-		drawMoney();
+		drawResources();
     }
 
     /**
@@ -185,6 +185,7 @@ public class GameActivity extends ActionBarActivity {
 
         this.board = (TableLayout)findViewById(R.id.activity_game_tl_board);
         this.buyButton = (Button) findViewById(R.id.activity_game_bt_buy);
+        this.squareImage = (ImageView) findViewById(R.id.activity_game_iv_square);
 
         //Set action listeners
 
@@ -215,10 +216,15 @@ public class GameActivity extends ActionBarActivity {
         Position edge = Position.DOWN;
 
         for (int i = 0; i < this.game.getBoardSize(); i++) {
+
+            //Get the resource of the square
+            String resourceName = game.getTheme().getName() + "_square_" + i;
+            int resource = Utilities.getResId(resourceName,R.drawable.class);
+
             //Create square
             if (i % 10 == 0) {
                 //Create big square
-                this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight));
+                this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight,resource));
                 //Change current edge
                 edge = Position.nextPosition(edge);
             } else {
@@ -226,16 +232,16 @@ public class GameActivity extends ActionBarActivity {
                 switch (edge) {
 
                     case UP:
-                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth / 2, bigSquareHeight));
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth / 2, bigSquareHeight,resource));
                         break;
                     case RIGHT:
-                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight / 2));
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight / 2,resource));
                         break;
                     case DOWN:
-                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth / 2, bigSquareHeight));
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth / 2, bigSquareHeight,resource));
                         break;
                     case LEFT:
-                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight / 2));
+                        this.cells.add(new SquareCell(posX, posY, bigSquareWidth, bigSquareHeight / 2,resource));
                         break;
                 }
             }
@@ -321,7 +327,9 @@ public class GameActivity extends ActionBarActivity {
             }
     }
 
- 	private void drawMoney() {
+ 	private void drawResources() {
+
+        //Draw Money
 		ArrayList<Player> playerList = game.getPlayers();
 		TextView playerText = (TextView) findViewById(R.id.activity_game_tv_player);
 		TextView moneyText = (TextView) findViewById(R.id.activity_game_tv_money);
@@ -337,6 +345,11 @@ public class GameActivity extends ActionBarActivity {
 
 		moneyText.setText(moneyString);
 		playerText.setText(playersString);
+
+        //Draw square
+        int index = game.getCurrentPlayer().getLandIndex();
+        int id = cells.get(index).getResource();
+        squareImage.setImageResource(id);
 	}
 
     private enum Position {
@@ -372,14 +385,16 @@ public class GameActivity extends ActionBarActivity {
 
         private int posX, posY; //Upper-left coordinates
         private int width, height;
+        private int resource;
 
         private ArrayList<String> playerSkins;
 
-        public SquareCell(int posX, int posY, int width, int height) {
+        public SquareCell(int posX, int posY, int width, int height,int resource) {
             this.posX = posX;
             this.posY = posY;
             this.width = width;
             this.height = height;
+            this.resource = resource;
             this.playerSkins = new ArrayList<String>();
         }
 
@@ -405,6 +420,10 @@ public class GameActivity extends ActionBarActivity {
             }
 
             return playerView;
+        }
+
+        public int getResource() {
+            return resource;
         }
     }
 
