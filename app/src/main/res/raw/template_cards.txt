@@ -1,0 +1,25 @@
+CommunityChest,Holiday Fund matures - Receive $100K,GetPrizeCommand,100
+CommunityChest,Pay Hospital Fees of $100K,PayFeeCommand,100
+CommunityChest,From sale of stock you get $50K,GetPrizeCommand,50
+CommunityChest,Pay School Fees of $50K,PayFeeCommand,50
+CommunityChest,Doctor's fees,PayFeeCommand,50
+CommunityChest,You have won second prize in a beauty contest,GetPrizeCommand,10
+CommunityChest,You inherit $100K,GetPrizeCommand,100
+CommunityChest,Income Tax refund,GetPrizeCommand,200
+CommunityChest,Receive $25K Consultancy Fee,GetPrizeCommand,25
+CommunityChest,Advance to Go,MoveLandCommand,Start
+CommunityChest,Bank error in your favor,GetPrizeCommand,75
+CommunityChest,Life Insurance Matures,GetPrizeCommand,1000
+CommunityChest,Go to jail,MoveLandCommand,Jail
+CommunityChest,Draw a Chance Card,DrawChanceCommand
+Chance,Advance to Liverpool,MoveLandCommand,Liverpool
+Chance,Go back 3 spaces,MoveBackwardCommand,3
+Chance,Advance to Lincoln,MoveLandCommand,Lincoln
+Chance,Take a walk on the Free Parking,MoveLandCommand,FreeParking
+Chance,Your building loan matures,GetPrizeCommand,150
+Chance,You have won a crossword competition,GetPrizeCommand,100
+Chance,Take a trip to Glasgow Airport,MoveLandCommand,GlasgowAirport
+Chance,Go directly to Jail,MoveLandCommand,Jail
+Chance,Bank pays you dividend of $50K,GetPrizeCommand,50
+Chance,Pay poor tax of $15K,PayFeeCommand,15
+Chance,Advance to London,MoveLandCommand,London

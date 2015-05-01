@@ -1,29 +1,28 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-import android.graphics.Color;
+
 import com.iplusplus.custopoly.model.gamemodel.behaviour.ConstructionAllowance;
-import com.iplusplus.custopoly.model.gamemodel.command.AskBuyCommand;
+import com.iplusplus.custopoly.model.gamemodel.command.PurchasableCommand;
 import com.iplusplus.custopoly.model.gamemodel.util.BuildingHolder;
 import com.iplusplus.custopoly.model.gamemodel.util.RentCalculator;
 
-public class ColoredLand extends PropertyLand {
+import java.io.Serializable;
+
+public class ColoredLand extends PropertyLand implements Serializable {
 	
 	private BuildingHolder buildingHolder;
-	private Color color;
+	private int color;
 	private int housePrice;
 	
-	public ColoredLand(String name, Color color, int price, int housePrice, Rent rent) {
+	public ColoredLand(String name, int color, int price, int housePrice, Rent rent) {
 		super(name, price, rent);
 		this.housePrice = housePrice;
 		setColor(color);
 		setConstructionBehavior(ConstructionAllowance.CONSTRUCTION_ALLOWED);
 		initilizeBuildingHolder();
-		setAssignment(new AskBuyCommand());
+		setAssignment(new PurchasableCommand());
 	}
 
-	private void setColor(Color color) {
-		this.color = color;
-	}
 
 	private void initilizeBuildingHolder() {
 		buildingHolder = new BuildingHolder();		
@@ -32,9 +31,13 @@ public class ColoredLand extends PropertyLand {
 	public BuildingHolder getBuildingHolder() {
 		return buildingHolder;
 	}
-	
-	public Color getColor() {
+
+	public int getColor() {
 		return color;
+	}
+
+	public void setColor(int color) {
+		this.color = color;
 	}
 
 	public int getHousePrice() {

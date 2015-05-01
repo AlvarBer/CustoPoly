@@ -1,8 +1,9 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class DicePair {
+public class DicePair implements Serializable {
 	
 	private static int[] current;
 	

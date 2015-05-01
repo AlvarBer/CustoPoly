@@ -1,15 +1,17 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
 import com.iplusplus.custopoly.model.gamemodel.behaviour.ConstructionAllowance;
-import com.iplusplus.custopoly.model.gamemodel.command.AskBuyCommand;
+import com.iplusplus.custopoly.model.gamemodel.command.PurchasableCommand;
 import com.iplusplus.custopoly.model.gamemodel.util.RentCalculator;
 
-public class InfrastructureLand extends PropertyLand {
+import java.io.Serializable;
+
+public class InfrastructureLand extends PropertyLand implements Serializable {
 	
 	public InfrastructureLand(String name, int price, Rent rent) {
 		super(name, price, rent);
 		setConstructionBehavior(ConstructionAllowance.CONSTRUCTION_DENIED);
-		setAssignment(new AskBuyCommand());
+		setAssignment(new PurchasableCommand());
 	}
 
 	@Override

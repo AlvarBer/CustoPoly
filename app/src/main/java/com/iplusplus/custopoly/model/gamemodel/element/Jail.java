@@ -2,7 +2,9 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 
 import com.iplusplus.custopoly.model.gamemodel.behaviour.ConstructionAllowance;
 
-public class Jail extends SpecialLand {
+import java.io.Serializable;
+
+public class Jail extends SpecialLand implements Serializable {
 	
 	public Jail() {
 		setConstructionBehavior(ConstructionAllowance.CONSTRUCTION_DENIED);

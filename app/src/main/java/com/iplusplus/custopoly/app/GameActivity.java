@@ -1,6 +1,7 @@
 package com.iplusplus.custopoly.app;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +14,15 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import com.iplusplus.custopoly.Custopoly;
-import com.iplusplus.custopoly.app.views.SizeAwareImageView;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.Observer.GameObserver;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
+import com.iplusplus.custopoly.model.gamemodel.element.Land;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
+import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,20 +38,26 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     //Attributes
     private GameFacade gameFacade;
     private ImageView boardBackground;
-    private SizeAwareImageView boardBackGroundAware;
-    private TableLayout board;
     private Button buyButton;
-
+    private Land purchasableLand;
 
     //Constants
     private final String BOARDRESOURCE = "activity_game_board_";
 
     //Test for drawing players
+    private TableLayout board;
     private ArrayList<SquareCell> cells;
     private int boardWidth, boardHeight;
     private ImageView squareImage;
+    private Button viewPropertiesButton;
+    private Button endTurn;
 
-	/**
+
+    // //
+    // Methods implemented from Android events
+    // //
+
+    /**
 	* Called when GameActivity is created. It's in charge of creating the activity, loading
 	* the gameFacade and initializing all the visual components of the view and display them on
 	* the screen
@@ -136,6 +144,10 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     }
 
 
+    // //
+    // Methods implemented from Game events
+    // //
+
     /**
      * Displays the skins of the players according to their current position 
 	 * in the board. If there are more than one player in the same square, it 
@@ -180,21 +192,29 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
      */
     private void setupViews() {
         this.boardBackground = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
-        this.boardBackGroundAware = (SizeAwareImageView) boardBackground;
         //Get the dimensions of the board
         this.boardBackground.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        this.boardWidth = this.boardBackGroundAware.getWidthOnScreen();
-        this.boardHeight = this.boardBackGroundAware.getHeighthOnScreen();
+        this.boardWidth = this.boardBackground.getMeasuredWidth();
+        this.boardHeight = this.boardBackground.getMeasuredHeight();
 
         this.board = (TableLayout)findViewById(R.id.activity_game_tl_board);
         this.buyButton = (Button) findViewById(R.id.activity_game_bt_buy);
         this.squareImage = (ImageView) findViewById(R.id.activity_game_iv_square);
+        this.viewPropertiesButton  = (Button) findViewById( R.id.activity_game_bt_properties);
+        this.endTurn = (Button) findViewById (R.id.activity_game_bt_endTurn);
 
         //Set action listeners
 
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            }
+        });
+
+        endTurn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameFacade.passTurn();
             }
         });
     }
@@ -308,7 +328,6 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     private void loadGame() {
         try {
             this.gameFacade = SaveGameHandler.getInstance().loadGame();
-            this.gameFacade.addObserver(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -360,6 +379,9 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
         drawBoard(theme);
         //drawPlayers(board);
         drawResources(currentPlayer);
+        endTurn.setEnabled(false);
+        this.buyButton.setEnabled(true);
+        onTurnBegin(board,currentPlayer);
     }
 
     @Override
@@ -375,11 +397,130 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     @Override
     public void onTurnBegin(Board board, Player player) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String turn = player.getName();
+        builder.setTitle(turn + " turn")
+                .setCancelable(false)
+                .setPositiveButton("Roll Dice", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        gameFacade.rollDice();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+        this.buyButton.setEnabled(false);
+
     }
 
     @Override
     public void onTurnEnd(Board board, Player player) {
+        endTurn.setEnabled(false);
 
+    }
+
+    @Override
+    public void onViewProperties(ArrayList<PropertyLand> properties) {
+
+
+    }
+
+    @Override
+    public void onRollDice(Board board, Player currentPlayer) {
+        drawPlayers(board);
+        drawResources(currentPlayer);
+        endTurn.setEnabled(true);
+
+    }
+
+    @Override
+    public void onCard(String text) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //TODO:Display in the title what kind of card is. Necessary to pass another argument with this information (Use .setTitle())
+
+        builder.setMessage(text)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onPayFee(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onPurchasableCard(final String playerName, final PropertyLand land) {
+        this.buyButton.setEnabled(true);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Context context = Custopoly.getAppContext();
+
+                String message = context.getText(R.string.ingame_askWantToBuy).toString();
+                String formatMessage = String.format(message, land.getName(), land.getPrice());
+                String title = playerName;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+                builder.setTitle(title).setMessage(formatMessage).setPositiveButton(context.getString(R.string.ingame_buyyesbutton), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        gameFacade.buyAsset();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(context.getString(R.string.ingame_buynobutton), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String s = context.getResources().getText(R.string.ingame_notWantToBuy).toString();
+                        String fs = String.format(s, playerName, land.getName());
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(GameActivity.this);
+                        builder2.setTitle(fs);
+                        builder2.setMessage(fs);
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+                }
+
+            });
+    }
+
+    @Override
+    public void onBoughtCard(Player currentPlayer, PropertyLand land) {
+        Context context = Custopoly.getAppContext();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String s = context.getResources().getText(R.string.ingame_buySuccess).toString();
+        String message = String.format(s,
+                currentPlayer.getName(), land.getName());
+        drawResources(currentPlayer);
+        buyButton.setEnabled(false);
+    }
+
+    @Override
+    public void onBuyError(Player currentPlayer, PropertyLand land) {
+        Context context = Custopoly.getAppContext();
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+        String s = context.getResources().getText(R.string.ingame_buyFailure).toString();
+        String message = String.format(s, currentPlayer.getName());
+        builder.setTitle("Not possible to buy").setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     private enum Position {

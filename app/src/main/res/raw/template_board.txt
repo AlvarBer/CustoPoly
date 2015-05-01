@@ -1,0 +1,40 @@
+Start
+ColoredLand,Liverpool,600,20,#d42b55,100,300,900,1600,2500,300,500
+CommunityChest
+ColoredLand,Leeds,600,40,#d42b55,200,600,1800,3200,4500,300,500
+PayTax,Income Tax,2000
+Transportation,Glasgow Airport,2000,250
+ColoredLand,Middlesbrough,1000,60,#3b9bc4,300,900,2700,4000,5500,500,500
+Chance
+ColoredLand,Cardiff,1000,60,#3b9bc4,300,900,2700,4000,5500,500,500
+ColoredLand,York,1200,80,#3b9bc4,400,1000,3000,4500,6000,600,500
+Jail
+ColoredLand,Colchester,1400,100,#ebc2e0,500,1500,4500,6250,7500,700,1000
+Infrastructure,Telecoms,1400,40,100
+ColoredLand,Manchester,1400,100,#ebc2e0,500,1500,4500,6250,7500,700,1000
+ColoredLand,London,1600,120,#ebc2e0,600,1800,5000,7000,9000,800,1000
+Transportation,Belfast Airport,2000,250
+ColoredLand,Derby,1800,140,#4c8bff,700,2000,5500,7500,9500,900,1000
+CommunityChest
+ColoredLand,Plymouth,1800,140,#4c8bff,700,2000,5500,7500,9500,900,1000
+ColoredLand,Lincoln,2000,160,#4c8bff,800,2200,6000,8000,10000,1000,1000
+FreeParking
+ColoredLand,Dundee,2200,180,#28d7a6,900,2500,7000,8750,10500,1100,1500
+Chance
+ColoredLand,Keele,2200,180,#28d7a6,900,2500,7000,8750,10500,1100,1500
+ColoredLand,Norwitch,2400,200,#28d7a6,1000,3000,7500,9250,11000,1200,1500
+Transportation,Cardiff Airport,2000,250
+ColoredLand,Birmingham,2600,220,#f0145a,1100,3300,8000,9750,11500,1300,1500
+ColoredLand,Oxford,2600,220,#f0145a,1100,3300,8000,9750,11500,1300,1500
+Infrastructure,Satellite,1400,40,100
+ColoredLand,Stoke On Trent,2800,240,#f0145a,1200,3600,8500,10250,12000,1400,1500
+GoJail
+ColoredLand,Sheffield,3000,260,#99ffbb,1300,3900,9000,11000,12750,1500,2000
+ColoredLand,Cambridge,3000,260,#99ffbb,1300,3900,9000,11000,12750,1500,2000
+CommunityChest
+ColoredLand,Nottingham,3200,280,#99ffbb,1500,4500,10000,12000,14000,1600,2000
+Transportation,Luton Airport,2000,250
+Chance
+ColoredLand,Exeter,3500,350,#0fa9f0,1750,5000,11000,13000,15000,1750,2000
+PayTax,Super Tax,1000
+ColoredLand,ST Albans,4000,500,#0fa9f0,2000,6000,14000,17000,20000,2000,2000

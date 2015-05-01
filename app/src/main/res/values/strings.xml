@@ -21,7 +21,7 @@
     <string name="ingame_buynobutton">No</string>
     <string formatted="false" name="ingame_askWantToBuy">Do you want to buy %s for %dK?</string>
     <string formatted="false" name="ingame_buySuccess">%s owned %s.</string>
-    <string formatted="false" name="ingame_buyFailure">%s purchased.</string>
+    <string formatted="false" name="ingame_buyFailure">%s have not enough money to buy the property</string>
     <string name="ingame_mortgage">mortgage</string>
     <string name="ingame_unmortgage">unmortgage</string>
     <string formatted="false" name="ingame_askMortgageMessage">Do you want to %s %s for %dK?</string>

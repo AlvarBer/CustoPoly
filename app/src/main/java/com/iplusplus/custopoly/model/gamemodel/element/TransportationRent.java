@@ -1,6 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-public class TransportationRent extends Rent {
+import java.io.Serializable;
+
+public class TransportationRent extends Rent implements Serializable {
 
 	public TransportationRent(int baseRent) {
 		super(baseRent);

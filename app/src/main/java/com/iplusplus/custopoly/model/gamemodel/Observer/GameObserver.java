@@ -3,6 +3,7 @@ package com.iplusplus.custopoly.model.gamemodel.Observer;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
+import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
 import java.util.ArrayList;
 
@@ -12,14 +13,23 @@ import java.util.ArrayList;
 public interface GameObserver {
 
     //GameObserver Events
-    public void onAttached(GameTheme theme, Board board, Player currentPlayer, ArrayList<Player> playersList);
+    void onAttached(GameTheme theme, Board board, Player currentPlayer, ArrayList<Player> playersList);
 
     //Game Events
-    public void onGameBegin(GameTheme theme, Board board, Player currentPlayer);
-    public void onGameEnd(Board board, ArrayList<Player> playersList);
-    public void onGameReset(GameTheme theme, Board board, Player currentPlayer);
+    void onGameBegin(GameTheme theme, Board board, Player currentPlayer);
+    void onGameEnd(Board board, ArrayList<Player> playersList);
+    void onGameReset(GameTheme theme, Board board, Player currentPlayer);
 
     //Turn events
-    public void onTurnBegin(Board board, Player player);
-    public void onTurnEnd(Board board, Player player);
+    void onTurnBegin(Board board, Player player);
+    void onTurnEnd(Board board, Player player);
+
+    //Action events
+    void onViewProperties(ArrayList<PropertyLand> properties);
+    void onRollDice(Board board, Player currentPlayer);
+    void onCard(String text);
+    void onPayFee(String message);
+    void onPurchasableCard(final String playerName, final PropertyLand land);
+    void onBoughtCard(Player name, PropertyLand land);
+    void onBuyError(Player name, PropertyLand land);
 }
