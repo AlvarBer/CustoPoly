@@ -1,5 +1,7 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-public abstract class SpecialLand extends Land {
+import java.io.Serializable;
+
+public abstract class SpecialLand extends Land implements Serializable {
 	
 }

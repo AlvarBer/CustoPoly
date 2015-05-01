@@ -1,7 +1,6 @@
 package com.iplusplus.custopoly.model.gamemodel.util;
 
 
-import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.element.*;
 
 public class RentCalculator {
@@ -52,7 +51,7 @@ public class RentCalculator {
 	}
 
 	private boolean hasSameColor(ColoredLand land1, ColoredLand land2) {
-		return land1.getColor().equals(land2.getColor());
+		return land1.getColor() == land2.getColor();
 	}
 	
 	public int calculate(InfrastructureLand land){

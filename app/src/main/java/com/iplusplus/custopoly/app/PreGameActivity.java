@@ -8,10 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import android.widget.RadioGroup.LayoutParams;
-import com.iplusplus.custopoly.model.GameTheme;
-import com.iplusplus.custopoly.model.PlayerSkin;
-import com.iplusplus.custopoly.model.SaveGameHandler;
-import com.iplusplus.custopoly.model.ThemeHandler;
+import com.iplusplus.custopoly.model.*;
 import com.iplusplus.custopoly.model.gamemodel.element.Bank;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Game;
@@ -19,7 +16,6 @@ import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.util.BoardFactory;
 import com.iplusplus.custopoly.model.gamemodel.util.CardFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -107,23 +103,22 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
                 //Create and save game.
                 // Initialize players
                 //Insert first player (always there)
-                Player player = new Player(0, this.Player1Name.getText().toString(), 1, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
+                Player player = new Player(0, this.Player1Name.getText().toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
                 players.add(player);
                 //Insert rest of players if it is required
                 if(this.checkPlayer2.isChecked()) {
-                    player = new Player(1, this.Player2Name.getText().toString(), 1,  skinsList.get(this.flipperPlayer2.getCurrentView().getId()));
+                    player = new Player(1, this.Player2Name.getText().toString(), 0,  skinsList.get(this.flipperPlayer2.getCurrentView().getId()));
                     players.add(player);
                 }
                 if(this.checkPlayer3.isChecked()) {
-                    player = new Player(2, this.Player3Name.getText().toString(), 1, skinsList.get(this.flipperPlayer3.getCurrentView().getId()));
+                    player = new Player(2, this.Player3Name.getText().toString(), 0, skinsList.get(this.flipperPlayer3.getCurrentView().getId()));
                     players.add(player);
                 }
                 if(this.checkPlayer4.isChecked()) {
-                    player = new Player(3, this.Player4Name.getText().toString(), 1, skinsList.get(this.flipperPlayer4.getCurrentView().getId()));
+                    player = new Player(3, this.Player4Name.getText().toString(), 0, skinsList.get(this.flipperPlayer4.getCurrentView().getId()));
                     players.add(player);
                 }
                 GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-                //TODO: THIS SHOULDN'T BE A CAST, BUT WE'LL SORT IT OUT WHEN WE COMPLETE GAMEFACADE
                 Game g = this.initGame(players, theme);
 
                 try {
@@ -218,7 +213,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
      * @return
      */
     private Game initGame(ArrayList<Player> players, GameTheme theme) {
-        Board board = BoardFactory.readBoard(new File(theme.getBoardDataPath()));
+        Board board = BoardFactory.readBoard (getResources().openRawResource(Utilities.getResId(theme.getBoardDataPath(),R.raw.class)));
         Game newGame = new Game(players, board, theme);
         initCards(newGame, theme);
         return newGame;
@@ -231,8 +226,8 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
      */
     private void initCards(Game game, GameTheme theme) {
         Bank bank = game.getBank();
-        bank.chanceCards = CardFactory.readChanceCards(new File(theme.getCardsDataPath()));
-        bank.communityCards = CardFactory.readCommunityCards(new File(theme.getCardsDataPath()));
+        bank.chanceCards = CardFactory.readChanceCards(getResources().openRawResource(Utilities.getResId(theme.getCardsDataPath(),R.raw.class)));
+        bank.communityCards = CardFactory.readCommunityCards(getResources().openRawResource(Utilities.getResId(theme.getCardsDataPath(),R.raw.class)));
     }
 
     /**

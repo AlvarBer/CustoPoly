@@ -3,7 +3,9 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 import com.iplusplus.custopoly.model.gamemodel.behaviour.ConstructionAllowance;
 import com.iplusplus.custopoly.model.gamemodel.command.PayFeeCommand;
 
-public class PayTax extends SpecialLand {
+import java.io.Serializable;
+
+public class PayTax extends SpecialLand implements Serializable {
 	private int taxAmount;
 	
 	public PayTax(int taxAmount) {

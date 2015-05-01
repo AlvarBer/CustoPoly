@@ -16,14 +16,19 @@ public interface GameFacade extends GameObservable {
      * - Apply any needed bonuses ($200 for crossing the starting line, etc).
      * - Notify that the move has been made.
      */
-    public abstract void moveCurrentPlayer();
+    //public abstract void moveCurrentPlayer();
 
     /**
      * Changes the turn to the next player.
      */
     public abstract void passTurn();
 
-    void buyAsset();
+    public void buyAsset();
+
+    public void viewProperties();
+
+    public void rollDice();
+
 
     // //
     // OBSERVERS

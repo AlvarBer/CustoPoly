@@ -1,14 +1,11 @@
 package com.iplusplus.custopoly.model.gamemodel.util;
 
-import android.graphics.Color;
 import com.iplusplus.custopoly.model.gamemodel.element.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
 public class BoardFactory {
 
 	private static final String LAND_START = "Start";
@@ -22,27 +19,16 @@ public class BoardFactory {
 	private static final String LAND_TRANSPORTATION = "Transportation";
 	private static final String LAND_INFRASTRUCTURE = "Infrastructure";
 
-	public static Board readBoard(File file) {
+	public static Board readBoard(InputStream file) {
 		Board board = new Board();
-        /*
-        try {
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine()) {
-				String landInfo = scanner.nextLine();
-				if (!landInfo.isEmpty()) {
-					addLand(board, generateLandData(landInfo));
-				}
+		Scanner scanner = new Scanner(file);
+		while (scanner.hasNextLine()) {
+			String landInfo = scanner.nextLine();
+			if (!landInfo.isEmpty()) {
+				addLand(board, generateLandData(landInfo));
 			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			System.err.println("File : " + file.getAbsolutePath() + " NOT FOUND!");
-		}*/
-
-        //TODO: FAKE INITIALIZE THE BOARD
-        for (int i = 0; i < 39; i++) {
-            board.getLands().add(new Chance());
-        }
-
+		}
+		scanner.close();
 		return board;
 	}
 
@@ -100,10 +86,8 @@ public class BoardFactory {
 		return name;
 	}
 
-	private static Color getLandColor(ArrayList<String> landData) {
-        //TODO: MAKE THIS RETURN THE APPROPRIATE COLOR.
-        //return Color.parseColor(getValueAt(landData, 4));
-        return new Color();
+	private static int getLandColor(ArrayList<String> landData) {
+        return Color.parseColor(getValueAt(landData, 4));
 	}
 
 	private static int getLandPrice(ArrayList<String> landData) {

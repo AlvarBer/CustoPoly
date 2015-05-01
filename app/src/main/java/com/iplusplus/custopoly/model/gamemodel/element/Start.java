@@ -3,7 +3,9 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 import com.iplusplus.custopoly.model.gamemodel.behaviour.ConstructionAllowance;
 import com.iplusplus.custopoly.model.gamemodel.command.GetPaidCommand;
 
-public class Start extends SpecialLand {
+import java.io.Serializable;
+
+public class Start extends SpecialLand implements Serializable {
 	
 	public Start() {
 		setConstructionBehavior(ConstructionAllowance.CONSTRUCTION_DENIED);

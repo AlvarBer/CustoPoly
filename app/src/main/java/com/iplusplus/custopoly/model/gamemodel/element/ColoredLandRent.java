@@ -1,6 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-public class ColoredLandRent extends Rent {
+import java.io.Serializable;
+
+public class ColoredLandRent extends Rent implements Serializable {
 	
 	private int[] houseRents; 
 	private int   hotelRent;

@@ -1,6 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-public abstract class Rent {
+import java.io.Serializable;
+
+public abstract class Rent implements Serializable {
 	
 	private int baseRent;
 	

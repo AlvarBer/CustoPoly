@@ -1,14 +1,13 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
+import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.exceptions.PlayerNotFoundException;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.Observer.GameObserver;
-import com.iplusplus.custopoly.model.gamemodel.command.AskBuyCommand;
+import com.iplusplus.custopoly.model.gamemodel.command.BuyCommand;
+import com.iplusplus.custopoly.model.gamemodel.command.EndTurnCommand;
 import com.iplusplus.custopoly.model.gamemodel.command.RollDiceCommand;
-import com.iplusplus.custopoly.model.gamemodel.util.BoardFactory;
-import com.iplusplus.custopoly.model.GameTheme;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -44,7 +43,6 @@ public class Game implements GameFacade, Serializable {
     @Override
     public void addObserver(GameObserver o) {
         observersList.add(o);
-
         o.onAttached(this.theme, this.board, this.currentPlayer, this.playersList);
     }
 
@@ -65,10 +63,6 @@ public class Game implements GameFacade, Serializable {
             }
         }
         bank = new Bank(propertyLands);
-    }
-
-    private Board initBoard(GameTheme theme) {
-        return BoardFactory.readBoard(new File(theme.getBoardDataPath()));
     }
 
     //Auxiliary methods for the getters
@@ -99,19 +93,32 @@ public class Game implements GameFacade, Serializable {
     }
 
     // //
-    // Methods implemented from interface
+    // Methods implemented from GameFacade
     // //
 
     @Override
-    public void moveCurrentPlayer() {
-        //TODO: Fill in this method. Similar to executemove from the TP project
+    public void buyAsset() {
+        new BuyCommand().execute(this);
+    }
+
+    @Override
+    public void viewProperties() {
+        for (GameObserver o: observersList)
+            o.onViewProperties(this.currentPlayer.getProperties());
     }
 
     @Override
     public void passTurn() {
-        this.currentPlayer = this.playersList.get(this.playersList.indexOf(this.currentPlayer) % this.playersList.size());
+        new EndTurnCommand().execute(this);
     }
 
+    @Override
+    public void rollDice() {
+        new RollDiceCommand().execute(this);
+        for (GameObserver o: observersList)
+            o.onRollDice (this.board, this.currentPlayer);
+
+    }
 
 
     public ArrayList<String> getAssetsOwnedByCurrentPlayer() {
@@ -294,14 +301,12 @@ public class Game implements GameFacade, Serializable {
         return this.theme.getFortuneCardPathResource();
     }
 
-
-    @Override
-    public void buyAsset() {
-        new AskBuyCommand();
+    public ArrayList<GameObserver> getObserversList() {
+        return observersList;
     }
 
-    public void rollDice() {
-        new RollDiceCommand();
+    public void setObserversList(ArrayList<GameObserver> observersList) {
+        this.observersList = observersList;
     }
 
 

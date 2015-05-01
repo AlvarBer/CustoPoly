@@ -1,6 +1,8 @@
 package com.iplusplus.custopoly.model.gamemodel.element;
 
-public class InfrastructureRent extends Rent {
+import java.io.Serializable;
+
+public class InfrastructureRent extends Rent implements Serializable {
 	
 	private int wholeRent; // used if you have all the infrastructures
 

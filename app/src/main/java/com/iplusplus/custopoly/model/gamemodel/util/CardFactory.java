@@ -5,6 +5,7 @@ import com.iplusplus.custopoly.model.gamemodel.element.Card;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -20,35 +21,31 @@ public abstract class CardFactory {
 	private static final String CARD_CHANCE = "Chance";
 	private static final String CARD_COMMUNITYCHEST = "CommunityChest";
 
-	public static ArrayList<Card> readChanceCards(File file) {
+	public static ArrayList<Card> readChanceCards(InputStream file) {
 		return readCards(file, CARD_CHANCE);
 	}
 
-	public static ArrayList<Card> readCommunityCards(File file) {
+	public static ArrayList<Card> readCommunityCards(InputStream file) {
 		return readCards(file, CARD_COMMUNITYCHEST);
 	}
 	
-	private static ArrayList<Card> readCards(File file, String cardType) {
+	private static ArrayList<Card> readCards(InputStream file, String cardType) {
 		ArrayList<Card> cards = new ArrayList<Card>();
-		
-		try {
-			Scanner scanner = new Scanner(file);
-			while(scanner.hasNextLine()) {
-				String chanceInfo = scanner.nextLine();
-				if (!chanceInfo.isEmpty()) {
-					ArrayList<String> cardData = generateCardData(chanceInfo);
-					if (getCardType(cardData).equals(CARD_CHANCE) && cardType.equals(CARD_CHANCE)) {
-						addCard(cards, cardData);
-					} else if (getCardType(cardData).equals(CARD_COMMUNITYCHEST) && cardType.equals(CARD_COMMUNITYCHEST)) {
-						addCard(cards, cardData);
-					}
-				}
-			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			System.err.println("File : " + file.getAbsolutePath() + " NOT FOUND!");
-		}
-	
+
+		Scanner scanner = new Scanner(file);
+		while(scanner.hasNextLine()) {
+            String chanceInfo = scanner.nextLine();
+            if (!chanceInfo.isEmpty()) {
+                ArrayList<String> cardData = generateCardData(chanceInfo);
+                if (getCardType(cardData).equals(CARD_CHANCE) && cardType.equals(CARD_CHANCE)) {
+                    addCard(cards, cardData);
+                } else if (getCardType(cardData).equals(CARD_COMMUNITYCHEST) && cardType.equals(CARD_COMMUNITYCHEST)) {
+                    addCard(cards, cardData);
+                }
+            }
+        }
+		scanner.close();
+
 		return cards;
 	}
 	

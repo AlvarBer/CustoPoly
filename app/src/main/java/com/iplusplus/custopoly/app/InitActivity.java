@@ -21,10 +21,7 @@ import java.util.HashSet;
  */
 
 public class InitActivity extends ActionBarActivity {
-    //Constants
-    protected static final String THEME_PATH = "res/drawable/themes/";
-    protected static final String TOKEN_PATH = "res/drawable/tokens/";
-    protected static final String DATA_PATH = "res/gameData/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +49,7 @@ public class InitActivity extends ActionBarActivity {
         skins.add(trollSkin);
         skins.add(megustaSkin);
         skins.add(trollfaceSkin);
-        GameTheme defaultTheme =  new GameTheme("template",0, "template_board", "template_board","template_board", DATA_PATH + "template_board.txt", DATA_PATH + "template_cards.txt",skins);
+        GameTheme defaultTheme =  new GameTheme("template",0, "template_board", "template_board","template_board", "template_board", "template_cards",skins);
         ThemeHandler.getInstance().switchThemeTo(defaultTheme);
 
         //Starts the Main Activity

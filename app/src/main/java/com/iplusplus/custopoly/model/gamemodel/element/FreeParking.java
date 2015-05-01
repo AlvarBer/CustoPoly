@@ -2,7 +2,9 @@ package com.iplusplus.custopoly.model.gamemodel.element;
 
 import com.iplusplus.custopoly.model.gamemodel.behaviour.ConstructionAllowance;
 
-public class FreeParking extends SpecialLand {
+import java.io.Serializable;
+
+public class FreeParking extends SpecialLand implements Serializable {
 	
 	public FreeParking() {
 		setConstructionBehavior(ConstructionAllowance.CONSTRUCTION_DENIED);
