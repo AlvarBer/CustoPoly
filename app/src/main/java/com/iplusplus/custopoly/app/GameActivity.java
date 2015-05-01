@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import com.iplusplus.custopoly.Custopoly;
+import com.iplusplus.custopoly.app.views.SizeAwareImageView;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
@@ -35,8 +36,10 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     //Attributes
     private GameFacade gameFacade;
     private ImageView boardBackground;
+    private SizeAwareImageView boardBackGroundAware;
     private TableLayout board;
     private Button buyButton;
+
 
     //Constants
     private final String BOARDRESOURCE = "activity_game_board_";
@@ -177,10 +180,11 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
      */
     private void setupViews() {
         this.boardBackground = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
+        this.boardBackGroundAware = (SizeAwareImageView) boardBackground;
         //Get the dimensions of the board
         this.boardBackground.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        this.boardWidth = this.boardBackground.getMeasuredWidth();
-        this.boardHeight = this.boardBackground.getMeasuredHeight();
+        this.boardWidth = this.boardBackGroundAware.getWidthOnScreen();
+        this.boardHeight = this.boardBackGroundAware.getHeighthOnScreen();
 
         this.board = (TableLayout)findViewById(R.id.activity_game_tl_board);
         this.buyButton = (Button) findViewById(R.id.activity_game_bt_buy);
