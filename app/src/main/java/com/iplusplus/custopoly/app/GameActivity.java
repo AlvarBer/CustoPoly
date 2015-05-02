@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import com.iplusplus.custopoly.Custopoly;
@@ -23,6 +24,8 @@ import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -205,9 +208,10 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
 
         //Set action listeners
 
-        buyButton.setOnClickListener(new View.OnClickListener() {
+        viewPropertiesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                gameFacade.viewProperties();
             }
         });
 
@@ -420,7 +424,13 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     }
 
     @Override
-    public void onViewProperties(ArrayList<PropertyLand> properties) {
+    public void onViewProperties(Player currentPlayer, ArrayList<PropertyLand> properties) {
+
+        //Change activity
+        Intent propertiesView = new Intent(this, PropertiesViewActivity.class);
+        propertiesView.putExtra("currentPlayer", currentPlayer);
+        propertiesView.putExtra("propertiesList", properties);
+        startActivity(propertiesView);
 
 
     }

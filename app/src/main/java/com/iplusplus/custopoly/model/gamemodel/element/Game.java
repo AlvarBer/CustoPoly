@@ -104,7 +104,7 @@ public class Game implements GameFacade, Serializable {
     @Override
     public void viewProperties() {
         for (GameObserver o: observersList)
-            o.onViewProperties(this.currentPlayer.getProperties());
+            o.onViewProperties(this.currentPlayer, this.currentPlayer.getProperties());
     }
 
     @Override
