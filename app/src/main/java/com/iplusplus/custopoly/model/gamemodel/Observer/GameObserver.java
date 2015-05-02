@@ -25,7 +25,8 @@ public interface GameObserver {
     void onTurnEnd(Board board, Player player);
 
     //Action events
-    void onViewProperties(ArrayList<PropertyLand> properties);
+    void onViewProperties(Player currentPlayer, ArrayList<PropertyLand> properties);
+
     void onRollDice(Board board, Player currentPlayer);
     void onCard(String text);
     void onPayFee(String message);

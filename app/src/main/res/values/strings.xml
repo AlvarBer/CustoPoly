@@ -56,4 +56,9 @@
     <string name="inputNameText">Enter a name</string>
     <string name="exceptions_playernotfound">There is no player with that name or id.</string>
 
+    <string name="title_activity_properties_view">PropertiesViewActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_property_view">PropertyViewActivity</string>
+
 </resources>
