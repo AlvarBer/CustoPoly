@@ -187,7 +187,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
      * @param theme
      */
     private void drawBoard(GameTheme theme) {
-        this.boardBackground.setImageResource(getResources().getIdentifier(theme.getBackgroundPathResource(), "drawable", getPackageName()));
+        this.boardBackground.setImageResource(Utilities.getResId(theme.getBackgroundPathResource(),R.drawable.class));
     }
 
     /**
@@ -430,6 +430,13 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
         Intent propertiesView = new Intent(this, PropertiesViewActivity.class);
         propertiesView.putExtra("currentPlayer", currentPlayer);
         propertiesView.putExtra("propertiesList", properties);
+        //Create the imageIds array
+        ArrayList<Integer> imageIds = new ArrayList<>();
+        for(PropertyLand prop: properties)
+        {
+            imageIds.add(cells.get(prop.getLandIndex()).getResource());
+        }
+        propertiesView.putExtra("imageIdsList", imageIds);
         startActivity(propertiesView);
 
 
@@ -595,7 +602,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
                 playerView.setX(posX + boardBackground.getX());
                 playerView.setY(posY);
 
-                playerView.setImageResource(Custopoly.getAppContext().getResources().getIdentifier(this.playerSkins.get(0), "drawable", getPackageName()));
+                playerView.setImageResource(Utilities.getResId(this.playerSkins.get(0),R.drawable.class));
             } else if (this.playerSkins.size() > 1) {
                 //TODO: IMPLEMENT
             }

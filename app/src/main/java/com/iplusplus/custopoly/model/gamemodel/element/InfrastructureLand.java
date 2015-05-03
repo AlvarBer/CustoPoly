@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class InfrastructureLand extends PropertyLand implements Serializable {
 	
-	public InfrastructureLand(String name, int price, Rent rent) {
-		super(name, price, rent);
+	public InfrastructureLand(String name, int price, Rent rent, int landIndex) {
+		super(name, price, rent, landIndex);
 		setConstructionBehavior(ConstructionAllowance.CONSTRUCTION_DENIED);
 		setAssignment(new PurchasableCommand());
 	}

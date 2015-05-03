@@ -261,10 +261,10 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
             PlayerSkin skin = (PlayerSkin) it.next();
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams( LayoutParams.MATCH_PARENT,
                                                                               LayoutParams.MATCH_PARENT);
-            skinImage1 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
-            skinImage2 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
-            skinImage3 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
-            skinImage4 = createImage(count, params, getResources().getIdentifier(skin.getImageResourceName(), "drawable", getPackageName()));
+            skinImage1 = createImage(count, params, Utilities.getResId(skin.getImageResourceName(),R.drawable.class));
+            skinImage2 = createImage(count, params, Utilities.getResId(skin.getImageResourceName(),R.drawable.class));
+            skinImage3 = createImage(count, params, Utilities.getResId(skin.getImageResourceName(),R.drawable.class));
+            skinImage4 = createImage(count, params, Utilities.getResId(skin.getImageResourceName(),R.drawable.class));
             this.flipperPlayer1.addView(skinImage1, count);
             this.flipperPlayer2.addView(skinImage2, count);
             this.flipperPlayer3.addView(skinImage3, count);

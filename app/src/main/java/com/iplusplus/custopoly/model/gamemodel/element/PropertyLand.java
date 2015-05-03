@@ -8,12 +8,14 @@ public abstract class PropertyLand extends Land implements Serializable {
 
 	private String name;
 	private int price;
+    private int landIndex;
 	private Rent rentInfo;
 
-	public PropertyLand(String name, int price, Rent rent) {
+	public PropertyLand(String name, int price, Rent rent, int landIndex) {
 		setName(name);
 		setPrice(price);
 		setRent(rent);
+        setLandIndex(landIndex);
 	}
 
 	private final void setName(String name) {
@@ -25,13 +27,15 @@ public abstract class PropertyLand extends Land implements Serializable {
 		return name;
 	}
 
-	private final void setPrice(int price) {
+	private void setPrice(int price) {
 		this.price = price;
 	}
 
 	public void setRent(Rent rent) {
 		this.rentInfo = rent;
 	}
+
+    public void setLandIndex(int index) {this.landIndex = index;}
 
 	public final int getPrice() {
 		return price;
@@ -40,6 +44,8 @@ public abstract class PropertyLand extends Land implements Serializable {
 	public final Rent getRentInfo() {
 		return rentInfo;
 	}
+
+    public final int getLandIndex() {return landIndex;}
 	
 	public final int getMortgage() {
 		return this.price / 2;
