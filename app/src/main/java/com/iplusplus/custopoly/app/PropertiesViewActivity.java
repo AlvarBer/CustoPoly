@@ -31,23 +31,23 @@ public class PropertiesViewActivity extends ActionBarActivity {
 
         Player currentPlayer = (Player)intent.getSerializableExtra("currentPlayer");
         ArrayList<PropertyLand> properties = (ArrayList<PropertyLand>)intent.getSerializableExtra("propertiesList");
+        ArrayList<Integer> imageIds = intent.getIntegerArrayListExtra("imageIdsList");
         
-        buildPropertiesViewFromInformation(currentPlayer, properties);
+        buildPropertiesViewFromInformation(currentPlayer, properties, imageIds);
     }
 
-    private void buildPropertiesViewFromInformation(Player currentPlayer, ArrayList<PropertyLand> properties)
+    private void buildPropertiesViewFromInformation(Player currentPlayer, ArrayList<PropertyLand> properties, ArrayList<Integer> imageIds)
     {
         LinearLayout propertiesContainer = (LinearLayout)findViewById(R.id.propertiesContainerLayout);
 
         //Add an image to the porpertiesContainerLayout (its an horizontal scrollview)
+        int i = 0;
         for(PropertyLand prop: properties)
         {
             ImageView propertyImageView = new ImageView(this);
-            propertyImageView.setImageResource(R.drawable.trollface);
-            propertyImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            //Set image to imageView
-            //int id = propertiesImagesIds.getResource();
-            //propertyImageView.setImageResource(id);
+            //Set the image resource id
+            propertyImageView.setImageResource(imageIds.get(i));
+           // propertyImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             propertiesContainer.addView(propertyImageView);
 
@@ -58,6 +58,8 @@ public class PropertiesViewActivity extends ActionBarActivity {
                     displayPropertyInformation(attachedProp);
                 }
             });
+
+            i++;
         }
 
         //Initial information

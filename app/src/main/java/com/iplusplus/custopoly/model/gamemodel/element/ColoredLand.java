@@ -14,8 +14,8 @@ public class ColoredLand extends PropertyLand implements Serializable {
 	private int color;
 	private int housePrice;
 	
-	public ColoredLand(String name, int color, int price, int housePrice, Rent rent) {
-		super(name, price, rent);
+	public ColoredLand(String name, int color, int price, int housePrice, Rent rent, int landIndex) {
+		super(name, price, rent, landIndex);
 		this.housePrice = housePrice;
 		setColor(color);
 		setConstructionBehavior(ConstructionAllowance.CONSTRUCTION_ALLOWED);

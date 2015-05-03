@@ -64,17 +64,17 @@ public class BoardFactory {
 					new ColoredLand(getLandName(landData),
 							getLandColor(landData), getLandPrice(landData),
 							getHousePrice(landData),
-							getColoredLandRentInfo(landData)));
+							getColoredLandRentInfo(landData), board.getLands().size()));
 		} else if (landType.equals(LAND_TRANSPORTATION)) {
 			board.getLands().add(
 					new TransportationLand(getLandName(landData),
 							getLandPrice(landData),
-							getTransportationLandRentInfo(landData)));
+							getTransportationLandRentInfo(landData), board.getLands().size()));
 		} else if (landType.equals(LAND_INFRASTRUCTURE)) {
 			board.getLands().add(
 					new InfrastructureLand(getLandName(landData),
 							getLandPrice(landData),
-							getInfrastructureLandRentInfo(landData)));
+							getInfrastructureLandRentInfo(landData), board.getLands().size()));
 		} else {
 			throw new RuntimeException("There is no land type named : "	+ landType);
 		}
