@@ -2,7 +2,9 @@ package com.iplusplus.custopoly.model.gamemodel;
 
 import com.iplusplus.custopoly.model.gamemodel.Observer.GameObservable;
 
-public interface GameFacade extends GameObservable {
+import java.io.Serializable;
+
+public interface GameFacade extends GameObservable, Serializable {
 
     // //
     // INPUT METHODS

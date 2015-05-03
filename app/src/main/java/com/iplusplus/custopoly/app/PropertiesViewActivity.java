@@ -63,7 +63,9 @@ public class PropertiesViewActivity extends ActionBarActivity {
         }
 
         //Initial information
-        displayPropertyInformation(properties.get(0));
+        if(!properties.isEmpty()) {
+            displayPropertyInformation(properties.get(0));
+        }
     }
 
     void displayPropertyInformation(PropertyLand property)
