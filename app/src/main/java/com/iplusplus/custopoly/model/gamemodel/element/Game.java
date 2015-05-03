@@ -11,7 +11,7 @@ import com.iplusplus.custopoly.model.gamemodel.command.RollDiceCommand;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game implements GameFacade, Serializable {
+public class Game implements GameFacade {
 
     //Attributes
     private ArrayList<GameObserver> observersList;
