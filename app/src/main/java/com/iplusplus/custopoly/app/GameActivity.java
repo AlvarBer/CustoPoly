@@ -355,9 +355,6 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
 		TextView playerText = (TextView) findViewById(R.id.activity_game_tv_player);
 		TextView moneyText = (TextView) findViewById(R.id.activity_game_tv_money);
 
-		Log.i("MORTADELEGLE", currentPlayer.getName());
-		Log.i("MORTADELEGLE", String.valueOf(currentPlayer.getBalance()));
-
 		//We set the text
 		playerText.setText(/*"PLAYER" + "\n" + */currentPlayer.getName());
 		moneyText.setText(/*"MONEY" + "\n" + */String.valueOf(currentPlayer.getBalance()));
