@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import com.iplusplus.custopoly.Custopoly;
@@ -24,8 +23,6 @@ import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Land;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +37,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
 
     //Attributes
     private GameFacade gameFacade;
-    private ImageView boardBackground;
+    private ImageView boardBackgroundImageView;
     private Button buyButton;
     private Land purchasableLand;
 
@@ -48,12 +45,13 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     private final String BOARDRESOURCE = "activity_game_board_";
 
     //Test for drawing players
-    private TableLayout board;
+    private TableLayout boardLayout;
     private ArrayList<SquareCell> cells;
     private int boardWidth, boardHeight;
-    private ImageView squareImage;
+    private ImageView squareImageView;
     private Button viewPropertiesButton;
     private Button endTurn;
+    private static final int propertiesViewRequestCode = 1;
 
 
     // //
@@ -92,7 +90,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     }
 
     /**
-     * Called every time the app is resumed. Loads the gameFacade and draw the board
+     * Called every time the app is resumed. Loads the gameFacade and draw the boardLayout
      * and the players
      *
      * @see android.app.Activity#onResume()
@@ -153,7 +151,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
 
     /**
      * Displays the skins of the players according to their current position 
-	 * in the board. If there are more than one player in the same square, it 
+	 * in the boardLayout. If there are more than one player in the same square, it
 	 * spreads the players to the border of the square to fit them in them.
 	 * Each player is a view that is include in a FrameLayout (players).
      * @param board
@@ -183,26 +181,26 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     }
 
     /**
-     * Displays the board of the theme on the image of the board
+     * Displays the boardLayout of the theme on the image of the boardLayout
      * @param theme
      */
     private void drawBoard(GameTheme theme) {
-        this.boardBackground.setImageResource(Utilities.getResId(theme.getBackgroundPathResource(),R.drawable.class));
+        this.boardBackgroundImageView.setImageResource(Utilities.getResId(theme.getBackgroundPathResource(), R.drawable.class));
     }
 
     /**
      * Initializes all the components of the view
      */
     private void setupViews() {
-        this.boardBackground = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
-        //Get the dimensions of the board
-        this.boardBackground.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        this.boardWidth = this.boardBackground.getMeasuredWidth();
-        this.boardHeight = this.boardBackground.getMeasuredHeight();
+        this.boardBackgroundImageView = (ImageView) findViewById(R.id.activity_game_iv_boardBackground);
+        //Get the dimensions of the boardLayout
+        this.boardBackgroundImageView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        this.boardWidth = this.boardBackgroundImageView.getMeasuredWidth();
+        this.boardHeight = this.boardBackgroundImageView.getMeasuredHeight();
 
-        this.board = (TableLayout)findViewById(R.id.activity_game_tl_board);
+        this.boardLayout = (TableLayout)findViewById(R.id.activity_game_tl_board);
         this.buyButton = (Button) findViewById(R.id.activity_game_bt_buy);
-        this.squareImage = (ImageView) findViewById(R.id.activity_game_iv_square);
+        this.squareImageView = (ImageView) findViewById(R.id.activity_game_iv_square);
         this.viewPropertiesButton  = (Button) findViewById( R.id.activity_game_bt_properties);
         this.endTurn = (Button) findViewById (R.id.activity_game_bt_endTurn);
 
@@ -365,7 +363,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
         //Draw square
         int index = currentPlayer.getLandIndex();
         int id = cells.get(index).getResource();
-        squareImage.setImageResource(id);
+        squareImageView.setImageResource(id);
 	}
 
     // //
@@ -381,7 +379,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     @Override
     public void onGameBegin(GameTheme theme, Board board, Player currentPlayer) {
         drawBoard(theme);
-        //drawPlayers(board);
+        //drawPlayers(boardLayout);
         drawResources(currentPlayer);
         endTurn.setEnabled(false);
         this.buyButton.setEnabled(true);
@@ -428,6 +426,8 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
 
         //Change activity
         Intent propertiesView = new Intent(this, PropertiesViewActivity.class);
+
+        //Set the arguments to pass to the view
         propertiesView.putExtra("currentPlayer", currentPlayer);
         propertiesView.putExtra("propertiesList", properties);
         //Create the imageIds array
@@ -437,9 +437,29 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
             imageIds.add(cells.get(prop.getLandIndex()).getResource());
         }
         propertiesView.putExtra("imageIdsList", imageIds);
-        startActivity(propertiesView);
 
+        //Start activity with result code
+         startActivityForResult(propertiesView, propertiesViewRequestCode);
+    }
 
+    @Override
+    public void onMortgage(Player currentPlayer) {
+        drawResources(currentPlayer);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Handle requests
+        if (requestCode == propertiesViewRequestCode) {
+            if(resultCode == RESULT_OK){
+                String mortageLandName = data.getStringExtra("mortgageLand");
+
+                gameFacade.mortgageProperty(mortageLandName);
+            }
+            if (resultCode == RESULT_CANCELED) {
+               //Do nothing
+            }
+        }
     }
 
     @Override
@@ -599,7 +619,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
                 //playerView.setMaxHeight(this.height);
                 playerView.setMinimumHeight(this.height);
 
-                playerView.setX(posX + boardBackground.getX());
+                playerView.setX(posX + boardBackgroundImageView.getX());
                 playerView.setY(posY);
 
                 playerView.setImageResource(Utilities.getResId(this.playerSkins.get(0),R.drawable.class));

@@ -1,26 +1,26 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
-import com.iplusplus.custopoly.model.gamemodel.util.Color;
 
 import java.util.ArrayList;
 
 
 public class PropertiesViewActivity extends ActionBarActivity {
+    private PropertyLand selectedProperty = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +29,53 @@ public class PropertiesViewActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
 
+        //Get intent arguments
         Player currentPlayer = (Player)intent.getSerializableExtra("currentPlayer");
         ArrayList<PropertyLand> properties = (ArrayList<PropertyLand>)intent.getSerializableExtra("propertiesList");
         ArrayList<Integer> imageIds = intent.getIntegerArrayListExtra("imageIdsList");
-        
+
+        //Process arguments
         buildPropertiesViewFromInformation(currentPlayer, properties, imageIds);
+
+        //Handle mrotage button
+        Button mortageButton = (Button)findViewById(R.id.mortgageButton);
+        final PropertiesViewActivity me = this;
+        mortageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(me)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(getString(R.string.ingame_mortagege_title))
+                        .setMessage(String.format(getString(R.string.ingame_mortagege_message), selectedProperty.getName()))
+                        .setPositiveButton(getString(R.string.ingame_buyyesbutton), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Create a new intent and return OK from the activity
+                                Intent returnIntent = new Intent();
+                                returnIntent.putExtra("mortgageLand", selectedProperty.getName());
+                                setResult(RESULT_OK, returnIntent);
+                                finish();
+                            }
+
+                        })
+                        .setNegativeButton(getString(R.string.ingame_buynobutton), null)
+                        .show();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        //Create a new intent and return OK from the activity
+        Intent returnIntent = new Intent();
+        setResult(RESULT_CANCELED, returnIntent);
+        super.onBackPressed();
     }
 
     private void buildPropertiesViewFromInformation(Player currentPlayer, ArrayList<PropertyLand> properties, ArrayList<Integer> imageIds)
     {
+        //Get the container layout (where the images are placed)
         LinearLayout propertiesContainer = (LinearLayout)findViewById(R.id.propertiesContainerLayout);
 
         //Add an image to the porpertiesContainerLayout (its an horizontal scrollview)
@@ -47,10 +85,10 @@ public class PropertiesViewActivity extends ActionBarActivity {
             ImageView propertyImageView = new ImageView(this);
             //Set the image resource id
             propertyImageView.setImageResource(imageIds.get(i));
-           // propertyImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
+            //Add the new imageView
             propertiesContainer.addView(propertyImageView);
 
+            //Configure the listener
             final PropertyLand attachedProp = prop;
             propertyImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,7 +100,7 @@ public class PropertiesViewActivity extends ActionBarActivity {
             i++;
         }
 
-        //Initial information
+        //Display Initial information
         if(!properties.isEmpty()) {
             displayPropertyInformation(properties.get(0));
         }
@@ -71,14 +109,18 @@ public class PropertiesViewActivity extends ActionBarActivity {
     void displayPropertyInformation(PropertyLand property)
     {
         //Get the text views that will be modifed
-        TextView propertyNameView = (TextView)findViewById(R.id.nameTextView);
-        TextView propertyValueView = (TextView)findViewById(R.id.valueTextView);
-        TextView propertyRentView = (TextView)findViewById(R.id.rentValueTextView);
+        TextView propertyNameTextView = (TextView)findViewById(R.id.nameTextView);
+        TextView propertyValueTextView = (TextView)findViewById(R.id.valueTextView);
+        TextView propertyRentTextView = (TextView)findViewById(R.id.rentValueTextView);
+        TextView propertyMortgageValueTextView = (TextView)findViewById(R.id.mortgageValueTextView);
 
         //Set values
-        propertyNameView.setText(property.getName());
-        propertyValueView.setText(Integer.toString(property.getPrice()));
-        propertyRentView.setText(Integer.toString(property.getRentInfo().getBaseRent()));
+        propertyNameTextView.setText(property.getName());
+        propertyValueTextView.setText(Integer.toString(property.getPrice()));
+        propertyRentTextView.setText(Integer.toString(property.getRentInfo().getBaseRent()));
+        propertyMortgageValueTextView.setText(Integer.toString(property.getMortgage()));
+
+        selectedProperty = property;
     }
 
 

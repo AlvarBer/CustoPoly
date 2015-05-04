@@ -6,9 +6,9 @@ import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.Observer.GameObserver;
 import com.iplusplus.custopoly.model.gamemodel.command.BuyCommand;
 import com.iplusplus.custopoly.model.gamemodel.command.EndTurnCommand;
+import com.iplusplus.custopoly.model.gamemodel.command.MortgageCommand;
 import com.iplusplus.custopoly.model.gamemodel.command.RollDiceCommand;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Game implements GameFacade {
@@ -118,6 +118,23 @@ public class Game implements GameFacade {
         for (GameObserver o: observersList)
             o.onRollDice (this.board, this.currentPlayer);
 
+    }
+
+    @Override
+    public void mortgageProperty(String land) {
+        PropertyLand mortageLand = null;
+        for(PropertyLand prop: currentPlayer.getProperties())
+        {
+            if(prop.getName().equals(land))
+            {
+                mortageLand = prop;
+                break;
+            }
+        }
+        new MortgageCommand(mortageLand).execute(this);
+
+        for (GameObserver o: observersList)
+            o.onMortgage(this.currentPlayer);
     }
 
 

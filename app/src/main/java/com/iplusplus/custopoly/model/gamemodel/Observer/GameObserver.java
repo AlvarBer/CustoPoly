@@ -5,12 +5,13 @@ import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Jorge on 29/04/2015.
  */
-public interface GameObserver {
+public interface GameObserver{
 
     //GameObserver Events
     void onAttached(GameTheme theme, Board board, Player currentPlayer, ArrayList<Player> playersList);
@@ -27,6 +28,7 @@ public interface GameObserver {
     //Action events
     void onViewProperties(Player currentPlayer, ArrayList<PropertyLand> properties);
 
+    void onMortgage(Player currentPlayer);
     void onRollDice(Board board, Player currentPlayer);
     void onCard(String text);
     void onPayFee(String message);
