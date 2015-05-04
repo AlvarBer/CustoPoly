@@ -1,6 +1,7 @@
 package com.iplusplus.custopoly.model.gamemodel;
 
 import com.iplusplus.custopoly.model.gamemodel.Observer.GameObservable;
+import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
 import java.io.Serializable;
 
@@ -30,6 +31,8 @@ public interface GameFacade extends GameObservable, Serializable {
     public void viewProperties();
 
     public void rollDice();
+
+    public void mortgageProperty(String land);
 
 
     // //
