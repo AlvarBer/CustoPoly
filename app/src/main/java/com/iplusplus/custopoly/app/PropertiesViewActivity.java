@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TabHost;
 import android.widget.TextView;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
@@ -32,15 +33,51 @@ public class PropertiesViewActivity extends ActionBarActivity {
         Intent intent = getIntent();
 
         //Get intent arguments
-        Player currentPlayer = (Player)intent.getSerializableExtra("currentPlayer");
-        ArrayList<PropertyLand> properties = (ArrayList<PropertyLand>)intent.getSerializableExtra("propertiesList");
-        ArrayList<Integer> imageIds = intent.getIntegerArrayListExtra("imageIdsList");
+        final Player currentPlayer = (Player)intent.getSerializableExtra("currentPlayer");
+        final ArrayList<PropertyLand> properties = (ArrayList<PropertyLand>)intent.getSerializableExtra("propertiesList");
+        final ArrayList<Integer> imageIdsUnMortgaged = intent.getIntegerArrayListExtra("imageIdsListUnMortgaged");
+        final ArrayList<PropertyLand> mortgages = (ArrayList<PropertyLand>)intent.getSerializableExtra("mortgageList");
+        final ArrayList<Integer> imageIdsMortgaged = intent.getIntegerArrayListExtra("imageIdsListMortgaged");
+
+        //Set the different tabs
+        TabHost viewsTabs = (TabHost)findViewById(R.id.propertiesViewTabHost);
+        viewsTabs.setup();
+
+        TabHost.TabSpec unMortgageTab = viewsTabs.newTabSpec("UnMortgaged");
+        unMortgageTab.setContent(R.id.UnMortgaged);
+        unMortgageTab.setIndicator("Unmortgaged");
+        viewsTabs.addTab(unMortgageTab);
+
+        TabHost.TabSpec mortgageTab = viewsTabs.newTabSpec("Mortgaged");
+        mortgageTab.setContent(R.id.Mortgaged);
+        mortgageTab.setIndicator("Mortgaged");
+        viewsTabs.addTab(mortgageTab);
+        //Implement the tabChange listener
+        viewsTabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if(tabId.equals("UnMortgaged"))
+                {
+                    Button mortageButton = (Button)findViewById(R.id.mortgageButton);
+                    mortageButton.setText("Mortgage");
+
+                    buildPropertiesViewFromInformation(currentPlayer, properties, imageIdsUnMortgaged, "UnMortgaged");
+                }
+                else
+                {
+                    Button mortageButton = (Button)findViewById(R.id.mortgageButton);
+                    mortageButton.setText("Unmortgage");
+
+                    buildPropertiesViewFromInformation(currentPlayer, mortgages, imageIdsMortgaged, "Mortgaged");
+                }
+            }
+        });
 
         //Process arguments
-        buildPropertiesViewFromInformation(currentPlayer, properties, imageIds);
+        buildPropertiesViewFromInformation(currentPlayer, properties, imageIdsUnMortgaged, "UnMortgaged");
 
         //Handle mrotage button
-        Button mortageButton = (Button)findViewById(R.id.mortgageButton);
+        final Button mortageButton = (Button)findViewById(R.id.mortgageButton);
         final PropertiesViewActivity me = this;
         mortageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,10 +112,18 @@ public class PropertiesViewActivity extends ActionBarActivity {
         super.onBackPressed();
     }
 
-    private void buildPropertiesViewFromInformation(Player currentPlayer, ArrayList<PropertyLand> properties, ArrayList<Integer> imageIds)
+    private void buildPropertiesViewFromInformation(Player currentPlayer, ArrayList<PropertyLand> properties, ArrayList<Integer> imageIds, String tab)
     {
-        //Get the container layout (where the images are placed)
-        LinearLayout propertiesContainer = (LinearLayout)findViewById(R.id.propertiesContainerLayout);
+        //Select the appropiate container
+        LinearLayout propertiesContainer;
+        if(tab.equals("UnMortgaged")) {
+            propertiesContainer = (LinearLayout) findViewById(R.id.unmortagedContainerLayout);
+        }
+        else
+        {
+            propertiesContainer = (LinearLayout) findViewById(R.id.mortgagedContainerLayout);
+        }
+        propertiesContainer.removeAllViews();
 
         //Add an image to the porpertiesContainerLayout (its an horizontal scrollview)
         int i = 0;

@@ -104,7 +104,7 @@ public class Game implements GameFacade {
     @Override
     public void viewProperties() {
         for (GameObserver o: observersList)
-            o.onViewProperties(this.currentPlayer, this.currentPlayer.getProperties());
+            o.onViewProperties(this.currentPlayer, this.currentPlayer.getProperties(), this.currentPlayer.getMortgagedProperties());
     }
 
     @Override
@@ -131,6 +131,21 @@ public class Game implements GameFacade {
                 break;
             }
         }
+
+        //If its not in properties then its in mortgages
+        if(mortageLand == null)
+        {
+            for(PropertyLand prop: currentPlayer.getMortgagedProperties())
+            {
+                if(prop.getName().equals(land))
+                {
+                    mortageLand = prop;
+                    break;
+                }
+            }
+        }
+
+        //Execute command
         new MortgageCommand(mortageLand).execute(this);
 
         for (GameObserver o: observersList)

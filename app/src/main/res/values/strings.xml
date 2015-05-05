@@ -34,7 +34,7 @@
     <string name="ingame_quitgame_title">Quit game?</string>
     <string name="ingame_quitgame_message">Are you sure you want to quit the game?</string>
     <string name="ingame_mortagege_title">Mortgage property?</string>
-    <string name="ingame_mortagege_message">Are you sure you want to mortgage the property: %s?</string>
+    <string name="ingame_mortagege_message">Are you sure you want to Mortgage/UnMortgage the property: %s?</string>
 
     //MainActivity
     <string name="playButtonText">Play</string>

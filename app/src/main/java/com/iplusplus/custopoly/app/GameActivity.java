@@ -395,7 +395,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     }
 
     @Override
-    public void onViewProperties(Player currentPlayer, ArrayList<PropertyLand> properties) {
+    public void onViewProperties(Player currentPlayer, ArrayList<PropertyLand> properties, ArrayList<PropertyLand> mortgagedProperties) {
 
         //Change activity
         Intent propertiesView = new Intent(this, PropertiesViewActivity.class);
@@ -403,13 +403,23 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
         //Set the arguments to pass to the view
         propertiesView.putExtra("currentPlayer", currentPlayer);
         propertiesView.putExtra("propertiesList", properties);
-        //Create the imageIds array
-        ArrayList<Integer> imageIds = new ArrayList<>();
+        propertiesView.putExtra("mortgageList", mortgagedProperties);
+
+        //Create the imageIds array for the properties
+        ArrayList<Integer> imageIdsUnMortgaged = new ArrayList<>();
         for(PropertyLand prop: properties)
         {
-            imageIds.add(cells.get(prop.getLandIndex()).getResource());
+            imageIdsUnMortgaged.add(cells.get(prop.getLandIndex()).getResource());
         }
-        propertiesView.putExtra("imageIdsList", imageIds);
+        propertiesView.putExtra("imageIdsListUnMortgaged", imageIdsUnMortgaged);
+
+        //Create the imageIds array for the mortgaged properties
+        ArrayList<Integer> imageIdsMortgaged = new ArrayList<>();
+        for(PropertyLand prop: mortgagedProperties)
+        {
+            imageIdsMortgaged.add(cells.get(prop.getLandIndex()).getResource());
+        }
+        propertiesView.putExtra("imageIdsListMortgaged", imageIdsMortgaged);
 
         //Start activity with result code
          startActivityForResult(propertiesView, propertiesViewRequestCode);
@@ -427,6 +437,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
             if(resultCode == RESULT_OK){
                 String mortageLandName = data.getStringExtra("mortgageLand");
 
+                //Call the facade for morgage
                 gameFacade.mortgageProperty(mortageLandName);
             }
             if (resultCode == RESULT_CANCELED) {
