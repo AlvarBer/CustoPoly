@@ -37,7 +37,7 @@
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/shopButtonText"
             android:id="@+id/activity_main_btn_shop"
             android:layout_marginRight="28dp"
-            android:layout_marginEnd="28dp" android:enabled="false" android:clickable="true" android:height="60dp"
+            android:layout_marginEnd="28dp" android:enabled="true" android:clickable="true" android:height="60dp"
             android:width="150dp" android:layout_alignTop="@+id/activity_main_btn_play"
             android:layout_alignRight="@+id/activity_main_tv_title" android:layout_alignEnd="@+id/activity_main_tv_title"/>
 </RelativeLayout>

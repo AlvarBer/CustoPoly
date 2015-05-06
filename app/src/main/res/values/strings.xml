@@ -62,5 +62,14 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_property_view">PropertyViewActivity</string>
+    <string name="shop_wanttobuy_message">Do you want to buy this theme?</string>
+    <string name="shop_wanttobuy_title">Buy a theme</string>
+    <string name="shop_yes">YES</string>
+    <string name="shop_no">NO</string>
+    <string name="shop_notenoughfunds_message">You don\'t have enough i$$ to purchase this theme.</string>
+    <string name="shop_notenoughfunds_title">Not enough money!</string>
+    <string name="title_activity_shop_temp">ShopTempActivity</string>
+    <string formatted="false" name="shop_themebought_message">You bought the %s theme.</string>
+    <string name="shop_themebought_title">Congratulations!</string>
 
 </resources>
