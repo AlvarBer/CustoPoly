@@ -1,15 +1,21 @@
 package com.iplusplus.custopoly.app;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.os.Handler;
+
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
 import java.util.HashSet;
+
 
 /**
  * Entry point of the app.
@@ -52,9 +58,20 @@ public class InitActivity extends ActionBarActivity {
         GameTheme defaultTheme =  new GameTheme("template",0, "template_board", "template_board","template_board", "template_board", "template_cards",skins);
         ThemeHandler.getInstance().switchThemeTo(defaultTheme);
 
-        //Starts the Main Activity
-        Intent act = new Intent(this, MainActivity.class);
-        startActivity(act);
-        finish();
+        ThemeHandler.getInstance().switchThemeTo(defaultTheme);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                //Starts the Main Activity
+                Intent mInHome = new Intent(InitActivity.this, MainActivity.class);
+                startActivity(mInHome);
+                finish();
+            }
+        }, 2000);
+
+
     }
+
 }
+

@@ -281,4 +281,10 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         return image;
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent back = new Intent(PreGameActivity.this, GameMenuActivity.class);
+        startActivity(back);
+    }
+
 }

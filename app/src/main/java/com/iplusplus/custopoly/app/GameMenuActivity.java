@@ -67,4 +67,10 @@ public class GameMenuActivity extends ActionBarActivity {
             }
         });
     }
+
+    public void onBackPressed() {
+        Intent back = new Intent(GameMenuActivity.this, MainActivity.class);
+        startActivity(back);
+    }
+
 }
