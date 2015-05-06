@@ -1,13 +1,18 @@
 package com.iplusplus.custopoly.app;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.*;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -19,7 +24,6 @@ import com.iplusplus.custopoly.model.Utilities;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
 import com.iplusplus.custopoly.model.gamemodel.Observer.GameObserver;
 import com.iplusplus.custopoly.model.gamemodel.element.Board;
-import com.iplusplus.custopoly.model.gamemodel.element.Land;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
@@ -32,13 +36,12 @@ import java.util.ArrayList;
    with the gameFacade through a system of buttons
  */
 
-public class GameActivity extends ActionBarActivity implements GameObserver {
+public class GameActivity extends ActionBarActivity implements GameObserver, DiceFragment.DiceDialogListener {
 
     //Attributes
     private GameFacade gameFacade;
     private ImageView boardBackgroundImageView;
     private Button buyButton;
-    private Land purchasableLand;
 
     //Constants
     private final String BOARDRESOURCE = "activity_game_board_";
@@ -356,7 +359,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
         drawResources(currentPlayer);
         endTurn.setEnabled(false);
         this.buyButton.setEnabled(true);
-        onTurnBegin(board,currentPlayer);
+        onTurnBegin(board, currentPlayer);
     }
 
     @Override
@@ -370,7 +373,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     }
 
     @Override
-    public void onTurnBegin(Board board, Player player) {
+    public void onTurnBegin(final Board board, final Player player) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String turn = player.getName();
@@ -379,7 +382,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
                 .setPositiveButton("Roll Dice", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        gameFacade.rollDice();
+                        onRollDiceBegin(board,player);
                     }
                 });
         AlertDialog alert = builder.create();
@@ -447,7 +450,25 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     }
 
     @Override
-    public void onRollDice(Board board, Player currentPlayer) {
+    public void onRollDiceBegin(Board board, Player currentPlayer) {
+
+        // DialogFragment.show() will take care of adding the fragment
+        // in a transaction.  We also want to remove any currently showing
+        // dialog, so make our own transaction and take care of that here.
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = DiceFragment.newInstance("dialog");
+        newFragment.show(ft, "dialog");
+    }
+
+    @Override
+    public void onRollDiceEnd(Board board, Player currentPlayer) {
         drawPlayers(board);
         drawResources(currentPlayer);
         endTurn.setEnabled(true);
@@ -542,6 +563,11 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onFinishDiceDialog(int diceResult) {
+        gameFacade.rollDice(diceResult);
     }
 
     private enum Position {

@@ -5,7 +5,6 @@ import com.iplusplus.custopoly.model.gamemodel.element.Board;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +28,9 @@ public interface GameObserver{
     void onViewProperties(Player currentPlayer, ArrayList<PropertyLand> properties, ArrayList<PropertyLand> mortgagedProperties);
 
     void onMortgage(Player currentPlayer);
-    void onRollDice(Board board, Player currentPlayer);
+    void onRollDiceBegin(Board board, Player currentPlayer);
+    void onRollDiceEnd(Board board, Player currentPlayer);
+
     void onCard(String text);
     void onPayFee(String message);
     void onPurchasableCard(final String playerName, final PropertyLand land);

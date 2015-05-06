@@ -113,10 +113,10 @@ public class Game implements GameFacade {
     }
 
     @Override
-    public void rollDice() {
-        new RollDiceCommand().execute(this);
+    public void rollDice(int diceResult) {
+        new RollDiceCommand(diceResult).execute(this);
         for (GameObserver o: observersList)
-            o.onRollDice (this.board, this.currentPlayer);
+            o.onRollDiceEnd(this.board, this.currentPlayer);
 
     }
 

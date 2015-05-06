@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTintMode="add"
+                android:id="@+id/fragment_dice">
+    <ImageView android:id="@+id/dice_fragment_iv_dice1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_alignParentTop="true"
+               android:src="@drawable/dice3droll" android:clickable="true"
+               android:backgroundTintMode="add"
+               android:adjustViewBounds="false"/>
+    <ImageView android:id="@+id/dice_fragment_iv_dice2" android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/dice3droll"
+               android:layout_alignParentTop="true" android:layout_toRightOf="@+id/dice_fragment_iv_dice1"
+               android:layout_toEndOf="@+id/dice_fragment_iv_dice1" android:clickable="true"
+               android:backgroundTintMode="add"/>
+</RelativeLayout>

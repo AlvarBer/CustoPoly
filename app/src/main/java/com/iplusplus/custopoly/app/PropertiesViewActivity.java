@@ -79,6 +79,7 @@ public class PropertiesViewActivity extends ActionBarActivity {
         //Handle mrotage button
         final Button mortageButton = (Button)findViewById(R.id.mortgageButton);
         final PropertiesViewActivity me = this;
+        if (properties.size() == 0) mortageButton.setEnabled(false);
         mortageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
