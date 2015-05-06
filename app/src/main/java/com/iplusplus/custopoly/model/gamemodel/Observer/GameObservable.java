@@ -7,6 +7,6 @@ import java.io.Serializable;
  */
 public interface GameObservable{
 
-    public void addObserver(GameObserver o);
-    public void deleteObserver(GameObserver o);
+    public abstract void addObserver(GameObserver o);
+    public abstract void deleteObserver(GameObserver o);
 }

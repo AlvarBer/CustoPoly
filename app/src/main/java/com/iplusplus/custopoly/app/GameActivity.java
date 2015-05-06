@@ -1,5 +1,6 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
    with the gameFacade through a system of buttons
  */
 
-public class GameActivity extends ActionBarActivity implements GameObserver {
+public class GameActivity extends Activity implements GameObserver {
 
     //Attributes
     private GameFacade gameFacade;
@@ -44,7 +45,6 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     private final String BOARDRESOURCE = "activity_game_board_";
 
     //Test for drawing players
-    private TableLayout boardLayout;
     private ArrayList<SquareCell> cells;
     private int boardWidth, boardHeight;
     private ImageView squareImageView;
@@ -65,7 +65,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
@@ -174,7 +174,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver {
         this.boardWidth = this.boardBackgroundImageView.getMeasuredWidth();
         this.boardHeight = this.boardBackgroundImageView.getMeasuredHeight();
 
-        this.boardLayout = (TableLayout)findViewById(R.id.activity_game_tl_board);
+        //this.boardLayout = (TableLayout)findViewById(R.id.activity_game_tl_board);
         this.buyButton = (Button) findViewById(R.id.activity_game_bt_buy);
         this.squareImageView = (ImageView) findViewById(R.id.activity_game_iv_square);
         this.viewPropertiesButton  = (Button) findViewById( R.id.activity_game_bt_properties);

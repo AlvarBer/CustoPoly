@@ -34,6 +34,7 @@ public class Game implements GameFacade {
         this.playersList = playersList;
         this.currentPlayer = playersList.get(0);
         this.theme = theme;
+        this.observersList = new ArrayList<GameObserver>();
     }
 
     // //
