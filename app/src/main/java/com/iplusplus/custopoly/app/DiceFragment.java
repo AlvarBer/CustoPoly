@@ -10,6 +10,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import com.iplusplus.custopoly.Custopoly;
 
@@ -60,6 +61,7 @@ public class DiceFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_dice, container, false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
 
         //load dice sound
