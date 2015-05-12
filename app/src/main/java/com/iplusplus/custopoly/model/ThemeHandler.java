@@ -1,14 +1,10 @@
 package com.iplusplus.custopoly.model;
 
-import android.content.res.Resources;
-
 import com.iplusplus.custopoly.Custopoly;
-import com.iplusplus.custopoly.app.MainActivity;
 import com.iplusplus.custopoly.app.R;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Class that has to:
@@ -18,17 +14,17 @@ import java.util.HashSet;
 public class ThemeHandler {
 
     private static ThemeHandler INSTANCE = null;
-    private GameTheme currentTheme;
-    private HashSet<PlayerSkin> skins;
+    private ArrayList<GameTheme> themes;
     private ShopKeeper shop;
-
+    private int currentTheme;
 
     /**
      * Constructor of the class. Private as it's a Singleton class
      */
     private ThemeHandler() {
         shop = new ShopKeeper(Custopoly.getAppContext().getString(R.string.shopkeeper_filepath));
-        skins = shop.getPurchasedPlayerSkinsList();
+        this.currentTheme = 0;
+        this.themes = new ArrayList<GameTheme>();
     }
 
     /**
@@ -45,7 +41,6 @@ public class ThemeHandler {
         }
         return INSTANCE;
     }
-
 
     public ShopKeeper getShopKeeperInstance()
     {
@@ -69,8 +64,8 @@ public class ThemeHandler {
      * @param theme
      *              The theme it should change to.
      */
-    public  void switchThemeTo(GameTheme theme) {
-        this.currentTheme = theme;
+    public  void setCurrentTheme(int index) {
+        this.currentTheme = index;
     }
 
     /**
@@ -114,7 +109,19 @@ public class ThemeHandler {
      *          The theme currently on use.
      */
     public GameTheme getCurrentTheme() {
-        return this.currentTheme;
+        return this.themes.get(currentTheme);
+    }
+
+
+    /*  /**
+     *Add a GameTheme to the arrayList
+     *
+     * @param GameTheme
+     *              a new GameTheme
+     */
+
+    public void addGameTheme(GameTheme theme) {
+        this.themes.add(theme);
     }
 
     /**
@@ -129,5 +136,9 @@ public class ThemeHandler {
         return null;
     }
 
+
+    public ArrayList<GameTheme> getThemes() {
+        return themes;
+    }
 
 }

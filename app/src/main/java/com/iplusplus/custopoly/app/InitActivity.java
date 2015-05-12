@@ -12,6 +12,7 @@ import android.os.Handler;
 
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.PlayerSkin;
+import com.iplusplus.custopoly.model.ShopKeeper;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
 import java.util.HashSet;
@@ -56,9 +57,7 @@ public class InitActivity extends ActionBarActivity {
         skins.add(megustaSkin);
         skins.add(trollfaceSkin);
         GameTheme defaultTheme =  new GameTheme("template",0, "template_board", "template_board","template_board", "template_board", "template_cards",skins);
-        ThemeHandler.getInstance().switchThemeTo(defaultTheme);
-
-        ThemeHandler.getInstance().switchThemeTo(defaultTheme);
+        ThemeHandler.getInstance().addGameTheme(defaultTheme);
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

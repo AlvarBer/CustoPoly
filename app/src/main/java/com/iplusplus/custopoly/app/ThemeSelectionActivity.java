@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 import com.iplusplus.custopoly.model.GameTheme;
@@ -15,6 +17,7 @@ import com.iplusplus.custopoly.model.ShopKeeper;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Corresponds with the theme_activity in the mockup.
@@ -37,7 +40,7 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
 
     private final ShopKeeper shopKeeperInstance = ThemeHandler.getInstance().getShopKeeperInstance();
 
-    //TODO I have put all the RadioButtons but the first disable, so it can be handled by the shopKeeper
+    // I have put all the RadioButtons but the first disable, so it can be handled by the shopKeeper
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
@@ -47,7 +50,7 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_selection);
 
-        purchasedThemes = new ArrayList<GameTheme>(shopKeeperInstance.getPurchasedThemesList());
+        purchasedThemes = ThemeHandler.getInstance().getThemes();
 
         this.bBack = (Button)findViewById(R.id.bBack);
         this.themeFlipper = (ViewFlipper)findViewById(R.id.themeFlipper);
@@ -55,8 +58,8 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
 
         setupThemeFlipper();
 
-        //TODO Quitar el hack y hacerlo para la lista de themes en la shopkeeper
-        this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getName());
+        //Quitar el hack y hacerlo para la lista de themes en la shopkeeper
+        this.themeNameText.setText(purchasedThemes.get(this.themeFlipper.getCurrentView().getId()).getName());
 
         this.bBack.setOnClickListener(this);
         this.themeFlipper.setOnClickListener(this);
@@ -74,10 +77,10 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
             case R.id.themeFlipper:
 
                 this.themeFlipper.showNext();
-                //TODO version buena, pero usamos el pequeño hack
+                // version buena, pero usamos el pequeño hack
                 // we access to the name of the current view
-                //this.themeNameText.setText(purchasedThemes.get(themeFlipper.getCurrentView().getId()).getName());
-                this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getName());
+                this.themeNameText.setText(purchasedThemes.get(this.themeFlipper.getCurrentView().getId()).getName());
+                //this.themeNameText.setText(ThemeHandler.getInstance().getCurrentTheme().getName());
                 break;
         }
     }
@@ -93,9 +96,9 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //TODO esto esta bien cambiar por el hack
-                           // ThemeHandler.getInstance().switchThemeTo(purchasedThemes.get(themeFlipper.getCurrentView().getId()));
-                            ThemeHandler.getInstance().switchThemeTo(ThemeHandler.getInstance().getCurrentTheme());
+                            //esto esta bien cambiar por el hack
+                           ThemeHandler.getInstance().setCurrentTheme(themeFlipper.getCurrentView().getId());
+                            //ThemeHandler.getInstance().switchThemeTo(ThemeHandler.getInstance().getCurrentTheme());
 
                             Intent main = new Intent(ThemeSelectionActivity.this, MainActivity.class);
                             startActivity(main);
@@ -120,8 +123,8 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
     }
 
     private void setupThemeFlipper() { // here I add the images in the arrayList so I can put them in the flippers;
-        //TODO ESTE ES EL CÓDIGO CORRECTO, PERO VOY A USAR EL HACK DE ABAJO PARA DEBUGGEAR
-      /*  Iterator it = this.purchasedThemes.iterator();
+        // ESTE ES EL CÓDIGO CORRECTO, PERO VOY A USAR EL HACK DE ABAJO PARA DEBUGGEAR
+       Iterator it = this.purchasedThemes.iterator();
         int count = 0;
         ImageView skinImage;
 
@@ -132,16 +135,16 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
             this.themeFlipper.addView(skinImage, count);
 
             count++;
-        }*/
+        }
 
-        ImageView skinImage = createImage(0, getResources().getIdentifier(ThemeHandler.getInstance().getCurrentTheme().getBackgroundPathResource(), "drawable", getPackageName()));
-        this.themeFlipper.addView(skinImage, 0);
+        //ImageView skinImage = createImage(0, getResources().getIdentifier(ThemeHandler.getInstance().getCurrentTheme().getBackgroundPathResource(), "drawable", getPackageName()));
+        //this.themeFlipper.addView(skinImage, 0);
     }
 
     private ImageView createImage(int count, int imageResId) {
         ImageView image = new ImageView(this);
-      //  image.setLayoutParams(new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,          LayoutParams.WRAP_CONTENT));//I set wrap_content to the layout params
-        image.setId(count);//I set the id from 0 to numImages - 1, I don't know how to put a string (es muy oscuro jeje)
+        //  image.setLayoutParams(new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,          LayoutParams.WRAP_CONTENT));//I set wrap_content to the layout params
+        image.setId(count);//I set the id from 0 to numImages - 1, I don't know how to put a string
         image.setImageResource(imageResId);
         return image;
     }
