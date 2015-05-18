@@ -349,6 +349,7 @@ public class ShopKeeper {
         {
             purchasedThemesList.add(theme);
             purchasedPlayerSkinsList.addAll(theme.getPlayerSkinsList());
+            playerPoints -= theme.getPrice();
         }
     }
 

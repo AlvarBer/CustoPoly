@@ -1,5 +1,6 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,13 +28,13 @@ import java.util.HashSet;
  * switches to MainActivity.
  */
 
-public class InitActivity extends ActionBarActivity {
+public class InitActivity extends Activity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);

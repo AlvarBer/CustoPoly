@@ -1,5 +1,6 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,7 +32,7 @@ import java.util.Iterator;
  */
 
 
-public class ThemeSelectionActivity extends ActionBarActivity implements View.OnClickListener, View.OnLongClickListener {
+public class ThemeSelectionActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
 
     private Button bBack;
     private ViewFlipper themeFlipper;
@@ -44,7 +45,7 @@ public class ThemeSelectionActivity extends ActionBarActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
