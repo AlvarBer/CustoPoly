@@ -1,5 +1,4 @@
 package com.iplusplus.custopoly.app;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends ActionBarActivity implements View.OnClickListener{
 
     //Attributes
     private Button play;
@@ -24,7 +23,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
@@ -43,7 +42,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         //Define behaviour of Play Button when is pressed
 
         //Disable the other buttons until their activities were implemented
-        shop.setEnabled(true);
+        //shop.setEnabled(false);
 
 
     }
@@ -57,7 +56,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 MainActivity.this.startActivity(myIntent);
                 break;
             case R.id.activity_main_btn_shop:
-                myIntent = new Intent(MainActivity.this, ShopTempActivity.class);
+                myIntent = new Intent(MainActivity.this, ShopActivity.class);
                 MainActivity.this.startActivity(myIntent);
                 break;
             case R.id.activity_main_btn_theme:

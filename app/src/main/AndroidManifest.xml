@@ -18,6 +18,11 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+                android:name=".ShopActivity"
+                android:label="@string/title_activity_shop"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".GameMenuActivity"
             android:label="@string/title_activity_game_menu" >
         </activity>
@@ -42,10 +47,6 @@
             android:name=".PropertiesViewActivity"
             android:screenOrientation="landscape" >
             android:label="@string/title_activity_property_view" >
-        </activity>
-        <activity
-            android:name=".ShopTempActivity"
-            android:label="@string/title_activity_shop_temp" >
         </activity>
     </application>
 
