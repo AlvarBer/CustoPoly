@@ -3,9 +3,7 @@ package com.iplusplus.custopoly.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -72,6 +70,7 @@ public class GameMenuActivity extends Activity {
     public void onBackPressed() {
         Intent back = new Intent(GameMenuActivity.this, MainActivity.class);
         startActivity(back);
+        GameMenuActivity.this.finish();
     }
 
 }

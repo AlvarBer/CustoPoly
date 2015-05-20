@@ -2,18 +2,12 @@ package com.iplusplus.custopoly.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.os.Handler;
-
+import android.view.WindowManager;
 import com.iplusplus.custopoly.model.GameTheme;
+import com.iplusplus.custopoly.model.MusicPlayer;
 import com.iplusplus.custopoly.model.PlayerSkin;
-import com.iplusplus.custopoly.model.ShopKeeper;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
 import java.util.HashSet;
@@ -51,6 +45,8 @@ public class InitActivity extends Activity {
         PlayerSkin trollfaceSkin = new PlayerSkin("trollface", 0, "trollface");
         HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
 
+        MusicPlayer.play(this, R.raw.rollin_at_5);
+
         skins.add(bullseyeSkin);
         skins.add(queenSkin);
         skins.add(kingSkin);
@@ -66,6 +62,7 @@ public class InitActivity extends Activity {
                 //Starts the Main Activity
                 Intent mInHome = new Intent(InitActivity.this, MainActivity.class);
                 startActivity(mInHome);
+
                 finish();
             }
         }, 2000);

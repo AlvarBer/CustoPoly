@@ -117,6 +117,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
                     public void onClick(DialogInterface dialog, int which) {
                         Intent play = new Intent(GameActivity.this, MainActivity.class);
                         startActivity(play);
+                        GameActivity.this.finish();
                     }
 
                 })

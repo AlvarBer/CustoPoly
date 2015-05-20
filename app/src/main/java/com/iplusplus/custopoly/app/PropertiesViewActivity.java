@@ -6,14 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TabHost;
-import android.widget.TextView;
+import android.widget.*;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
@@ -107,7 +101,6 @@ public class PropertiesViewActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-
         //Create a new intent and return OK from the activity
         Intent returnIntent = new Intent();
         setResult(RESULT_CANCELED, returnIntent);

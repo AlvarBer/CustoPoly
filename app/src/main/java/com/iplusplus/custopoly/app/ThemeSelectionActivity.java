@@ -5,12 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.*;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 import com.iplusplus.custopoly.model.GameTheme;
@@ -120,7 +118,9 @@ public class ThemeSelectionActivity extends Activity implements View.OnClickList
     @Override
     public void onBackPressed() {
         Intent play = new Intent(ThemeSelectionActivity.this, MainActivity.class);
+        ThemeSelectionActivity.this.finish();
         startActivity(play);
+
     }
 
     private void setupThemeFlipper() { // here I add the images in the arrayList so I can put them in the flippers;

@@ -3,9 +3,7 @@ package com.iplusplus.custopoly.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import android.widget.RadioGroup.LayoutParams;
@@ -286,6 +284,7 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
     public void onBackPressed() {
         Intent back = new Intent(PreGameActivity.this, GameMenuActivity.class);
         startActivity(back);
+        PreGameActivity.this.finish();
     }
 
 }
