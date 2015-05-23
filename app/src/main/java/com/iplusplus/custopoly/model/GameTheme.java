@@ -97,6 +97,10 @@ public class GameTheme implements Serializable {
         return this.playerSkinsList;
     }
 
+    //get the object
+    public GameTheme getGameTheme () {
+        return this;
+    }
     /***
      * Define if two GameThemes are equal looking at his names (useful for AbstractCollections
      * @param o

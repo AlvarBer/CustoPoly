@@ -1,31 +1,26 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TabHost;
-import android.widget.TextView;
+import android.widget.*;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
 import java.util.ArrayList;
 
 
-public class PropertiesViewActivity extends ActionBarActivity {
+public class PropertiesViewActivity extends Activity {
     private PropertyLand selectedProperty = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_properties_view);
@@ -106,7 +101,6 @@ public class PropertiesViewActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-
         //Create a new intent and return OK from the activity
         Intent returnIntent = new Intent();
         setResult(RESULT_CANCELED, returnIntent);

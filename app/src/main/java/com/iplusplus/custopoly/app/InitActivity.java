@@ -1,15 +1,17 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
+import android.os.Handler;
 import android.view.WindowManager;
 import com.iplusplus.custopoly.model.GameTheme;
+import com.iplusplus.custopoly.model.MusicPlayer;
 import com.iplusplus.custopoly.model.PlayerSkin;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
 import java.util.HashSet;
+
 
 /**
  * Entry point of the app.
@@ -20,13 +22,13 @@ import java.util.HashSet;
  * switches to MainActivity.
  */
 
-public class InitActivity extends ActionBarActivity {
+public class InitActivity extends Activity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class InitActivity extends ActionBarActivity {
         PlayerSkin trollfaceSkin = new PlayerSkin("trollface", 0, "trollface");
         HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
 
+        MusicPlayer.play(this, R.raw.rollin_at_5);
+
         skins.add(bullseyeSkin);
         skins.add(queenSkin);
         skins.add(kingSkin);
@@ -50,11 +54,21 @@ public class InitActivity extends ActionBarActivity {
         skins.add(megustaSkin);
         skins.add(trollfaceSkin);
         GameTheme defaultTheme =  new GameTheme("template",0, "template_board", "template_board","template_board", "template_board", "template_cards",skins);
-        ThemeHandler.getInstance().switchThemeTo(defaultTheme);
+        ThemeHandler.getInstance().addGameTheme(defaultTheme);
 
-        //Starts the Main Activity
-        Intent act = new Intent(this, MainActivity.class);
-        startActivity(act);
-        finish();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                //Starts the Main Activity
+                Intent mInHome = new Intent(InitActivity.this, MainActivity.class);
+                startActivity(mInHome);
+
+                finish();
+            }
+        }, 2000);
+
+
     }
+
 }
+

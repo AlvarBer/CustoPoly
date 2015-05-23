@@ -1,10 +1,9 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -21,7 +20,7 @@ import android.widget.TextView;
  */
 
 
-public class GameMenuActivity extends ActionBarActivity {
+public class GameMenuActivity extends Activity {
 
     //Atttributes
     private RelativeLayout layout;
@@ -32,7 +31,7 @@ public class GameMenuActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
@@ -67,4 +66,11 @@ public class GameMenuActivity extends ActionBarActivity {
             }
         });
     }
+
+    public void onBackPressed() {
+        Intent back = new Intent(GameMenuActivity.this, MainActivity.class);
+        startActivity(back);
+        GameMenuActivity.this.finish();
+    }
+
 }

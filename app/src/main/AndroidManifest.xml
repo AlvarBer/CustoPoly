@@ -18,6 +18,11 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
+                android:name=".ShopActivity"
+                android:label="@string/title_activity_shop"
+                android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".GameMenuActivity"
             android:label="@string/title_activity_game_menu" >
         </activity>
@@ -35,15 +40,12 @@
             android:label="@string/title_activity_pre_game" >
         </activity>
         <activity
-            android:name=".ShopActivity"
-            android:label="@string/title_activity_shop" >
-        </activity>
-        <activity
             android:name=".ThemeSelectionActivity"
             android:label="@string/title_activity_theme_selection" >
         </activity>
         <activity
             android:name=".PropertiesViewActivity"
+            android:screenOrientation="landscape" >
             android:label="@string/title_activity_property_view" >
         </activity>
     </application>

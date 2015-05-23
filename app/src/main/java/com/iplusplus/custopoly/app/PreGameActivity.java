@@ -1,10 +1,9 @@
 package com.iplusplus.custopoly.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import android.widget.RadioGroup.LayoutParams;
@@ -26,7 +25,7 @@ import java.util.Iterator;
 
 //TODO: Should only allow to have player 3 after player 2 is on, and so on.
 
-public class PreGameActivity extends ActionBarActivity implements View.OnClickListener  {
+public class PreGameActivity extends Activity implements View.OnClickListener  {
 
     private CheckBox checkPlayer2,checkPlayer3,checkPlayer4;
     private Button bPlay,bCancel;
@@ -37,7 +36,7 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
 
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
@@ -279,6 +278,13 @@ public class PreGameActivity extends ActionBarActivity implements View.OnClickLi
         image.setId(count);//I set the id from 0 to numImages - 1, I don't know how to put a string (es muy oscuro jeje)
         image.setImageResource(imageResId);
         return image;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent back = new Intent(PreGameActivity.this, GameMenuActivity.class);
+        startActivity(back);
+        PreGameActivity.this.finish();
     }
 
 }

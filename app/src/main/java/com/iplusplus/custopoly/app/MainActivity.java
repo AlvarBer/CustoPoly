@@ -1,4 +1,5 @@
 package com.iplusplus.custopoly.app;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -42,7 +43,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         //Define behaviour of Play Button when is pressed
 
         //Disable the other buttons until their activities were implemented
-        shop.setEnabled(false);
+        //shop.setEnabled(false);
 
 
     }
@@ -54,6 +55,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.activity_main_btn_play:
                 myIntent = new Intent(MainActivity.this, GameMenuActivity.class);
                 MainActivity.this.startActivity(myIntent);
+                MainActivity.this.finish();
                 break;
             case R.id.activity_main_btn_shop:
                 myIntent = new Intent(MainActivity.this, ShopActivity.class);
@@ -65,4 +67,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        MainActivity.this.finish();
+        System.exit(0);
+    }
+
 }
