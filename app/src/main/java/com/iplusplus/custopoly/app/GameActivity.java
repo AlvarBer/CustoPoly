@@ -1,5 +1,6 @@
 package com.iplusplus.custopoly.app;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -7,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -14,9 +16,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.os.Handler;
+import android.os.Message;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.SaveGameHandler;
@@ -30,6 +37,8 @@ import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Corresponds with the game_activity in the mockup.
  * Allows to play a gameFacade, displaying it on the screen. In addition, it allows the communication
@@ -42,13 +51,14 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
     private GameFacade gameFacade;
     private ImageView boardBackgroundImageView;
     private Button buyButton;
-
+    private boolean looping = false;
     //Constants
     private final String BOARDRESOURCE = "activity_game_board_";
 
     //Test for drawing players
     private TableLayout boardLayout;
     private ArrayList<SquareCell> cells;
+    private ArrayList<GridLayout> skinsViews;
     private int boardWidth, boardHeight;
     private ImageView squareImageView;
     private Button viewPropertiesButton;
@@ -73,8 +83,6 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-		
         loadGame();
         setupViews();
         gameFacade.addObserver(this);
@@ -115,9 +123,10 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
                 .setPositiveButton(getString(R.string.ingame_buyyesbutton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        looping = false;
                         Intent play = new Intent(GameActivity.this, MainActivity.class);
                         startActivity(play);
-                        GameActivity.this.finish();
+				  GameActivity.this.finish();
                     }
 
                 })
@@ -140,25 +149,63 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
 
         int boardHeight = this.boardHeight;
         int boardWidth = this.boardWidth;
-
+        for (int i = 0; i < board.getSize(); i++) {
+            this.skinsViews.get(i).removeAllViews();
+        }
         for (int i = 0; i < board.getSize(); i++) {
             if (this.cells.get(i).playerSkins.size() != 0) {
-                ImageView cellView = this.cells.get(i).createImageOfPlayersInCell();
-                this.addContentView(cellView, new ActionBar.LayoutParams((this.cells.get(i).posX),
-                        this.cells.get(i).posY));
+                this.cells.get(i).setIndex(i);
+                this.cells.get(i).createImageOfPlayersInCell();
+                /*this.addContentView(this.cells.get(i).playersViews, new ActionBar.LayoutParams((this.cells.get(i).posX),
+                        this.cells.get(i).posY));*/
+
+                    this.addViewToCell(this.cells.get(i).playersViews.get(0), i);
+
             }
         }
     }
 
+    public void changePlayerOfCell (Player currentPlayer) {
+        int i = 0;
+        boolean changed = false;
+        while (!changed && i < this.cells.size()) {
+            if (this.cells.get(i).playerSkins.size() != 0) {
+                for (int j = 0; j < this.cells.get(i).playerSkins.size(); j++) {
+                    if(this.cells.get(i).playerSkins.get(j).equals(currentPlayer.getSkin().getImageResourceName())) {
+                        this.cells.get(i).playerSkins.remove(j);
+                    }
+                }
+            }
+            i++;
+        }
+        this.cells.get(currentPlayer.getLandIndex()).playerSkins.add(currentPlayer.getSkin().getImageResourceName());
+    }
 
-    private boolean isSharedSquare(ArrayList<Player> players, int landIndex) {
+   /* public void SetupBoard () {
+        for (int i = 0; i < this.cells.size(); i++) {
+            if(this.cells.get(i).playerSkins.size() > 0) {
+                for (int j = 0; j < this.cells.get(i).playersViews.size(); j++) {
+                    this.cells.get(i).playersViews.remove(j);
+                }
+                this.cells.get(i).createImageOfPlayersInCell();
+
+            }
+        }
+    }*/
+
+    public void addViewToCell (ImageView view, int index) {
+        synchronized (this) {
+            this.skinsViews.get(index).addView(view);
+        }
+    }
+    /*private boolean isSharedSquare(ArrayList<Player> players, int landIndex) {
         int i = 0;
         for (Player p:players) {
             if (p.getLandIndex() == landIndex)
                 i++;
         }
         return i > 1;
-    }
+    }/*
 
     /**
      * Displays the boardLayout of the theme on the image of the boardLayout
@@ -183,6 +230,48 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
         this.squareImageView = (ImageView) findViewById(R.id.activity_game_iv_square);
         this.viewPropertiesButton  = (Button) findViewById( R.id.activity_game_bt_properties);
         this.endTurn = (Button) findViewById (R.id.activity_game_bt_endTurn);
+
+        this.skinsViews = new ArrayList<GridLayout>();
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_0));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_1));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_2));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_3));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_4));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_5));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_6));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_7));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_8));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_9));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_10));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_11));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_12));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_13));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_14));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_15));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_16));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_17));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_18));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_19));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_20));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_21));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_22));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_23));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_24));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_25));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_26));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_27));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_28));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_29));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_30));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_31));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_32));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_33));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_34));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_35));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_36));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_37));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_38));
+        this.skinsViews.add((GridLayout) findViewById(R.id.activity_game_board_39));
 
         //Set action listeners
 
@@ -360,17 +449,18 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
         drawResources(currentPlayer);
         endTurn.setEnabled(false);
         this.buyButton.setEnabled(true);
+        drawPlayers(board);
         onTurnBegin(board, currentPlayer);
     }
 
     @Override
     public void onGameEnd(Board board, ArrayList<Player> playersList) {
-
+        this.looping = false;
     }
 
     @Override
     public void onGameReset(GameTheme theme, Board board, Player currentPlayer) {
-
+        this.looping = false;
     }
 
     @Override
@@ -395,7 +485,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
     @Override
     public void onTurnEnd(Board board, Player player) {
         endTurn.setEnabled(false);
-
+        this.looping = false;
     }
 
     @Override
@@ -470,8 +560,9 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
 
     @Override
     public void onRollDiceEnd(Board board, Player currentPlayer) {
-        drawPlayers(board);
         drawResources(currentPlayer);
+        changePlayerOfCell(currentPlayer);
+        drawPlayers(board);
         endTurn.setEnabled(true);
 
     }
@@ -536,9 +627,9 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
                     }
                 });
                 builder.show();
-                }
+            }
 
-            });
+        });
     }
 
     @Override
@@ -605,7 +696,10 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
         private int posX, posY; //Upper-left coordinates
         private int width, height;
         private int resource;
+        private int index;
+        private Thread t;
 
+        private ArrayList<ImageView> playersViews;
         private ArrayList<String> playerSkins;
 
         public SquareCell(int posX, int posY, int width, int height,int resource) {
@@ -615,16 +709,207 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
             this.height = height;
             this.resource = resource;
             this.playerSkins = new ArrayList<String>();
+            this.playersViews = new ArrayList<ImageView>();
         }
 
         public void addPlayerSkin(String skin) {
             playerSkins.add(skin);
         }
+        public void addPlayerView (ImageView playerView) {this.playersViews.add(playerView);}
 
+        /*private int getIndex() {
+            int i = 0;
+            while (!cells.get(i).equals(this)) {
+                i++;
+            }
+            return i;
+        }*/
 
-        public ImageView createImageOfPlayersInCell() {
-            ImageView playerView = new ImageView(Custopoly.getAppContext());
-            if (this.playerSkins.size() == 1) {
+        public void createImageOfPlayersInCell() {
+            this.playersViews = new ArrayList<ImageView>();
+            for (int i = 0; i < this.playerSkins.size(); i++) {
+                ImageView playerView = new ImageView(Custopoly.getAppContext());
+               /* playerView.setMaxWidth(this.width);
+                playerView.setMinimumWidth(this.width);
+                //playerView.setMaxHeight(this.height);
+                playerView.setMinimumHeight(this.height);
+
+                playerView.setX(posX + boardBackgroundImageView.getX());
+                playerView.setY(posY);*/
+                playerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                playerView.setImageResource(Utilities.getResId(this.playerSkins.get(i), R.drawable.class));
+                addPlayerView(playerView);
+            }
+            if (this.playerSkins.size() > 1) {
+                Runnable r = null;
+                switch (this.playerSkins.size()) {
+                    case 2:
+                        final Handler case2 = new Handler() {
+                            private int displayed = 0;
+                            @Override
+                            public void handleMessage(Message msg) {
+                                if (displayed == 0) {
+                                    skinsViews.get(index).removeAllViews();
+                                    addViewToCell(playersViews.get(1), index);
+                                    displayed = 1;
+                                } else {
+                                    skinsViews.get(index).removeAllViews();
+                                    addViewToCell(playersViews.get(0), index);
+                                    displayed = 0;
+                                }
+                            }
+                        };
+                        r = new Runnable() {
+
+                            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                            @Override
+                            public void run() {
+                                boolean finish2 = false;
+                                try {
+                                    sleep(1000);
+                                } catch (InterruptedException e) {
+                                }
+                                while (looping && !finish2) {
+                                    if (playerSkins.size() != 2) {
+                                        finish2 = true;
+                                    }
+                                    if (!finish2) {
+                                        synchronized (this) {
+                                            case2.sendEmptyMessage(0);
+                                        }
+                                        try {
+                                            sleep(1000);
+                                        } catch (InterruptedException e) {
+                                        }
+                                    }
+                                }
+                            }
+
+                        };
+                        break;
+                    case 3:
+                        final Handler case3 = new Handler() {
+                            private int displayed = 0;
+                            @Override
+                            public void handleMessage(Message msg) {
+                                if (displayed == 0) {
+                                    skinsViews.get(index).removeAllViews();
+                                    addViewToCell(playersViews.get(1), index);
+                                    displayed = 1;
+                                } else if (displayed == 1) {
+                                    skinsViews.get(index).removeAllViews();
+                                    addViewToCell(playersViews.get(2), index);
+                                    displayed = 2;
+                                } else {
+                                    skinsViews.get(index).removeAllViews();
+                                    addViewToCell(playersViews.get(0), index);
+                                    displayed = 0;
+                                }
+                            }
+                        };
+                        r = new Runnable() {
+
+                            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                            @Override
+                            public void run() {
+                                boolean finish3 = false;
+
+                                try {
+                                    synchronized (this) {
+                                        sleep(1000);
+                                    }
+                                } catch (InterruptedException e) {
+
+                                }
+                                while (looping && !finish3) {
+                                    if (playerSkins.size() != 3) {
+                                        finish3 = true;
+                                    }
+                                    if (!finish3) {
+                                        synchronized (this) {
+                                            case3.sendEmptyMessage(0);
+                                        }
+                                        try {
+                                            synchronized (this) {
+                                                sleep(1000);
+                                            }
+                                        } catch (InterruptedException e) {
+                                        }
+                                    }
+                                }
+                            }
+
+                        };
+
+                        break;
+                    case 4:
+                        final Handler case4 = new Handler() {
+                            private int displayed = 0;
+                            @Override
+                            public void handleMessage(Message msg) {
+                                    if (displayed == 0) {
+                                        skinsViews.get(index).removeAllViews();
+                                        addViewToCell(playersViews.get(1), index);
+                                        displayed = 1;
+                                    } else if (displayed == 1) {
+                                        skinsViews.get(index).removeAllViews();
+                                        addViewToCell(playersViews.get(2), index);
+                                        displayed = 2;
+                                    } else if (displayed == 2) {
+                                        skinsViews.get(index).removeAllViews();
+                                        addViewToCell(playersViews.get(3), index);
+                                        displayed = 3;
+                                    } else {
+                                        skinsViews.get(index).removeAllViews();
+                                        addViewToCell(playersViews.get(0), index);
+                                        displayed = 0;
+                                    }
+                            }
+                        };
+                        r = new Runnable() {
+
+                            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
+                            @Override
+                            public void run() {
+                                boolean finish4 = false;
+                                try {
+                                    synchronized (this) {
+                                        sleep(1000);
+                                    }
+                                } catch (InterruptedException e) {
+
+                                }
+                                while (looping && !finish4) {
+                                    if (playerSkins.size() != 4) {
+                                        finish4 = true;
+                                    }
+                                    if (!finish4) {
+                                        synchronized (this) {
+                                            case4.sendEmptyMessage(0);
+                                            try {
+                                                synchronized (this) {
+                                                    sleep(1000);
+                                                }
+                                            } catch (InterruptedException e) {
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        };
+                }
+                    looping = true;
+                if (this.t != null) {
+                    while (this.t.getState() != Thread.State.TERMINATED){};
+                }
+                    this.t = new Thread(r);
+                    this.t.start();
+            }
+        }
+
+            /*if (this.playerSkins.size() == 1) {
                 playerView.setMaxWidth(this.width);
                 playerView.setMinimumWidth(this.width);
                 //playerView.setMaxHeight(this.height);
@@ -635,14 +920,15 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
 
                 playerView.setImageResource(Utilities.getResId(this.playerSkins.get(0),R.drawable.class));
             } else if (this.playerSkins.size() > 1) {
-                //TODO: IMPLEMENT
-            }
-
-            return playerView;
-        }
+                // IMPLEMENT
+            }*/
 
         public int getResource() {
-            return resource;
+            return this.resource;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
         }
     }
 
