@@ -22,6 +22,8 @@ public class MusicPlayer {
      */
     public static void play(Context context, int resid) {
         mediaPlayer = MediaPlayer.create(context, resid);
+        mediaPlayer.setLooping(true);
         mediaPlayer.start();
+
     }
 }
