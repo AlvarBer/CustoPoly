@@ -51,6 +51,7 @@ public class GameMenuActivity extends Activity {
                 //Starts the Pre-Game Activity
                 Intent myIntent = new Intent(GameMenuActivity.this, PreGameActivity.class);
                 startActivity(myIntent);
+                GameMenuActivity.this.finish();
 
             }
         });
@@ -69,8 +70,8 @@ public class GameMenuActivity extends Activity {
 
     public void onBackPressed() {
         Intent back = new Intent(GameMenuActivity.this, MainActivity.class);
-        startActivity(back);
         GameMenuActivity.this.finish();
+        startActivity(back);
     }
 
 }

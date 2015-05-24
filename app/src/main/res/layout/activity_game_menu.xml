@@ -35,7 +35,7 @@
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/loadGameButtonText"
             android:id="@+id/activity_game_menu_btn_loadGame"
             android:textSize="30dp" android:width="200dp" android:height="100dp"
-        android:clickable="true" android:enabled="true"
+        android:clickable="true" android:enabled="false"
         android:layout_marginBottom="52dp"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/activity_game_menu_btn_newGame"

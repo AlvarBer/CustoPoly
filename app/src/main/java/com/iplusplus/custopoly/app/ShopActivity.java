@@ -3,6 +3,7 @@ package com.iplusplus.custopoly.app;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -28,19 +29,19 @@ import java.util.HashMap;
 
 public class ShopActivity extends Activity implements  View.OnClickListener {
 
-private LinearLayout themesLayout;
-private TextView playerName;
-private ImageView selectedView;
-private TextView playerMoney;
-private ShopKeeper shopKeeper = ThemeHandler.getInstance().getShopKeeperInstance();
-private GameTheme selectedTheme = null;
-private HashMap<ImageView, GameTheme> themeDict = new HashMap<ImageView, GameTheme>();
+        private LinearLayout themesLayout;
+        private TextView playerName;
+        private ImageView selectedView;
+        private TextView playerMoney;
+        private ShopKeeper shopKeeper = ThemeHandler.getInstance().getShopKeeperInstance();
+        private GameTheme selectedTheme = null;
+        private HashMap<ImageView, GameTheme> themeDict = new HashMap<ImageView, GameTheme>();
 
-private boolean buy = false;
+        private boolean buy = false;
 
 
-@Override
-protected void onCreate(Bundle savedInstanceState) {
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
 
@@ -102,25 +103,25 @@ protected void onCreate(Bundle savedInstanceState) {
                 layout.addView(themeCost);
 
                 return layout;
-                }
+        }
 
         @Override
         //TODO: THIS WILL BREAK IF WE ARE LISTENING TO MORE THAN THE THEME IMAGES
         public void onClick(View view) {
-                if (view instanceof ImageView) {
+            if (view instanceof ImageView) {
                 this.selectedTheme = this.themeDict.get(view);
                 this.selectedView = (ImageView) view;
                 if (this.selectedTheme != null) {
-                if (this.shopKeeper.getPoints() >= this.selectedTheme.getPrice()) {
-                //Show wanna buy dialog
-                showWantToBuyDialog();
-                } else {
-                //Show not enough points dialog
-                showNotEnoughPointsDialog();
+                    if (this.shopKeeper.getPoints() >= this.selectedTheme.getPrice()) {
+                    //Show wanna buy dialog
+                        showWantToBuyDialog();
+                    } else {
+                    //Show not enough points dialog
+                        showNotEnoughPointsDialog();
+                    }
                 }
-                }
-                }
-                }
+            }
+        }
 
         private void showWantToBuyDialog() {
                 new AlertDialog.Builder(this)
@@ -128,12 +129,12 @@ protected void onCreate(Bundle savedInstanceState) {
                 .setTitle(Custopoly.getAppContext().getString(R.string.shop_wanttobuy_title))
                 .setPositiveButton(Custopoly.getAppContext().getString(R.string.shop_yes),
                 new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-                buyProperty();
-                }
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            buyProperty();
+                            }
 
-                })
+                            })
                 .setNegativeButton(Custopoly.getAppContext().getString(R.string.shop_no), new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -162,5 +163,12 @@ protected void onCreate(Bundle savedInstanceState) {
                 .setMessage(Custopoly.getAppContext().getString(R.string.shop_notenoughfunds_message))
                 .setTitle(Custopoly.getAppContext().getString(R.string.shop_notenoughfunds_title))
                 .show();
-                }
+        }
+
+    @Override
+    public void onBackPressed() {
+        Intent play = new Intent(ShopActivity.this, MainActivity.class);
+        ShopActivity.this.finish();
+        startActivity(play);
+    }
 }

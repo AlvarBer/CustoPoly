@@ -120,7 +120,6 @@ public class ThemeSelectionActivity extends Activity implements View.OnClickList
         Intent play = new Intent(ThemeSelectionActivity.this, MainActivity.class);
         ThemeSelectionActivity.this.finish();
         startActivity(play);
-
     }
 
     private void setupThemeFlipper() { // here I add the images in the arrayList so I can put them in the flippers;

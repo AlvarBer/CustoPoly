@@ -41,11 +41,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         this.shop.setOnClickListener(this);
         this.theme.setOnClickListener(this);
         //Define behaviour of Play Button when is pressed
-
-        //Disable the other buttons until their activities were implemented
-        //shop.setEnabled(false);
-
-
     }
 
     @Override
@@ -60,10 +55,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.activity_main_btn_shop:
                 myIntent = new Intent(MainActivity.this, ShopActivity.class);
                 MainActivity.this.startActivity(myIntent);
+                MainActivity.this.finish();
                 break;
             case R.id.activity_main_btn_theme:
                 myIntent = new Intent(MainActivity.this, ThemeSelectionActivity.class);
                 MainActivity.this.startActivity(myIntent);
+                MainActivity.this.finish();
                 break;
         }
     }
