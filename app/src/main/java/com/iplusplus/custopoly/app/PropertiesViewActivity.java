@@ -104,7 +104,7 @@ public class PropertiesViewActivity extends Activity {
         //Create a new intent and return OK from the activity
         Intent returnIntent = new Intent();
         setResult(RESULT_CANCELED, returnIntent);
-        super.onBackPressed();
+        PropertiesViewActivity.this.finish();
     }
 
     private void buildPropertiesViewFromInformation(Player currentPlayer, ArrayList<PropertyLand> properties, ArrayList<Integer> imageIds, String tab)

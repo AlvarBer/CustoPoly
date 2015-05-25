@@ -32,5 +32,5 @@
             android:layout_marginRight="49dp"
             android:layout_marginEnd="49dp" android:layout_alignTop="@+id/activity_game_menu_btn_newGame"
             android:layout_alignRight="@+id/activity_game_menu_tv_title" android:layout_alignEnd="@+id/activity_game_menu_tv_title"
-            android:clickable="true" android:enabled="true"/>
+            android:clickable="true" android:enabled="false"/>
 </RelativeLayout>

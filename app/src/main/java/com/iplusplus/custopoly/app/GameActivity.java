@@ -10,20 +10,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.TableLayout;
-import android.widget.TextView;
-import android.os.Handler;
-import android.os.Message;
+import android.widget.*;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.SaveGameHandler;
@@ -126,7 +119,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
                         looping = false;
                         Intent play = new Intent(GameActivity.this, MainActivity.class);
                         startActivity(play);
-				  GameActivity.this.finish();
+				        GameActivity.this.finish();
                     }
 
                 })
