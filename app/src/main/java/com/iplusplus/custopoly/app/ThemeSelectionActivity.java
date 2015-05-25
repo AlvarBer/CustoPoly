@@ -71,7 +71,8 @@ public class ThemeSelectionActivity extends Activity implements View.OnClickList
             case R.id.bBack:
                 Intent back = new Intent(ThemeSelectionActivity.this, MainActivity.class);
                 startActivity(back);
-                break;
+                ThemeSelectionActivity.this.finish();
+            break;
 
             case R.id.themeFlipper:
 

@@ -96,7 +96,7 @@ public class ShopActivity extends Activity implements  View.OnClickListener {
                 TextView themeCost = new TextView(Custopoly.getAppContext());
                 themeCost.setText("i$$ " + Double.toString(theme.getPrice()));
                 themeCost.setTextSize(30.0F);
-
+                ShopActivity.this.finish();
                 //Add everything to the layout
                 layout.addView(themeImage);
                 layout.addView(themeName);
