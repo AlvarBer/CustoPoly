@@ -14,6 +14,7 @@ import android.widget.ViewFlipper;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.ShopKeeper;
 import com.iplusplus.custopoly.model.ThemeHandler;
+import com.iplusplus.custopoly.model.Utilities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -132,7 +133,7 @@ public class ThemeSelectionActivity extends Activity implements View.OnClickList
         while (it.hasNext()) {
             GameTheme theme = (GameTheme)it.next();
 
-            skinImage = createImage(count, getResources().getIdentifier(theme.getBackgroundPathResource(), "drawable", getPackageName()));
+            skinImage = createImage(count, Utilities.getResId(theme.getBackgroundPathResource(), R.drawable.class));
             this.themeFlipper.addView(skinImage, count);
 
             count++;
@@ -144,6 +145,7 @@ public class ThemeSelectionActivity extends Activity implements View.OnClickList
 
     private ImageView createImage(int count, int imageResId) {
         ImageView image = new ImageView(this);
+        int a = R.drawable.corrupoly_board;
         //  image.setLayoutParams(new LinearLayout.LayoutParams( LayoutParams.WRAP_CONTENT,          LayoutParams.WRAP_CONTENT));//I set wrap_content to the layout params
         image.setId(count);//I set the id from 0 to numImages - 1, I don't know how to put a string
         image.setImageResource(imageResId);

@@ -22,9 +22,10 @@ public class ThemeHandler {
      * Constructor of the class. Private as it's a Singleton class
      */
     private ThemeHandler() {
-        shop = new ShopKeeper(Custopoly.getAppContext().getString(R.string.shopkeeper_filepath));
+        shop = new ShopKeeper(Custopoly.getAppContext().getString(R.string.themesAndSkinsXML_filepath));
         this.currentTheme = 0;
-        this.themes = new ArrayList<GameTheme>();
+        //Cheto... todos los precios son 0
+        this.themes = new ArrayList<GameTheme>(shop.getThemesInShopList());
     }
 
     /**
@@ -61,8 +62,6 @@ public class ThemeHandler {
     /**
      * Method to change the current theme.
      *
-     * @param theme
-     *              The theme it should change to.
      */
     public  void setCurrentTheme(int index) {
         this.currentTheme = index;

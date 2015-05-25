@@ -320,20 +320,6 @@ public class Game implements GameFacade {
         return theme;
     }
 
-
-    public String getCurrentThemeBackgroundResPath() {
-        return this.theme.getBackgroundPathResource();
-    }
-
-
-    public String getCurrentThemeCCBoxCardResPath() {
-        return this.theme.getCommunityBoxCardPathResource();
-    }
-
-    public String getCurrentThemeFortuneCardResPath() {
-        return this.theme.getFortuneCardPathResource();
-    }
-
     public ArrayList<GameObserver> getObserversList() {
         return observersList;
     }

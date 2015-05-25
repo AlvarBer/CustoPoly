@@ -10,32 +10,18 @@ public class GameTheme implements Serializable {
    
 	private String name;
 	private double price;
-	private String backgroundPathResource;
-    private String communityBoxCardPathResource;
-    private String fortuneCardPathResource;
-    private String boardDataPath;
-    private String cardsDataPath;
     private HashSet<PlayerSkin> playerSkinsList;
 
 	/***
      * Constructor to create the theme given all the data needed
      * @param name Name of the theme
      * @param price Price in euros
-     * @param backgroundPathResource Path where the background image is
-     * @param communityBoxCardPathResource Path where the community box card is
-     * @param fortuneCardPathResource Path where the fortune card path is
      * @param playerSkinsList List with the skins attached to the theme
      */
 
-	public GameTheme(String name, double price, String backgroundPathResource, String communityBoxCardPathResource,
-                     String fortuneCardPathResource, String boardDataPath, String cardsDataPath, HashSet<PlayerSkin> playerSkinsList) {
+	public GameTheme(String name, double price, HashSet<PlayerSkin> playerSkinsList) {
 		this.name = name;
 		this.price = price;
-		this.backgroundPathResource = backgroundPathResource;
-		this.communityBoxCardPathResource = communityBoxCardPathResource;
-		this.fortuneCardPathResource = fortuneCardPathResource;
-		this.boardDataPath = boardDataPath;
-		this.cardsDataPath = cardsDataPath;
 		this.playerSkinsList = playerSkinsList;
 
 	}
@@ -44,30 +30,26 @@ public class GameTheme implements Serializable {
 	{
 		return name;
 	}
-	
+
 	public double getPrice()
 	{
 		return price;
 	}
 
 	public String getBackgroundPathResource() {
-		return backgroundPathResource;
+		return this.name + "_board";
 	}
 
 	public String getCommunityBoxCardPathResource() {
-		return communityBoxCardPathResource;
+		return this.name + "_community_background";
 	}
 
 	public String getFortuneCardPathResource() {
-		return fortuneCardPathResource;
+		return this.name + "_chance_background";
 	}
 
 	public String getCardsDataPath() {
-		return cardsDataPath;
-	}
-
-	public String getBoardDataPath() {
-		return boardDataPath;
+		return this.name + "_cards";
 	}
 
 	/***
@@ -84,7 +66,7 @@ public class GameTheme implements Serializable {
 				return skin;
 			}
 		}
-		
+
 		return null;
 	}
 

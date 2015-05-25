@@ -105,7 +105,7 @@ public class ShopKeeper {
          */
         private void readXmlShopFile() throws IOException, XmlPullParserException {
             //Require to start with this tag
-            xmlParser.require(XmlPullParser.START_TAG, null, "shop");
+            xmlParser.require(XmlPullParser.START_TAG, null, "assets");
             //Loop until we reach the end tag
             while(xmlParser.next() != XmlPullParser.END_TAG)
             {
@@ -169,36 +169,6 @@ public class ShopKeeper {
                         price = Double.parseDouble(xmlParser.nextText());
                         xmlParser.require(XmlPullParser.END_TAG, null, "price");
                         break;
-                    case "backgroundPath":
-                        //Change the starting point and read the text inside it
-                        xmlParser.require(XmlPullParser.START_TAG, null, "backgroundPath");
-                        backgroundPath = xmlParser.nextText();
-                        xmlParser.require(XmlPullParser.END_TAG, null, "backgroundPath");
-                        break;
-                    case "communityBoxCardPath":
-                        //Change the starting point and read the text inside it
-                        xmlParser.require(XmlPullParser.START_TAG, null, "communityBoxCardPath");
-                        communityBoxCardPath = xmlParser.nextText();
-                        xmlParser.require(XmlPullParser.END_TAG, null, "communityBoxCardPath");
-                        break;
-                    case "fortuneCardPath":
-                        //Change the starting point and read the text inside it
-                        xmlParser.require(XmlPullParser.START_TAG, null, "fortuneCardPath");
-                        fortuneCardPath = xmlParser.nextText();
-                        xmlParser.require(XmlPullParser.END_TAG, null, "fortuneCardPath");
-                        break;
-                    case "boardDataPath":
-                        //Change the starting point and read the text inside it
-                        xmlParser.require(XmlPullParser.START_TAG, null, "boardDataPath");
-                        fortuneCardPath = xmlParser.nextText();
-                        xmlParser.require(XmlPullParser.END_TAG, null, "boardDataPath");
-                        break;
-                    case "cardsDataPath":
-                        //Change the starting point and read the text inside it
-                        xmlParser.require(XmlPullParser.START_TAG, null, "cardsDataPath");
-                        fortuneCardPath = xmlParser.nextText();
-                        xmlParser.require(XmlPullParser.END_TAG, null, "cardsDataPath");
-                        break;
                     case "skin":
                         //Change the starting point and read the tags inside it. Then add it to the skins list
                         xmlParser.require(XmlPullParser.START_TAG, null, "skin");
@@ -213,7 +183,7 @@ public class ShopKeeper {
             }
 
             //Save the theme
-            themesInShopList.add(new GameTheme(name, price, backgroundPath, communityBoxCardPath, fortuneCardPath, boardDataPath, cardsDataPath, themeSkinsList));
+            themesInShopList.add(new GameTheme(name, price, themeSkinsList));
         }
 
         /***

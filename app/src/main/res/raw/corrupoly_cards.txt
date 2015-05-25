@@ -1,10 +1,10 @@
-CommunityChest,Blanqueas capital comprando arte. Pay 100K,PayFeeCommand,100
+﻿CommunityChest,Blanqueas capital comprando arte. Pay 100K,PayFeeCommand,100
 CommunityChest,Aparcas en el carril bus y te multan. Paga 100K,PayFeeCommand,100
 CommunityChest,Concedes un favor a tu cuñado empresario,GetPrizeCommand,150
 CommunityChest,Cobras salario asesorando a una multinacional,GetPrizeCommand,100
 CommunityChest,Tu mujer quiere comprarse un vestido. Avanza a comienzo y cobra,MoveLandCommand,Start
 CommunityChest,Te han pillado contando dinero. Al talego,MoveLandCommand,Jail
-Chance,Carlos Fabra necesita un favor, avanza a su calle,MoveLandCommand,Calle Fabra
+Chance,Carlos Fabra necesita un favor. Avanza a su calle,MoveLandCommand,Calle Fabra
 Chance,Retrocede tres casillas,MoveBackwardCommand,3
 Chance,Hazte una foto con el pequeño Nicolas,MoveLandCommand,FreeParking
 Chance,Haces la vista gorda con la construcción de un nuevo hotel en linea de playa. Te pagan 100k,GetPrizeCommand,100

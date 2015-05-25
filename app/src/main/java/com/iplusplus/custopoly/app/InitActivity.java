@@ -34,7 +34,7 @@ public class InitActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
 
-        //Creates a default theme (Debugging)
+      /*  //Creates a default theme (Debugging)
         PlayerSkin vaderSkin = new PlayerSkin("vader", 0, "placeholder_player_skin_star");
         PlayerSkin bullseyeSkin = new PlayerSkin("bullseye", 0, "placeholder_player_skin_bullseye");
         PlayerSkin queenSkin = new PlayerSkin("queen", 0, "placeholder_player_skin_queen");
@@ -54,7 +54,7 @@ public class InitActivity extends Activity {
         skins.add(megustaSkin);
         skins.add(trollfaceSkin);
         GameTheme defaultTheme =  new GameTheme("template",0, "template_board", "template_board","template_board", "template_board", "template_cards",skins);
-        ThemeHandler.getInstance().addGameTheme(defaultTheme);
+        ThemeHandler.getInstance().addGameTheme(defaultTheme);*/
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

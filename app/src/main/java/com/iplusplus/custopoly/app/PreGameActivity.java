@@ -212,7 +212,7 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
      * @return
      */
     private Game initGame(ArrayList<Player> players, GameTheme theme) {
-        Board board = BoardFactory.readBoard (getResources().openRawResource(Utilities.getResId(theme.getBoardDataPath(),R.raw.class)));
+        Board board = BoardFactory.readBoard(getResources().openRawResource(Utilities.getResId(theme.getBackgroundPathResource(),R.raw.class)));
         Game newGame = new Game(players, board, theme);
         initCards(newGame, theme);
         return newGame;

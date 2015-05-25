@@ -12,8 +12,8 @@
     <string name="title_activity_theme_selection">ThemeSelectionActivity</string>
     <string name="logoDescription">The logo of our team</string>
 
-    //ShopKeeper
-    <string name="shopkeeper_filepath">shop.xml</string>
+    //ThemeList
+    <string name="themesAndSkinsXML_filepath">themesAndSkins.xml</string>
 
     //GameModel
     <string formatted="false" name="ingame_notWantToBuy">Player %s did not want to purchase %s</string>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assets>
+
+    <theme>
+        <name>template</name>
+        <price>0</price>
+
+        <skin>
+            <name>vader</name>
+            <price>0</price>
+            <backgroundPath>placeholder_player_skin_star</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>bullseye</name>
+            <price>0</price>
+            <backgroundPath>placeholder_player_skin_bullseye</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>queen</name>
+            <price>0</price>
+            <backgroundPath>placeholder_player_skin_queen</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>king</name>
+            <price>0</price>
+            <backgroundPath>placeholder_player_skin_king</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>butt</name>
+            <price>0</price>
+            <backgroundPath>troll</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>megusta</name>
+            <price>0</price>
+            <backgroundPath>megusta</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>trollface</name>
+            <price>0</price>
+            <backgroundPath>trollface</backgroundPath>
+        </skin>
+    </theme>
+
+    <theme>
+        <name>corrupoly</name>
+        <price>0</price>
+
+        <skin>
+            <name>Urdangarin</name>
+            <price>0</price>
+            <backgroundPath>corrupoly_skin_1</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>Barcenas</name>
+            <price>0</price>
+            <backgroundPath>corrupoly_skin_2</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>Blesa</name>
+            <price>0</price>
+            <backgroundPath>corrupoly_skin_3</backgroundPath>
+        </skin>
+
+        <skin>
+            <name>Pujol</name>
+            <price>0</price>
+            <backgroundPath>corrupoly_skin_4</backgroundPath>
+        </skin>
+    </theme>
+
+</assets>
