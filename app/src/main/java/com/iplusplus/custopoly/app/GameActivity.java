@@ -535,7 +535,6 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
 
     @Override
     public void onRollDiceBegin(Board board, Player currentPlayer) {
-
         // DialogFragment.show() will take care of adding the fragment
         // in a transaction.  We also want to remove any currently showing
         // dialog, so make our own transaction and take care of that here.
@@ -573,6 +572,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
                     }
                 });
         AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
         alert.show();
     }
 
@@ -587,6 +587,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
                     }
                 });
         AlertDialog alert = builder.create();
+        alert.setCanceledOnTouchOutside(false);
         alert.show();
     }
 

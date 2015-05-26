@@ -54,6 +54,8 @@ public class DiceFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.setCancelable(false);
+
     }
 
     @Override
