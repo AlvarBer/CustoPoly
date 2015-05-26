@@ -69,7 +69,7 @@
         android:showDividers="middle|beginning|end" android:divider="@android:color/holo_green_light"
         android:stretchColumns="11" android:id="@+id/activity_game_tl_board" android:layout_rowWeight="1">
         <TableRow
-            android:layout_width="fill_parent"
+            android:layout_width="60dip"
             android:layout_height="50dip">
             <GridLayout android:layout_width="50dip" android:layout_height="50dip"
                 android:id="@+id/activity_game_board_20"
@@ -97,88 +97,88 @@
             <GridLayout android:layout_width="50dip" android:layout_height="50dip"
                 android:id="@+id/activity_game_board_30"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
+            <GridLayout android:layout_width="20dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_19"
                 android:orientation="horizontal" />
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1"/>
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip" android:layout_weight="1"/>
             <GridLayout android:layout_width="40dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_31"
                 android:orientation="horizontal"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
             <GridLayout
                 android:layout_width="fill_parent"
                 android:layout_height="30dip"
                 android:id="@+id/activity_game_board_18">
             </GridLayout>
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1"/>
-            <GridLayout android:layout_width="40dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="40dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_32"
                 android:orientation="horizontal"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
             <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_17"/>
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1"/>
-            <GridLayout android:layout_width="30dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_33"
                 android:orientation="horizontal"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
+            <GridLayout android:layout_width="20dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_16"/>
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1"/>
-            <GridLayout android:layout_width="30dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_34"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
+            <GridLayout android:layout_width="20dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_15"
                 android:orientation="horizontal"/>
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1" android:orientation="horizontal" />
-            <GridLayout android:layout_width="30dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_35"
                 android:orientation="horizontal"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
+            <GridLayout android:layout_width="20dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_14"
                 android:orientation="horizontal"/>
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1" android:orientation="horizontal" />
-            <GridLayout android:layout_width="30dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_36"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="32dip"
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
+            <GridLayout android:layout_width="20dip" android:layout_height="32dip"
                 android:id="@+id/activity_game_board_13"
                 android:orientation="horizontal"/>
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1"/>
-            <GridLayout android:layout_width="30dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_37"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="0">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="0">
+            <GridLayout android:layout_width="20dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_12"
                 android:orientation="horizontal"/>
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1"/>
-            <GridLayout android:layout_width="30dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_38"/>
         </TableRow>
-        <TableRow android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
+        <TableRow android:layout_width="60dip" android:layout_height="30dip" android:layout_weight="1">
+            <GridLayout android:layout_width="20dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_11"
                 android:orientation="horizontal" />
-            <GridLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:layout_weight="1"/>
-            <GridLayout android:layout_width="30dip" android:layout_height="fill_parent"
+            <GridLayout android:layout_width="30dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_39"/>
         </TableRow>
         <TableRow android:layout_width="60dip" android:layout_height="20dip"

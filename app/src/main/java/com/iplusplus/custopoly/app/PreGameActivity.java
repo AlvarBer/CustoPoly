@@ -32,7 +32,7 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
     private ViewFlipper flipperPlayer1, flipperPlayer2, flipperPlayer3, flipperPlayer4;
     private EditText Player1Name, Player2Name, Player3Name, Player4Name;
     private GameTheme theme = ThemeHandler.getInstance().getCurrentTheme();
-    private HashSet<PlayerSkin> skins = theme.getPlayerSkinsList();//I get the images from here
+    private ArrayList<PlayerSkin> skins = ThemeHandler.getInstance().getUnlockedSkins();//I get the images from here
 
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen

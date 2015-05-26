@@ -15,6 +15,7 @@ public class ThemeHandler {
 
     private static ThemeHandler INSTANCE = null;
     private ArrayList<GameTheme> themes;
+    private ArrayList<PlayerSkin> skins;
     private ShopKeeper shop;
     private int currentTheme;
 
@@ -26,6 +27,12 @@ public class ThemeHandler {
         this.currentTheme = 0;
         //Cheto... todos los precios son 0
         this.themes = new ArrayList<GameTheme>(shop.getThemesInShopList());
+        this.skins = new ArrayList<PlayerSkin>();
+
+        for(GameTheme theme: themes)
+        {
+            skins.addAll(theme.getPlayerSkinsList());
+        }
     }
 
     /**
@@ -77,6 +84,11 @@ public class ThemeHandler {
      */
     public void switchPlayerSkinTo (PlayerSkin skin, String playerName) {
 
+    }
+
+    public ArrayList<PlayerSkin> getUnlockedSkins()
+    {
+        return skins;
     }
 
     /**
