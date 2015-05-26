@@ -6,24 +6,22 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:paddingBottom="@dimen/activity_vertical_margin"
-            android:background="@android:color/holo_purple"
+            android:background="@android:color/holo_blue_dark"
             tools:context="com.iplusplus.custopoly.app.ShopActivity" android:columnCount="1"
             android:rowCount="3">
 
     <HorizontalScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="475dp"
             android:id="@+id/activity_shop_sv_themes"
-            android:layout_gravity="left|top"
             android:layout_row="0"
-            android:layout_column="0" android:background="#ff624080">
+            android:layout_column="0" android:background="@android:color/holo_blue_light">
 
         <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/activity_shop_ll_themes">
-
         </LinearLayout>
     </HorizontalScrollView>
 

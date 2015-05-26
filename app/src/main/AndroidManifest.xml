@@ -18,9 +18,9 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-                android:name=".ShopActivity"
-                android:label="@string/title_activity_shop"
-                android:screenOrientation="portrait" >
+            android:name=".ShopActivity"
+            android:label="@string/title_activity_shop"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".GameMenuActivity"
