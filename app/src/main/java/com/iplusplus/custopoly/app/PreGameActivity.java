@@ -27,7 +27,7 @@ import java.util.Iterator;
 
 public class PreGameActivity extends Activity implements View.OnClickListener  {
 
-    private CheckBox checkPlayer2,checkPlayer3,checkPlayer4;
+    private CheckBox checkPlayer3,checkPlayer4;
     private Button bPlay,bCancel;
     private ViewFlipper flipperPlayer1, flipperPlayer2, flipperPlayer3, flipperPlayer4;
     private EditText Player1Name, Player2Name, Player3Name, Player4Name;
@@ -52,7 +52,6 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
         //First I initialize all the items of the UI
         this.bPlay = (Button)findViewById(R.id.bPlay);
         this.bCancel = (Button)findViewById(R.id.bCancel);
-        this.checkPlayer2 = (CheckBox)findViewById(R.id.checkPlayer2);
         this.checkPlayer3 = (CheckBox)findViewById(R.id.checkPlayer3);
         this.checkPlayer4 = (CheckBox)findViewById(R.id.checkPlayer4);
         this.Player1Name = (EditText)findViewById(R.id.P1Name);
@@ -67,7 +66,6 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
         this.flipperPlayer4 = (ViewFlipper)findViewById(R.id.FlipperPlayer4);
 
         //XML enable=false not working. We do it here by bruteforce
-        this.flipperPlayer2.setEnabled(false);
         this.flipperPlayer3.setEnabled(false);
         this.flipperPlayer4.setEnabled(false);
 
@@ -80,7 +78,6 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
         //Then I set the listeners for each item
         this.bCancel.setOnClickListener(this);
         this.bPlay.setOnClickListener(this);
-        this.checkPlayer2.setOnClickListener(this);
         this.checkPlayer3.setOnClickListener(this);
         this.checkPlayer4.setOnClickListener(this);
         this.flipperPlayer1.setOnClickListener(this);
@@ -104,11 +101,9 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
                 //Insert first player (always there)
                 Player player = new Player(0, this.Player1Name.getText().toString(), 0, skinsList.get(this.flipperPlayer1.getCurrentView().getId()));
                 players.add(player);
+                player = new Player(1, this.Player2Name.getText().toString(), 0,  skinsList.get(this.flipperPlayer2.getCurrentView().getId()));
+                players.add(player);
                 //Insert rest of players if it is required
-                if(this.checkPlayer2.isChecked()) {
-                    player = new Player(1, this.Player2Name.getText().toString(), 0,  skinsList.get(this.flipperPlayer2.getCurrentView().getId()));
-                    players.add(player);
-                }
                 if(this.checkPlayer3.isChecked()) {
                     player = new Player(2, this.Player3Name.getText().toString(), 0, skinsList.get(this.flipperPlayer3.getCurrentView().getId()));
                     players.add(player);
@@ -134,11 +129,9 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
                 Intent cancel = new Intent(PreGameActivity.this, MainActivity.class);
                 startActivity(cancel);
                 break;
-            case R.id.checkPlayer2:
-                if (this.checkPlayer2.isChecked()) {
+           /* case R.id.checkPlayer2:
+               if (this.checkPlayer2.isChecked()) {
                     this.flipperPlayer2.setEnabled(true);
-                    //TODO here we should call a method to enable player 2 in the game, the same
-                    //TODO for players 3 and 4, in the following checkers
                     this.checkPlayer3.setEnabled(true);
                     this.Player2Name.setEnabled(true);
                 }
@@ -153,7 +146,7 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
                     this.Player2Name.setEnabled(false);
                     this.Player2Name.setText("Player2");
                 }
-                break;
+                break;*/
             case R.id.checkPlayer3:
                 if(this.checkPlayer3.isChecked()) {
                     this.flipperPlayer3.setEnabled(true);
