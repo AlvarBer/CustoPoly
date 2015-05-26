@@ -5,12 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
-import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.MusicPlayer;
-import com.iplusplus.custopoly.model.PlayerSkin;
-import com.iplusplus.custopoly.model.ThemeHandler;
-
-import java.util.HashSet;
 
 
 /**
@@ -34,18 +29,19 @@ public class InitActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
 
-      /*  //Creates a default theme (Debugging)
+        //Start music
+        MusicPlayer.play(this, R.raw.rollin_at_5);
+
+        /*  //Creates a default theme (Debugging)
         PlayerSkin vaderSkin = new PlayerSkin("vader", 0, "placeholder_player_skin_star");
         PlayerSkin bullseyeSkin = new PlayerSkin("bullseye", 0, "placeholder_player_skin_bullseye");
         PlayerSkin queenSkin = new PlayerSkin("queen", 0, "placeholder_player_skin_queen");
         PlayerSkin kingSkin = new PlayerSkin("king", 0, "placeholder_player_skin_king");
-        //TODO qutiar esto...
+        //TODO quitar esto...
         PlayerSkin trollSkin = new PlayerSkin("troll", 0, "troll");
         PlayerSkin megustaSkin = new PlayerSkin("megusta", 0, "megusta");
         PlayerSkin trollfaceSkin = new PlayerSkin("trollface", 0, "trollface");
         HashSet<PlayerSkin> skins = new HashSet<PlayerSkin>();
-
-        MusicPlayer.play(this, R.raw.rollin_at_5);
 
         skins.add(bullseyeSkin);
         skins.add(queenSkin);
@@ -66,9 +62,5 @@ public class InitActivity extends Activity {
                 finish();
             }
         }, 2000);
-
-
     }
-
 }
-
