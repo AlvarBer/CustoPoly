@@ -74,5 +74,6 @@
     <string name="title_activity_shop_temp">ShopTempActivity</string>
     <string formatted="false" name="shop_themebought_message">You bought the %s theme.</string>
     <string name="shop_themebought_title">Congratulations!</string>
+    <string name="buythemebutton">BUY THEME!</string>
 
 </resources>

@@ -14,10 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.GameTheme;
 import com.iplusplus.custopoly.model.ShopKeeper;
@@ -41,9 +38,12 @@ public class ShopActivity extends Activity implements  View.OnClickListener {
     private TextView playerName;
     private ImageView selectedView;
     private TextView playerMoney;
+    private TextView themeName;
+    private TextView themeCost;
+    private Button buyTheme;
+
     private ShopKeeper shopKeeper = ThemeHandler.getInstance().getShopKeeperInstance();
     private GameTheme selectedTheme = null;
-    private Handler handler;
     private HashMap<ImageView, GameTheme> themeDict = new HashMap<ImageView, GameTheme>();
 
     private boolean buy = false;
@@ -64,27 +64,30 @@ public class ShopActivity extends Activity implements  View.OnClickListener {
     }
     private void setupViews()
     {
-            this.themesLayout = (LinearLayout) findViewById(R.id.activity_shop_ll_themes);
-            //this.playerName = (TextView) findViewById(R.id.activity_shop_tv_player);
-            this.playerMoney = (TextView) findViewById(R.id.activity_shop_tv_money);
-            this.playerMoney.setText(this.playerMoney.getText() + "i$$ "
-                    + ThemeHandler.getInstance().getShopKeeperInstance().getPoints());
+        this.themesLayout = (LinearLayout) findViewById(R.id.activity_shop_ll_themes);
+        //this.playerName = (TextView) findViewById(R.id.activity_shop_tv_player);
+        this.playerMoney = (TextView) findViewById(R.id.activity_shop_tv_money);
+        this.playerMoney.setText(this.playerMoney.getText() + "i$$ "
+                + ThemeHandler.getInstance().getShopKeeperInstance().getPoints());
+
+        this.themeName = (TextView) findViewById(R.id.shop_themeName);
+        this.themeCost = (TextView) findViewById(R.id.shop_themeCost);
+        this.buyTheme = (Button) findViewById(R.id.shop_buythemebutton);
+        this.buyTheme.setEnabled(false);
     }
 
     private void fillWithContent(){
-        this.themesLayout.removeAllViews();
+        //this.themesLayout.removeAllViews();
         for (GameTheme theme : this.shopKeeper.getThemesInShopList()) {
-            GridLayout layout;
+            LinearLayout layout;
             layout = createThemeView(theme);
 
             this.themesLayout.addView(layout);
         }
     }
 
-    private GridLayout createThemeView(GameTheme theme) {
-        GridLayout layout = new GridLayout(this);
-        layout.setColumnCount(1);
-        layout.setRowCount(3);
+    private LinearLayout createThemeView(GameTheme theme) {
+        LinearLayout layout = new LinearLayout(this);
 
         //Set up image
         ImageView themeImage = new ImageView(this);
@@ -97,27 +100,11 @@ public class ShopActivity extends Activity implements  View.OnClickListener {
                 themeImage.setAlpha(0.5f);
         }
 
-        themeImage.setLayoutParams(this.createGridLayoutParams(0, 0));
-
-        //Set up name
-        TextView themeName = new TextView(this);
-        themeName.setText(theme.getName());
-        themeName.setTextSize(30.0f);
-        themeName.setLayoutParams(this.createGridLayoutParams(0, 1));
-
-        //Set up cost
-        TextView themeCost = new TextView(this);
-        themeCost.setText("i$$ " + Double.toString(theme.getPrice()));
-        themeCost.setTextSize(30.0F);
-        themeCost.setLayoutParams(this.createGridLayoutParams(0, 2));
-
         //Add everything to the layout
         layout.addView(themeImage);
-        layout.addView(themeName);
-        layout.addView(themeCost);
 
-        //layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-        //                                                 ViewGroup.LayoutParams.MATCH_PARENT));
+        layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
 
         return layout;
     }
@@ -135,12 +122,18 @@ public class ShopActivity extends Activity implements  View.OnClickListener {
         if (view instanceof ImageView) {
             this.selectedTheme = this.themeDict.get(view);
             this.selectedView = (ImageView) view;
+
+            this.themeName.setText(this.selectedTheme.getName().toUpperCase());
+            this.themeCost.setText("i$$" + (int) this.selectedTheme.getPrice());
+            if (!this.buyTheme.isEnabled()) this.buyTheme.setEnabled(true);
+
+        } else if (view instanceof Button) {
             if (this.selectedTheme != null) {
                 if (this.shopKeeper.getPoints() >= this.selectedTheme.getPrice()) {
-                //Show wanna buy dialog
+                    //Show wanna buy dialog
                     showWantToBuyDialog();
                 } else {
-                //Show not enough points dialog
+                    //Show not enough points dialog
                     showNotEnoughPointsDialog();
                 }
             }

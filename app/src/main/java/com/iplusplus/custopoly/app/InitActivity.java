@@ -30,7 +30,7 @@ public class InitActivity extends Activity {
         setContentView(R.layout.activity_init);
 
         //Start music
-        //MusicPlayer.play(this, R.raw.rollin_at_5);
+        MusicPlayer.play(this, R.raw.rollin_at_5);
 
         /*  //Creates a default theme (Debugging)
         PlayerSkin vaderSkin = new PlayerSkin("vader", 0, "placeholder_player_skin_star");
