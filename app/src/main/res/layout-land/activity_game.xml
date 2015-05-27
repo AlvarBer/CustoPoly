@@ -120,7 +120,7 @@
                 android:layout_column="10" />
         </TableRow>
         <TableRow android:layout_width="60dip" android:layout_height="30dip">
-            <GridLayout android:layout_width="fill_parent" android:layout_height="30dip"
+            <GridLayout android:layout_width="20dip" android:layout_height="30dip"
                 android:id="@+id/activity_game_board_17"/>
 
             <GridLayout android:layout_width="30dip" android:layout_height="30dip"
