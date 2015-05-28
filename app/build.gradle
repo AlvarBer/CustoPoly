@@ -23,10 +23,19 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            storeFile file("D:/Archivos de programa/IntelliJ IDEA 14.1/jre/jre/bin/TestKey")
+            storePassword "kerber0S"
+            keyAlias "Mortadelegle"
+            keyPassword "kerber0S"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
