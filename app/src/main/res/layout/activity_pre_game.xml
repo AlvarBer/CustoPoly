@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:text="Player2"
-            android:enabled="false"
+            android:enabled="true"
             android:id="@+id/P2Name"
             android:background="#ffffffff"
             android:textColor="#ff000000"

@@ -37,7 +37,8 @@
         </activity>
         <activity
             android:name=".PreGameActivity"
-            android:label="@string/title_activity_pre_game" >
+            android:label="@string/title_activity_pre_game"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ThemeSelectionActivity"
