@@ -7,4 +7,6 @@
 /app/src/build
 /app/build/
 .idea/dictionaries/
-.gitignore
+*.gitignore
+*desktop.ini
+*Thumbs.db
