@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.iplusplus.custopoly.model.MusicPlayer;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
@@ -75,4 +76,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         System.exit(0);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onPause();
+        MusicPlayer.resume();
+    }
 }

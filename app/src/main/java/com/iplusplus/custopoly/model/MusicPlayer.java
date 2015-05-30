@@ -24,6 +24,14 @@ public class MusicPlayer {
         mediaPlayer = MediaPlayer.create(context, resid);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
-
     }
+
+    public static void pause() {
+        mediaPlayer.pause();
+    }
+
+    public static void resume() {
+        mediaPlayer.start();
+    }
+
 }
