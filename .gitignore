@@ -10,3 +10,5 @@
 *.gitignore
 *desktop.ini
 *Thumbs.db
+*.apk
+*manifest-merger-release-report.txt

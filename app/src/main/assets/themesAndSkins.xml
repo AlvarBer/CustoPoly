@@ -29,23 +29,6 @@
             <backgroundPath>placeholder_player_skin_king</backgroundPath>
         </skin>
 
-        <skin>
-            <name>butt</name>
-            <price>0</price>
-            <backgroundPath>troll</backgroundPath>
-        </skin>
-
-        <skin>
-            <name>megusta</name>
-            <price>0</price>
-            <backgroundPath>megusta</backgroundPath>
-        </skin>
-
-        <skin>
-            <name>trollface</name>
-            <price>0</price>
-            <backgroundPath>trollface</backgroundPath>
-        </skin>
     </theme>
 
     <theme>
