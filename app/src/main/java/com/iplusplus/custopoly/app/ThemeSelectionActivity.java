@@ -11,10 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-import com.iplusplus.custopoly.model.GameTheme;
-import com.iplusplus.custopoly.model.ShopKeeper;
-import com.iplusplus.custopoly.model.ThemeHandler;
-import com.iplusplus.custopoly.model.Utilities;
+import com.iplusplus.custopoly.model.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -152,5 +149,15 @@ public class ThemeSelectionActivity extends Activity implements View.OnClickList
         return image;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicPlayer.pause();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onPause();
+        MusicPlayer.resume();
+    }
 }

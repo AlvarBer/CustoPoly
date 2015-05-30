@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.iplusplus.custopoly.model.MusicPlayer;
 
 /**
  * Corresponds with the game_menu_activity in the mockup.
@@ -74,4 +75,15 @@ public class GameMenuActivity extends Activity {
         startActivity(back);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onPause();
+        MusicPlayer.resume();
+    }
 }

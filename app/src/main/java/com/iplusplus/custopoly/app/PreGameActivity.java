@@ -17,7 +17,6 @@ import com.iplusplus.custopoly.model.gamemodel.util.CardFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 
 //TODO In all the activities.java the uppercase R doesn't work I have look on internet and it
@@ -280,4 +279,15 @@ public class PreGameActivity extends Activity implements View.OnClickListener  {
         PreGameActivity.this.finish();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onPause();
+        MusicPlayer.resume();
+    }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
+import com.iplusplus.custopoly.model.MusicPlayer;
 import com.iplusplus.custopoly.model.gamemodel.element.Player;
 import com.iplusplus.custopoly.model.gamemodel.element.PropertyLand;
 
@@ -163,5 +164,17 @@ public class PropertiesViewActivity extends Activity {
         propertyMortgageValueTextView.setText(Integer.toString(property.getMortgage()));
 
         selectedProperty = property;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onPause();
+        MusicPlayer.resume();
     }
 }

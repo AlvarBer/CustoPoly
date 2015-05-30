@@ -1,22 +1,17 @@
 package com.iplusplus.custopoly.app;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.GameTheme;
+import com.iplusplus.custopoly.model.MusicPlayer;
 import com.iplusplus.custopoly.model.ShopKeeper;
 import com.iplusplus.custopoly.model.ThemeHandler;
 
@@ -185,4 +180,15 @@ public class ShopActivity extends Activity implements  View.OnClickListener {
         startActivity(play);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MusicPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onPause();
+        MusicPlayer.resume();
+    }
 }

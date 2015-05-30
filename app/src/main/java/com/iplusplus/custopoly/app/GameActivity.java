@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.*;
 import com.iplusplus.custopoly.Custopoly;
 import com.iplusplus.custopoly.model.GameTheme;
+import com.iplusplus.custopoly.model.MusicPlayer;
 import com.iplusplus.custopoly.model.SaveGameHandler;
 import com.iplusplus.custopoly.model.Utilities;
 import com.iplusplus.custopoly.model.gamemodel.GameFacade;
@@ -89,6 +90,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
     @Override
     public void onPause() {
         super.onPause();
+        MusicPlayer.pause();
         saveGame();
     }
 
@@ -101,6 +103,7 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
     @Override
     public void onResume() {
         super.onResume();
+        MusicPlayer.resume();
     }
 
     /**
