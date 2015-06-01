@@ -32,7 +32,6 @@ public class GameMenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        //supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);

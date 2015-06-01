@@ -134,5 +134,4 @@ public class BoardFactory {
 				Integer.parseInt(getValueAt(landData, 4)));
 		return rent;
 	}
-
 }

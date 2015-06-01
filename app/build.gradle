@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.android.tools.build:gradle:1.1.1'
     }
 }
 apply plugin: 'com.android.application'
@@ -25,10 +25,6 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("D:/Archivos de programa/IntelliJ IDEA 14.1/jre/jre/bin/TestKey")
-            storePassword "kerber0S"
-            keyAlias "Mortadelegle"
-            keyPassword "kerber0S"
         }
     }
     buildTypes {
@@ -42,6 +38,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.0'
-    compile 'com.android.support:support-v4:22.1.0'
+    compile 'com.android.support:appcompat-v7:22.1.1'
 }

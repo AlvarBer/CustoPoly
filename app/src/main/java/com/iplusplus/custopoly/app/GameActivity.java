@@ -1,10 +1,7 @@
 package com.iplusplus.custopoly.app;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.app.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,9 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import com.iplusplus.custopoly.Custopoly;
@@ -39,7 +34,7 @@ import static java.lang.Thread.sleep;
    with the gameFacade through a system of buttons
  */
 
-public class GameActivity extends ActionBarActivity implements GameObserver, DiceFragment.DiceDialogListener {
+public class GameActivity extends Activity implements GameObserver, DiceFragment.DiceDialogListener {
 
     //Attributes
     private GameFacade gameFacade;
@@ -72,7 +67,6 @@ public class GameActivity extends ActionBarActivity implements GameObserver, Dic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //These will put the app on full screen
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
