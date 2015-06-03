@@ -78,11 +78,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onPause() {
         super.onPause();
         MusicPlayer.pause();
+
     }
 
     @Override
     protected void onResume() {
-        super.onPause();
+        super.onResume();
         MusicPlayer.resume();
     }
 }

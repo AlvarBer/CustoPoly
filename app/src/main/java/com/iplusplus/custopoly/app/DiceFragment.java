@@ -200,9 +200,3 @@ public class DiceFragment extends DialogFragment {
         }
     };
 }
-
-
-
-
-
-

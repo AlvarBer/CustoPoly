@@ -188,7 +188,7 @@ public class ShopActivity extends Activity implements  View.OnClickListener {
 
     @Override
     protected void onResume() {
-        super.onPause();
+        super.onResume();
         MusicPlayer.resume();
     }
 }

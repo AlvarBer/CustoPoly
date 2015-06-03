@@ -157,7 +157,7 @@ public class ThemeSelectionActivity extends Activity implements View.OnClickList
 
     @Override
     protected void onResume() {
-        super.onPause();
+        super.onResume();
         MusicPlayer.resume();
     }
 }

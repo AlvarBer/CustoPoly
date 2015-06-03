@@ -82,7 +82,7 @@ public class GameMenuActivity extends Activity {
 
     @Override
     protected void onResume() {
-        super.onPause();
+        super.onResume();
         MusicPlayer.resume();
     }
 }

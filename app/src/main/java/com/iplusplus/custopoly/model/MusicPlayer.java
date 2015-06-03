@@ -12,13 +12,12 @@ public class MusicPlayer {
     //Fields
     private static MediaPlayer mediaPlayer;
 
-
     //Functions
     /**
      * If you don't know the context try getActivity().getApplicationContext()
      *
-     * @param context
-     * @param resid
+     * @param context the context of the application
+     * @param resid the ID of the music you want to play
      */
     public static void play(Context context, int resid) {
         mediaPlayer = MediaPlayer.create(context, resid);
@@ -31,7 +30,8 @@ public class MusicPlayer {
     }
 
     public static void resume() {
-        mediaPlayer.start();
+        if (!mediaPlayer.isPlaying())
+            mediaPlayer.start();
     }
 
 }

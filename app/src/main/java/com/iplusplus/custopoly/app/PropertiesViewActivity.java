@@ -174,7 +174,7 @@ public class PropertiesViewActivity extends Activity {
 
     @Override
     protected void onResume() {
-        super.onPause();
+        super.onResume();
         MusicPlayer.resume();
     }
 }
