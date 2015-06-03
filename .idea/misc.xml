@@ -43,6 +43,7 @@
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
+    <type id="Python" />
   </component>
   <component name="IdProvider" IDEtalkID="9E3C59604B52C6A82A0BBCA7F8022A90" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
@@ -55,4 +56,3 @@
     <option name="mySupportsUserInfoFilter" value="true" />
   </component>
 </project>
-

@@ -1,10 +1,7 @@
 package com.iplusplus.custopoly.model;
 
-import android.content.Context;
 import android.util.Xml;
-
 import com.iplusplus.custopoly.Custopoly;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -132,7 +129,7 @@ public class ShopKeeper {
          */
         private void readTheme() throws IOException, XmlPullParserException
         {
-            //Varaibles to load the themes
+            //Variables to load the themes
             String name = "";
             double price = 0.0;
             String backgroundPath = "";
